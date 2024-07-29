@@ -1,0 +1,16 @@
+{
+    "name": "cngraphi.gassets.editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1360e4cd5bb9175408a4b7e29b13415d"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
