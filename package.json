@@ -1,0 +1,14 @@
+{
+	"name":"com.cngraphi.gassets",
+	"author":"Graphi",
+	"version":"1.0.0",
+	"displayName":"GAssets",
+	"unity":"2022.3",
+	"description":"Lightweight asset management library for Unity3D.",
+	"keywords":[
+		"graphi",
+		"gassets",
+		"unity",
+		"assetbundle"
+	]
+}
