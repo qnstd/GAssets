@@ -1,3 +1,17 @@
 {
-	"name": "cngraphi.gassets"
+    "name": "cngraphi.gassets",
+    "rootNamespace": "",
+    "references": [
+        "GUID:67470d0ce5ac88448871aaad6faf7cd2",
+        "GUID:21b0c8d1703a94250bfac916590cea4f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }
