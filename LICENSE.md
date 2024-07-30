@@ -1,3 +1,5 @@
-**GAssets copyright © 2024 CN.Graphi. All rights reserved.**
+### **GAssets copyright © 2024 CN.Graphi. All rights reserved.**
 
-> No one shall copy, modify or redistribute without authorization, otherwise they may file a lawsuit in court.
+> 任何人不得擅自复制、修改、转载 GAssets 包内脚本用于商业交易，否则将依法提起诉讼。
+
+> 使用时不得删除有关作者标注的相关注释及说明信息。

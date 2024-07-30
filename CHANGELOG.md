@@ -1,7 +1,10 @@
-# GAssets ChangeLog
+# GAssets 日志
 
+### [2.0.0] - 2024.7.30
+
+1. 修改相关的说明文档
+2. 增加 Runtime 、 Editor 脚本及编辑器工具
 
 ### [1.0.0] - 2024.7.29
-> 
-1. Commit com.cngraphi.gassets project.
-2. Add change logs, readme files, licenses, document markers, and other related files.
+
+1. 提交工程结构并增加相关说明文档等信息

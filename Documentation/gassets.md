@@ -1,21 +1,21 @@
-# GAssets Documentation
+# GAssets 文档
 
 ![](images/label.png)
 
-Lightweight asset management library for Unity3D.
+轻量级 Unity3D 资源管理器。
 
 
-## Directory Structure ##
-> Documentation
+## 目录结构 ##
+> Documentation 文档目录
 
-> Editor
+> Editor 编辑工具
 
-> Runtime
+> Runtime 运行时脚本
 
-> CHANGELOG.md
+> CHANGELOG.md 日志
 
-> LICENSE.md
+> LICENSE.md 许可
 
-> package.json
+> package.json 包配置
 
-> README.md
+> README.md 信息
