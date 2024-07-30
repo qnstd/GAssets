@@ -16,7 +16,6 @@ namespace cngraphi.gassets
     /// 配置
     /// <para>作者：强辰</para>
     /// </summary>
-    [CreateAssetMenu(fileName = "GAssetSettings", menuName = "GAsset Settings")]
     public class GAssetSettings : ScriptableObject
     {
         [InfoPropAttri("资源版本号", DomainType.General)]
@@ -134,7 +133,7 @@ namespace cngraphi.gassets
 
             Color c = GUI.backgroundColor;
             GUI.backgroundColor = titleBackgroundColor;
-            GUILayout.Box("<color=#333333><b>GAsset 配置</b></color>", titleStyle, GUILayout.Height(40));
+            GUILayout.Box("<color=#333333><b>GAssets 配置</b></color>", titleStyle, GUILayout.Height(40));
             GUI.backgroundColor = c;
 
             EditorGUILayout.Space(10);

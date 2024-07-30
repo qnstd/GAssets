@@ -1,11 +1,8 @@
 {
-    "name": "cngraphi.gassets.editor",
+    "name": "cngraphi.gassets.editor.common",
     "rootNamespace": "",
     "references": [
-        "GUID:1360e4cd5bb9175408a4b7e29b13415d",
-        "GUID:ea23f52ab42fe5f4bb578f023f00a69e",
-        "GUID:67470d0ce5ac88448871aaad6faf7cd2",
-        "GUID:21b0c8d1703a94250bfac916590cea4f"
+        "GUID:67470d0ce5ac88448871aaad6faf7cd2"
     ],
     "includePlatforms": [
         "Editor"

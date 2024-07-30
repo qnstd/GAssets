@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
 
 namespace cngraphi.gassets.common
 {
@@ -102,11 +103,13 @@ namespace cngraphi.gassets.common
                     if (ignores != null && ignores.IndexOf(ext) != -1) { continue; } // 是否存在于忽略组中
 
                     if (starWithAsset)
-                    {
+                    {// 以 Assets 为开头的路径
                         p = Paths.Replace(p);
-                        p = p.Substring(p.IndexOf("Assets"));
+                        if (p.IndexOf(Application.dataPath) == 0)
+                        {// 必须是 Unity 工程下的资源才可进行路径设置
+                            p = "Assets" + p.Substring(Application.dataPath.Length);
+                        }
                     }
-
                     lst.Add(p);
                 }
             }
