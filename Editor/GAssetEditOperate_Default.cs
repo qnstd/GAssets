@@ -12,16 +12,10 @@ namespace cngraphi.gassets.editor
     /// </summary>
     public partial class GAssetEditOperate : EditorWindow
     {
-        string rootpath = "";
 
-        private void OnEnable_Default()
-        {
-            rootpath = Path.GetFullPath($"Packages/{Constants.PACKAGES_NAME}");
-            rootpath = rootpath.Replace("\\", "/");
-            //Debug.Log(rootpath);
-        }
+        private void OnEnable_Default() { }
 
-        private void OnDisable_Default() { rootpath = ""; }
+        private void OnDisable_Default() { }
 
 
         private void OnGUI_Default()
@@ -36,8 +30,13 @@ namespace cngraphi.gassets.editor
             {
                 if (GUILayout.Button($"<color=#cccccc>{k}</color>", Gui.BtnStyle, GUILayout.Width(90)))
                 {
-                    string filepath = Path.Combine(rootpath, Constants.MDS[k]).Replace("\\", "/");
+                    string p = Path.GetFullPath($"Packages/{Constants.PACKAGES_NAME}");
+                    p = p.Replace("\\", "/");
+                    //Debug.Log(p);
+
+                    string filepath = Path.Combine(p, Constants.MDS[k]).Replace("\\", "/");
                     EditorUtility.RevealInFinder(filepath); // 打开文件所在目录，并选中此文件
+                    GUIUtility.ExitGUI();
                 }
             }
             EditorGUILayout.EndHorizontal();

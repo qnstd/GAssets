@@ -47,6 +47,7 @@ namespace cngraphi.gassets.editor
         private void OnEnable()
         {
             LoadConfigure();
+            OnEnable_Default();
         }
 
 
