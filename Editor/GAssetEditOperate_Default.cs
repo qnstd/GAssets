@@ -1,5 +1,8 @@
-﻿using cngraphi.gassets.editor.common;
+﻿using System.IO;
+using cngraphi.gassets.common;
+using cngraphi.gassets.editor.common;
 using UnityEditor;
+using UnityEngine;
 
 namespace cngraphi.gassets.editor
 {
@@ -9,15 +12,35 @@ namespace cngraphi.gassets.editor
     /// </summary>
     public partial class GAssetEditOperate : EditorWindow
     {
-        const string ProjectName = "GAssets 资源管理框架";
+        string rootpath = "";
 
-
-        private void ShowDefaultPage()
+        private void OnEnable_Default()
         {
-            EditorGUILayout.Space(15);
-            EditorGUILayout.LabelField(ProjectName, Gui.LabelHead);
+            rootpath = Path.GetFullPath($"Packages/{Constants.PACKAGES_NAME}");
+            rootpath = rootpath.Replace("\\", "/");
+            //Debug.Log(rootpath);
+        }
+
+        private void OnDisable_Default() { rootpath = ""; }
+
+
+        private void OnGUI_Default()
+        {
             EditorGUILayout.Space(3);
-            EditorGUILayout.LabelField("<color=#999999>轻量级 Unity3D 资源管理器</color>", Gui.LabelStyleMiddle);
+            EditorGUILayout.LabelField(Constants.LIBRARY_DISPLAYNAME, Gui.LabelHeadLeft);
+            EditorGUILayout.Space(1);
+            EditorGUILayout.LabelField("<color=#999999>轻量级 Unity3D 资源管理器</color>", Gui.LabelStyle);
+            EditorGUILayout.Space(10);
+            EditorGUILayout.BeginHorizontal();
+            foreach (string k in Constants.MDS.Keys)
+            {
+                if (GUILayout.Button($"<color=#cccccc>{k}</color>", Gui.BtnStyle, GUILayout.Width(90)))
+                {
+                    string filepath = Path.Combine(rootpath, Constants.MDS[k]).Replace("\\", "/");
+                    EditorUtility.RevealInFinder(filepath); // 打开文件所在目录，并选中此文件
+                }
+            }
+            EditorGUILayout.EndHorizontal();
         }
     }
 }

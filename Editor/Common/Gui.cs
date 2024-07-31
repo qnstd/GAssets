@@ -19,6 +19,7 @@ namespace cngraphi.gassets.editor.common
         static GUIStyle m_LabelStyle;
         static GUIStyle m_LabelStyleMiddle;
         static GUIStyle m_LabelHead;
+        static GUIStyle m_LabelHeadLeft;
         static public GUIStyle BtnStyle
         {
             get
@@ -72,6 +73,17 @@ namespace cngraphi.gassets.editor.common
                     m_LabelHead = new GUIStyle("AM MixerHeader2") { richText = true, alignment = TextAnchor.MiddleCenter };
                 }
                 return m_LabelHead;
+            }
+        }
+        static public GUIStyle LabelHeadLeft
+        {
+            get
+            {
+                if (m_LabelHeadLeft == null)
+                {
+                    m_LabelHeadLeft = new GUIStyle("AM MixerHeader2") { richText = true, alignment = TextAnchor.MiddleLeft };
+                }
+                return m_LabelHeadLeft;
             }
         }
 

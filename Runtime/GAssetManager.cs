@@ -25,8 +25,6 @@ namespace cngraphi.gassets
     public class GAssetManager : MonoBehaviour
     {
         #region 静态
-        const string MANIFEST = "manifest"; //资源配置信息文件
-        public const string CONFIGURE_FILENAME = "GAssetSettings"; // 资源管理器配置文件名
 
         static private string m_resRootPath = ""; //资源路径（只读目录）
         static private string m_resDataPath = ""; //数据路径（可读可写目录）
@@ -35,7 +33,7 @@ namespace cngraphi.gassets
         static private void Initialize()
         {
             // 初始化配置
-            settings = Resources.Load<GAssetSettings>(CONFIGURE_FILENAME);
+            settings = Resources.Load<GAssetSettings>(Constants.CONFIGURE_FILENAME);
             if (settings == null)
             {
                 Debug.LogError("丢失 GAssets Settings 配置文件.");
@@ -100,9 +98,9 @@ namespace cngraphi.gassets
         }
         IEnumerator CopyManifest(Action callback)
         {// 拷贝Manifest主配置到数据目录，并加载解析配置
-            UnityWebRequest req = UnityWebRequest.Get(Path.Combine(m_resRootPath, MANIFEST));
+            UnityWebRequest req = UnityWebRequest.Get(Path.Combine(m_resRootPath, Constants.MANIFEST));
             yield return req.SendWebRequest();
-            File.WriteAllBytes(Path.Combine(m_resDataPath, MANIFEST), Encoding.UTF8.GetBytes(req.downloadHandler.text));
+            File.WriteAllBytes(Path.Combine(m_resDataPath, Constants.MANIFEST), Encoding.UTF8.GetBytes(req.downloadHandler.text));
             req.Dispose();
             Debug.Log("GAssets Manifest 拷贝完毕.");
             ReadManifest();
@@ -110,7 +108,7 @@ namespace cngraphi.gassets
         }
         private void ReadManifest()
         {
-            if (!GAssetManifest.Load(GetResPath(MANIFEST)))
+            if (!GAssetManifest.Load(GetResPath(Constants.MANIFEST)))
                 Debug.LogError("GAssets Manifest 加载或解析失败.");
             else
                 Debug.Log("GAssets Mainfest 加载并解析完毕.");

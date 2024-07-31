@@ -61,6 +61,7 @@ namespace cngraphi.gassets.editor
             {
                 InvokeMethod("OnDisable", k);
             }
+            OnDisable_Default();
         }
 
 
@@ -72,6 +73,11 @@ namespace cngraphi.gassets.editor
             EditorGUILayout.LabelField("菜单项", Gui.LabelStyle, GUILayout.Width(45));
             if (GUILayout.Button("工程适配", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(18))) { AdapterProject(); }
             if (GUILayout.Button("创建/获取配置", Gui.BtnStyle, GUILayout.Width(90), GUILayout.Height(18))) { CreateConfigure(); }
+            EditorGUILayout.Space(1);
+            if (GUILayout.Button("首页", Gui.BtnStyle, GUILayout.Width(34), GUILayout.Height(18)))
+            {
+                GobackHome();
+            }
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space(1);
 
@@ -113,7 +119,7 @@ namespace cngraphi.gassets.editor
             }
             else
             {
-                ShowDefaultPage();
+                OnGUI_Default();
             }
             EditorGUILayout.EndScrollView();
             EditorGUILayout.EndVertical();
@@ -129,13 +135,24 @@ namespace cngraphi.gassets.editor
         }
 
 
+        // 返回首页
+        private void GobackHome()
+        {
+            if (!string.IsNullOrEmpty(tabIndex))
+            {
+                InvokeMethod("OnDisable", tabIndex);
+            }
+            tabIndex = "";
+            OnEnable_Default();
+        }
+
+
 
         #region 菜单项
 
-        // 创建资源管理器配置文件的路径。此路径必须是 Resources 目录，且必须在根目录下保存。运行时状态下会自动从此路径下加载。
-        const string CONFIGURE_PATH = "Assets/Resources";
-
-        // 工程适配
+        /// <summary>
+        /// 工程适配
+        /// </summary>
         private void AdapterProject()
         {
             EditorSettings.spritePackerMode = SpritePackerMode.AlwaysOnAtlas;
@@ -143,21 +160,25 @@ namespace cngraphi.gassets.editor
             Dialog.Tip("适配完毕.");
         }
 
-        // 加载配置
+        /// <summary>
+        /// 加载配置
+        /// </summary>
         private void LoadConfigure()
         {
-            settings = Resources.Load<GAssetSettings>(GAssetManager.CONFIGURE_FILENAME);
+            settings = Resources.Load<GAssetSettings>(Constants.CONFIGURE_FILENAME);
         }
 
-        // 创建配置
+        /// <summary>
+        /// 创建配置
+        /// </summary>
         private void CreateConfigure()
         {
-            string file = Path.Combine(CONFIGURE_PATH, $"{GAssetManager.CONFIGURE_FILENAME}.asset"); // 文件
+            string file = Path.Combine(Constants.CONFIGURE_PATH, $"{Constants.CONFIGURE_FILENAME}.asset"); // 文件
             file = cngraphi.gassets.common.Paths.Replace(file);
 
             if (!File.Exists(file))
             {// 不存在，则创建
-                IO.RecursionDirCreate(CONFIGURE_PATH);
+                IO.RecursionDirCreate(Constants.CONFIGURE_PATH);
                 AssetDatabase.CreateAsset
                 (
                     ScriptableObject.CreateInstance<GAssetSettings>(),
