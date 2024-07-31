@@ -16,6 +16,8 @@ namespace cngraphi.gassets.editor
         {
             EditorGUILayout.Space(15);
             EditorGUILayout.LabelField(ProjectName, Gui.LabelHead);
+            EditorGUILayout.Space(3);
+            EditorGUILayout.LabelField("<color=#999999>轻量级 Unity3D 资源管理器</color>", Gui.LabelStyleMiddle);
         }
     }
 }
