@@ -9,75 +9,75 @@ using UnityEngine.Networking;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ÏÂÔØÈÎÎñ
-    /// <para>Ö§³Ö¶ÏµãĞø´«¡¢´óÎÄ¼ş·Ö¶ÎÏÂÔØ</para>
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// ä¸‹è½½ä»»åŠ¡
+    /// <para>æ”¯æŒæ–­ç‚¹ç»­ä¼ ã€å¤§æ–‡ä»¶åˆ†æ®µä¸‹è½½</para>
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GDownloadTask
     {
         /// <summary>
-        /// ¶ÁÈ¡ http/https °üÍ·ĞÅÏ¢ÖĞµÄ×ÊÔ´×Ö½Ú×ÜÊıµÄkeyÖµ
+        /// è¯»å– http/https åŒ…å¤´ä¿¡æ¯ä¸­çš„èµ„æºå­—èŠ‚æ€»æ•°çš„keyå€¼
         /// </summary>
         const string ContentLengthKey = "Content-Length";
 
         /// <summary>
-        /// ·Ö¶Î×Ö½ÚÊı
+        /// åˆ†æ®µå­—èŠ‚æ•°
         /// </summary>
-        const double SubsectionSize = 550000000; // Ô¼ 500MB ×óÓÒ  // 1100000: Ô¼ 1MB ×óÓÒ£¬ 1000000000: Ô¼ 0.9GB ×óÓÒ
+        const double SubsectionSize = 550000000; // çº¦ 500MB å·¦å³  // 1100000: çº¦ 1MB å·¦å³ï¼Œ 1000000000: çº¦ 0.9GB å·¦å³
 
 
         /// <summary>
-        /// µ±Ç°µÄĞ­³Ì²Ù×÷Æ÷
+        /// å½“å‰çš„åç¨‹æ“ä½œå™¨
         /// </summary>
         public Coroutine Corou { get; set; } = null;
         /// <summary>
-        /// µ±Ç°µÄÍøÂçÏÂÔØÆ÷
+        /// å½“å‰çš„ç½‘ç»œä¸‹è½½å™¨
         /// </summary>
         public UnityWebRequest Request { get; set; } = null;
         /// <summary>
-        /// µ±Ç°ÏÂÔØ½ø¶È
-        /// <para>·¶Î§£º0-1</para>
+        /// å½“å‰ä¸‹è½½è¿›åº¦
+        /// <para>èŒƒå›´ï¼š0-1</para>
         /// </summary>
         public double Progress { get; set; } = 0;
         /// <summary>
-        /// ³ß´ç
-        /// <para>µ¥Î»£º×Ö½Ú</para>
+        /// å°ºå¯¸
+        /// <para>å•ä½ï¼šå­—èŠ‚</para>
         /// </summary>
         public ulong Size { get; set; } = 0;
         /// <summary>
-        /// ÏÂÔØµØÖ·
+        /// ä¸‹è½½åœ°å€
         /// </summary>
         public string URL { get; set; } = null;
         /// <summary>
-        /// ±£´æµØÖ·
+        /// ä¿å­˜åœ°å€
         /// </summary>
         public string SaveURL { get; set; } = null;
         /// <summary>
-        /// ÎÄ¼şÃû
-        /// <para>´øÎÄ¼şÃûºó×º</para>
+        /// æ–‡ä»¶å
+        /// <para>å¸¦æ–‡ä»¶ååç¼€</para>
         /// </summary>
         public string FileName { get; set; } = null;
         /// <summary>
-        /// ÈÎÎñ×´Ì¬
+        /// ä»»åŠ¡çŠ¶æ€
         /// </summary>
         public GDownloadStatus Status { get; set; } = GDownloadStatus.None;
         /// <summary>
-        /// ÏÂÔØËÙ¶È£¨Ã¿ÃëµÄËÙ¶È£©
+        /// ä¸‹è½½é€Ÿåº¦ï¼ˆæ¯ç§’çš„é€Ÿåº¦ï¼‰
         /// </summary>
         public ulong Speed { get; private set; } = 0;
         /// <summary>
-        /// ²Ù×÷¾ä±ú
+        /// æ“ä½œå¥æŸ„
         /// </summary>
         public GDownloadTaskHandler Handler { get; private set; } = new GDownloadTaskHandler();
 
 
         /// <summary>
-        /// ¹¹Ôì
+        /// æ„é€ 
         /// </summary>
-        /// <param name="url">ÏÂÔØµØÖ·</param>
-        /// <param name="progress">ÏÂÔØ½ø¶È»Øµ÷</param>
-        /// <param name="finish">ÏÂÔØÍê³É»Øµ÷</param>
-        /// <param name="err">ÏÂÔØ´íÎó»Øµ÷</param>
+        /// <param name="url">ä¸‹è½½åœ°å€</param>
+        /// <param name="progress">ä¸‹è½½è¿›åº¦å›è°ƒ</param>
+        /// <param name="finish">ä¸‹è½½å®Œæˆå›è°ƒ</param>
+        /// <param name="err">ä¸‹è½½é”™è¯¯å›è°ƒ</param>
         public GDownloadTask(string url, Action<double, ulong, ulong> progress = null, Action finish = null, Action<string, string> err = null)
         {
             URL = url;
@@ -98,8 +98,8 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ÖĞ¶Ï¡¢È¡ÏûÏÂÔØ£¬²¢ÊÍ·Å.
-        /// <para>µ÷ÓÃ´Ëº¯ÊıÖ®ºó£¬ÈÎÎñ¶ÔÏó²»¿ÉÔÙ´ÎÊ¹ÓÃ</para>
+        /// ä¸­æ–­ã€å–æ¶ˆä¸‹è½½ï¼Œå¹¶é‡Šæ”¾.
+        /// <para>è°ƒç”¨æ­¤å‡½æ•°ä¹‹åï¼Œä»»åŠ¡å¯¹è±¡ä¸å¯å†æ¬¡ä½¿ç”¨</para>
         /// </summary>
         public void Cancel()
         {
@@ -120,11 +120,11 @@ namespace cngraphi.gassets
             )
             {
                 if (Corou != null)
-                {// Í£Ö¹µ±Ç°Ğ­³Ì
+                {// åœæ­¢å½“å‰åç¨‹
                     GDownload.Ins.StopCoroutine(Corou);
                 }
                 if (Request != null)
-                {// Í£Ö¹ÏÂÔØ²¢ÊÍ·ÅÏÂÔØÆ÷
+                {// åœæ­¢ä¸‹è½½å¹¶é‡Šæ”¾ä¸‹è½½å™¨
                     Request.Abort();
                     Request.Dispose();
                 }
@@ -140,7 +140,7 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Æô¶¯ÏÂÔØ
+        /// å¯åŠ¨ä¸‹è½½
         /// </summary>
         public void Start()
         {
@@ -166,16 +166,16 @@ namespace cngraphi.gassets
                 yield break;
             }
 
-            // »ñÈ¡×ÊÔ´´óĞ¡
+            // è·å–èµ„æºå¤§å°
             Size = ulong.Parse(Request.GetResponseHeader(ContentLengthKey));
             Request.Dispose();
 
-            // ¿ªÊ¼ÏÂÔØ
+            // å¼€å§‹ä¸‹è½½
             Request = UnityWebRequest.Get(URL);
             Request.downloadHandler = new DownloadHandlerFile(SaveURL, true);
             FileInfo file = new FileInfo(SaveURL);
             ulong filelen = (ulong)file.Length;
-            Request.SetRequestHeader("Range", "bytes=" + filelen + "-"); // ¶ÏµãĞø´«£¨ ´Ófilelen³¤¶È¿ªÊ¼µ½½áÊø¡£¸ñÊ½: bytes=0-100 £©
+            Request.SetRequestHeader("Range", "bytes=" + filelen + "-"); // æ–­ç‚¹ç»­ä¼ ï¼ˆ ä»filelené•¿åº¦å¼€å§‹åˆ°ç»“æŸã€‚æ ¼å¼: bytes=0-100 ï¼‰
 
             if (!string.IsNullOrEmpty(Request.error))
             {
@@ -185,13 +185,13 @@ namespace cngraphi.gassets
 
             if (filelen < Size)
             {
-                Request.SendWebRequest(); // ÔÙ´ÎÇëÇó
+                Request.SendWebRequest(); // å†æ¬¡è¯·æ±‚
                 while (!Request.isDone)
                 {
                     ulong downloadBytes = Request.downloadedBytes;
                     Progress = (downloadBytes + filelen) / (double)Size;
 
-                    // Ã¿¸ô1Ãë¼ÆËãÒ»´ÎÏÂÔØËÙ¶È
+                    // æ¯éš”1ç§’è®¡ç®—ä¸€æ¬¡ä¸‹è½½é€Ÿåº¦
                     time += Time.deltaTime;
                     if (time >= 1)
                     {
@@ -203,10 +203,10 @@ namespace cngraphi.gassets
                     Handler?.Run(Handler.OnProgress, Progress, Speed, Size);
 
                     if (downloadBytes >= SubsectionSize)
-                    {// µ±ÏÂÔØÁ¿´óÓÚµÈÓÚ·Ö¶Î¼ÆÊıÊ±£¬ÔòÁíÆğĞ­³Ì´¦Àí¡£·ÀÖ¹unityÅ×³ö¹ıÔØÎÊÌâ£¨Error: Insecure connection not allowed£©
+                    {// å½“ä¸‹è½½é‡å¤§äºç­‰äºåˆ†æ®µè®¡æ•°æ—¶ï¼Œåˆ™å¦èµ·åç¨‹å¤„ç†ã€‚é˜²æ­¢unityæŠ›å‡ºè¿‡è½½é—®é¢˜ï¼ˆError: Insecure connection not allowedï¼‰
 
                         GDownload.Ins.StopCoroutine(Corou);
-                        Request.Abort(); // ·¢³ö¾¡¿ìÍ£Ö¹ÇëÇó²Ù×÷
+                        Request.Abort(); // å‘å‡ºå°½å¿«åœæ­¢è¯·æ±‚æ“ä½œ
 
                         if (!string.IsNullOrEmpty(Request.error))
                         {
@@ -225,7 +225,7 @@ namespace cngraphi.gassets
 
             Request.Dispose();
             Progress = 1.0f;
-            Debug.Log($"ÏÂÔØÍê³É. URL = {URL}");
+            Debug.Log($"ä¸‹è½½å®Œæˆ. URL = {URL}");
             Handler?.Run(Handler.OnFinish);
             Status = GDownloadStatus.Finish;
         }
@@ -233,7 +233,7 @@ namespace cngraphi.gassets
 
         private void OnTaskErr(string msg)
         {
-            Debug.LogError($"ÏÂÔØ´íÎó ( {msg} ) / URL = " + URL);
+            Debug.LogError($"ä¸‹è½½é”™è¯¯ ( {msg} ) / URL = " + URL);
             Handler?.Run(Handler.OnErr, msg, URL);
             Status = GDownloadStatus.Err;
         }

@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using cngraphi.gassets.common;
 using cngraphi.gassets.editor.common;
 using UnityEditor;

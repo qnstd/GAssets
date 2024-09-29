@@ -5,32 +5,32 @@ using UnityEngine;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// Òì²½×é¼ş
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// å¼‚æ­¥ç»„ä»¶
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GAsyncCom
     {
-        #region ¾²Ì¬
+        #region é™æ€
         static private readonly List<GAsyncCom> m_pool = new List<GAsyncCom>();
         static private readonly List<GAsyncCom> m_use = new List<GAsyncCom>();
 
 
         /// <summary>
-        /// Ö´ĞĞÒ»¸öÒì²½²Ù×÷
+        /// æ‰§è¡Œä¸€ä¸ªå¼‚æ­¥æ“ä½œ
         /// </summary>
-        /// <param name="finish">²Ù×÷Íê³ÉÊ±µÄÎ¯ÍĞ</param>
-        /// <param name="update">²Ù×÷¹ı³ÌÎ¯ÍĞ</param>
-        /// <param name="done">Èç¹ûÎ¯ÍĞ·µ»ØµÄÊÇtrue£¬ÔòËµÃ÷Òì²½²Ù×÷Íê±Ï£¬Ö´ĞĞ²ÎÊıfinishÎ¯ÍĞ£»·ñÔò£¬³ÖĞøÖ´ĞĞ²ÎÊıupdateÎ¯ÍĞ¡£Èô¹û²ÎÊıÎªnull£¬Ä¬ÈÏÉèÖÃ·µ»ØÖµÎªtrueµÄÎ¯ÍĞº¯Êı¡£</param>
+        /// <param name="finish">æ“ä½œå®Œæˆæ—¶çš„å§”æ‰˜</param>
+        /// <param name="update">æ“ä½œè¿‡ç¨‹å§”æ‰˜</param>
+        /// <param name="done">å¦‚æœå§”æ‰˜è¿”å›çš„æ˜¯trueï¼Œåˆ™è¯´æ˜å¼‚æ­¥æ“ä½œå®Œæ¯•ï¼Œæ‰§è¡Œå‚æ•°finishå§”æ‰˜ï¼›å¦åˆ™ï¼ŒæŒç»­æ‰§è¡Œå‚æ•°updateå§”æ‰˜ã€‚è‹¥æœå‚æ•°ä¸ºnullï¼Œé»˜è®¤è®¾ç½®è¿”å›å€¼ä¸ºtrueçš„å§”æ‰˜å‡½æ•°ã€‚</param>
         /// <returns></returns>
         static public GAsyncCom Excute(Action finish, Action update = null, Func<bool> done = null)
         {
             GAsyncCom com = null;
             if (m_pool.Count <= 0)
-            {//»º´æÖĞ²»´æÔÚ´ıÊ¹ÓÃµÄ¶ÔÏó
+            {//ç¼“å­˜ä¸­ä¸å­˜åœ¨å¾…ä½¿ç”¨çš„å¯¹è±¡
                 com = new GAsyncCom();
             }
             else
-            {//»º´æÖĞ´æÔÚ´ıÊ¹ÓÃ¶ÔÏó£¬È¡³öµÚÒ»¸ö
+            {//ç¼“å­˜ä¸­å­˜åœ¨å¾…ä½¿ç”¨å¯¹è±¡ï¼Œå–å‡ºç¬¬ä¸€ä¸ª
                 com = m_pool[0];
                 m_pool.RemoveAt(0);
             }
@@ -45,7 +45,7 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Ë¢ĞÂËùÓĞÒì²½²Ù×÷Ö´ĞĞÆ÷
+        /// åˆ·æ–°æ‰€æœ‰å¼‚æ­¥æ“ä½œæ‰§è¡Œå™¨
         /// </summary>
         static public void UpdateAll()
         {
@@ -79,7 +79,7 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Ğ¶ÔØËùÓĞÕıÔÚ²Ù×÷µÄÒì²½²Ù×÷Æ÷¼°»º´æ´ıÊ¹ÓÃµÄÒì²½²Ù×÷Æ÷
+        /// å¸è½½æ‰€æœ‰æ­£åœ¨æ“ä½œçš„å¼‚æ­¥æ“ä½œå™¨åŠç¼“å­˜å¾…ä½¿ç”¨çš„å¼‚æ­¥æ“ä½œå™¨
         /// </summary>
         static public void ClearAll()
         {
@@ -111,7 +111,7 @@ namespace cngraphi.gassets
         }
 
         /// <summary>
-        /// Í£Ö¹Òì²½²Ù×÷
+        /// åœæ­¢å¼‚æ­¥æ“ä½œ
         /// </summary>
         public void Stop()
         {

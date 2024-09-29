@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ÏÂÔØÈÎÎñÊ±µÄ²Ù×÷¾ä±ú
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// ä¸‹è½½ä»»åŠ¡æ—¶çš„æ“ä½œå¥æŸ„
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GDownloadTaskHandler
     {
@@ -37,7 +37,7 @@ namespace cngraphi.gassets
             if (lst == null) { return; }
             foreach (var action in lst)
             {
-                action?.Invoke(progress, speed, size); // ÏÂÔØ½ø¶È£¬ÏÂÔØËÙ¶È£¬ÏÂÔØ×ÊÔ´µÄ×Ü³ß´ç
+                action?.Invoke(progress, speed, size); // ä¸‹è½½è¿›åº¦ï¼Œä¸‹è½½é€Ÿåº¦ï¼Œä¸‹è½½èµ„æºçš„æ€»å°ºå¯¸
             }
         }
 
@@ -47,7 +47,7 @@ namespace cngraphi.gassets
             if (lst == null) { return; }
             foreach (var action in lst)
             {
-                action?.Invoke(msg, url); // ´íÎóĞÅÏ¢£¬ ÏÂÔØµØÖ·
+                action?.Invoke(msg, url); // é”™è¯¯ä¿¡æ¯ï¼Œ ä¸‹è½½åœ°å€
             }
         }
 

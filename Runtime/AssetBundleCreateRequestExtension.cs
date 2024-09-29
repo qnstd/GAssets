@@ -5,8 +5,8 @@ using UnityEngine;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// 异步加载 AssetBundle 扩展
-    /// <para>作者：强辰</para>
+    /// 寮傛鍔犺浇 AssetBundle 鎵╁睍
+    /// <para>浣滆�咃細寮鸿景</para>
     /// </summary>
     public static class AssetBundleCreateRequestExtension
     {

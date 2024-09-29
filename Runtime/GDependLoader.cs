@@ -5,19 +5,19 @@ using UnityEngine;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ÒÀÀµ¼ÓÔØÆ÷
-    /// <para>¸ºÔğ¹ÜÀí¶à¸öAssetBundleÎÄ¼ş¼ÓÔØÆ÷µÄ²Ù×÷£¬Æä±¾Éí²»´¦ÀíÈÎºÎÊµ¼Ê×ÊÔ´µÄ¼ÓÔØ¡£</para>
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// ä¾èµ–åŠ è½½å™¨
+    /// <para>è´Ÿè´£ç®¡ç†å¤šä¸ªAssetBundleæ–‡ä»¶åŠ è½½å™¨çš„æ“ä½œï¼Œå…¶æœ¬èº«ä¸å¤„ç†ä»»ä½•å®é™…èµ„æºçš„åŠ è½½ã€‚</para>
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GDependLoader : GLoader
     {
-        #region ¾²Ì¬
+        #region é™æ€
 
-        //ÒÀÀµ¼ÓÔØÆ÷»º´æ¶ÔÏó
+        //ä¾èµ–åŠ è½½å™¨ç¼“å­˜å¯¹è±¡
         static public readonly Dictionary<string, GDependLoader> m_cache = new Dictionary<string, GDependLoader>();
 
         /// <summary>
-        /// ¼ÓÔØ
+        /// åŠ è½½
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -37,33 +37,33 @@ namespace cngraphi.gassets
 
 
 
-        //°üº¬×ÔÉí¼°×ÔÉíÒÀÀµµÄabÎÄ¼ş¼ÓÔØÆ÷»º´æ
+        //åŒ…å«è‡ªèº«åŠè‡ªèº«ä¾èµ–çš„abæ–‡ä»¶åŠ è½½å™¨ç¼“å­˜
         private readonly List<GBundleLoader> m_bundles = new List<GBundleLoader>();
-        //×ÔÉíab¼ÓÔØÆ÷
+        //è‡ªèº«abåŠ è½½å™¨
         private GBundleLoader m_mainbundle;
 
         /// <summary>
-        /// Ö÷abÎÄ¼şÄÚ´æÓ³Éä
+        /// ä¸»abæ–‡ä»¶å†…å­˜æ˜ å°„
         /// </summary>
         public AssetBundle AssetBundle => m_mainbundle?.AssetBundle;
 
 
         protected override void OnLoad()
         {
-            //²éÕÒ×ÊÔ´ËùÔÚµÄabÎÄ¼şĞÅÏ¢¼°ÆäÒÀÀµabÎÄ¼şĞÅÏ¢
-            //ÕâÀïµÄPathÊÇÖ¸×ÊÔ´Â·¾¶£¨ÒÔAssetsÎª¿ªÍ·µÄÏà¶ÔÂ·¾¶£©£¬²¢²»ÊÇËùÔÚµÄabÎÄ¼şÂ·¾¶
+            //æŸ¥æ‰¾èµ„æºæ‰€åœ¨çš„abæ–‡ä»¶ä¿¡æ¯åŠå…¶ä¾èµ–abæ–‡ä»¶ä¿¡æ¯
+            //è¿™é‡Œçš„Pathæ˜¯æŒ‡èµ„æºè·¯å¾„ï¼ˆä»¥Assetsä¸ºå¼€å¤´çš„ç›¸å¯¹è·¯å¾„ï¼‰ï¼Œå¹¶ä¸æ˜¯æ‰€åœ¨çš„abæ–‡ä»¶è·¯å¾„
             string abname = GAssetManifest.GetABNameByResName(System.IO.Path.GetFileName(Path));
             ABInfo ab = GAssetManifest.GetABInfo(abname);
             if (ab == null)
             {
-                Finish("¼ÓÔØ×ÊÔ´Ê§°Ü£¡Î´ÕÒµ½×ÊÔ´ËùÔÚµÄAssetBundleÎÄ¼şĞÅÏ¢. ×ÊÔ´ = " + Path);
+                Finish("åŠ è½½èµ„æºå¤±è´¥ï¼æœªæ‰¾åˆ°èµ„æºæ‰€åœ¨çš„AssetBundleæ–‡ä»¶ä¿¡æ¯. èµ„æº = " + Path);
                 return;
             }
 
-            //ÒÀÀµĞÅÏ¢
+            //ä¾èµ–ä¿¡æ¯
             ABInfo[] infos = GAssetManifest.GetABDependsInfoFast(abname);
 
-            //¼ÓÔØ
+            //åŠ è½½
             m_mainbundle = GBundleLoader.LoadInternal(ab);
             m_bundles.Add(m_mainbundle);
 
@@ -109,7 +109,7 @@ namespace cngraphi.gassets
             {
                 totalProgress += bundle.Progress;
                 if (!string.IsNullOrEmpty(bundle.Error))
-                {//Ö»ÒªÓĞÒ»¸öabÎÄ¼ş¼ÓÔØ´íÎó£¬¾Íreturn£¬²¢½«×´Ì¬ÉèÖÃÎªÊ§°Ü
+                {//åªè¦æœ‰ä¸€ä¸ªabæ–‡ä»¶åŠ è½½é”™è¯¯ï¼Œå°±returnï¼Œå¹¶å°†çŠ¶æ€è®¾ç½®ä¸ºå¤±è´¥
                     Status = GLoaderStatus.Fail;
                     Error = bundle.Error;
                     Progress = 1;
@@ -120,13 +120,13 @@ namespace cngraphi.gassets
                 break;
             }
 
-            Progress = totalProgress / m_bundles.Count * 0.5f; //ÕâÀï*0.5f´ú±íabÈ«²¿¼ÓÔØÍê±Ï£¬µÈ´ıºóĞøabÖĞµÄ×ÊÔ´¼ÓÔØ£¨·Ö³ÉÁ½²¿·Ö = ab + abÖĞµÄ×ÊÔ´£¬¸÷Õ¼50%½ø¶È£©
+            Progress = totalProgress / m_bundles.Count * 0.5f; //è¿™é‡Œ*0.5fä»£è¡¨abå…¨éƒ¨åŠ è½½å®Œæ¯•ï¼Œç­‰å¾…åç»­abä¸­çš„èµ„æºåŠ è½½ï¼ˆåˆ†æˆä¸¤éƒ¨åˆ† = ab + abä¸­çš„èµ„æºï¼Œå„å 50%è¿›åº¦ï¼‰
             if (!allDone) { return; }
 
-            //¶¼¼ÓÔØÍê±ÏÖ®ºó£¬²é¿´Ö÷abµÄÎÄ¼şÄÚ´æÓ³ÉäÊÇ·ñ³É¹¦¼ÓÔØ£¬Èç¹û²»³É¹¦£¬ÊÓÎª¼ÓÔØÊ§°Ü
+            //éƒ½åŠ è½½å®Œæ¯•ä¹‹åï¼ŒæŸ¥çœ‹ä¸»abçš„æ–‡ä»¶å†…å­˜æ˜ å°„æ˜¯å¦æˆåŠŸåŠ è½½ï¼Œå¦‚æœä¸æˆåŠŸï¼Œè§†ä¸ºåŠ è½½å¤±è´¥
             if (AssetBundle == null)
             {
-                Finish("Ö÷AssetBundleÎÄ¼ş¼ÓÔØÊ§°Ü£¨null£©¡£path = " + Path);
+                Finish("ä¸»AssetBundleæ–‡ä»¶åŠ è½½å¤±è´¥ï¼ˆnullï¼‰ã€‚path = " + Path);
                 return;
             }
             Finish();

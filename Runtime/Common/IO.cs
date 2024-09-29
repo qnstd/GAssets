@@ -5,16 +5,16 @@ using UnityEngine;
 namespace cngraphi.gassets.common
 {
     /// <summary>
-    /// IO²Ù×÷
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// IOæ“ä½œ
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class IO
     {
         /// <summary>
-        /// Çå¿ÕÄ¿Â¼ÄÚËùÓĞ×ÓÎÄ¼ş¼°×ÓÄ¿Â¼
-        /// <para>±£Áôµ±Ç°²ÎÊıÄ¿Â¼</para>
+        /// æ¸…ç©ºç›®å½•å†…æ‰€æœ‰å­æ–‡ä»¶åŠå­ç›®å½•
+        /// <para>ä¿ç•™å½“å‰å‚æ•°ç›®å½•</para>
         /// </summary>
-        /// <param name="path">Ä¿Â¼Â·¾¶</param>
+        /// <param name="path">ç›®å½•è·¯å¾„</param>
         static public void DirClear(string path)
         {
             DirectoryInfo dir = new DirectoryInfo(path);
@@ -33,10 +33,10 @@ namespace cngraphi.gassets.common
 
 
         /// <summary>
-        /// É¾³ıÄ¿Â¼
-        /// <para>Ö§³Öµİ¹éÉ¾³ı£¬Í¬Ê±»á½«Ä¿Â¼±¾ÉíÉ¾³ı</para>
+        /// åˆ é™¤ç›®å½•
+        /// <para>æ”¯æŒé€’å½’åˆ é™¤ï¼ŒåŒæ—¶ä¼šå°†ç›®å½•æœ¬èº«åˆ é™¤</para>
         /// </summary>
-        /// <param name="path">Ä¿Â¼Â·¾¶</param>
+        /// <param name="path">ç›®å½•è·¯å¾„</param>
         static public void DirDelete(string path)
         {
             if (!Directory.Exists(path)) { return; }
@@ -55,11 +55,11 @@ namespace cngraphi.gassets.common
 
 
         /// <summary>
-        /// ¿½±´ÎÄ¼ş
-        /// <para>Èç¹ûÄ¿±ê´æÔÚÒª¿½±´µÄÎÄ¼ş£¬Ôò½øĞĞÌæ»»</para>
+        /// æ‹·è´æ–‡ä»¶
+        /// <para>å¦‚æœç›®æ ‡å­˜åœ¨è¦æ‹·è´çš„æ–‡ä»¶ï¼Œåˆ™è¿›è¡Œæ›¿æ¢</para>
         /// </summary>
-        /// <param name="source">Òª±»¿½±´µÄÎÄ¼ş</param>
-        /// <param name="tar">Ä¿±êÎ»ÖÃ</param>
+        /// <param name="source">è¦è¢«æ‹·è´çš„æ–‡ä»¶</param>
+        /// <param name="tar">ç›®æ ‡ä½ç½®</param>
         static public void CopyFile(string source, string tar)
         {
             if (File.Exists(tar))
@@ -70,7 +70,7 @@ namespace cngraphi.gassets.common
 
 
         /// <summary>
-        /// ²ÎÊıÊÇ·ñÊÇÄ¿Â¼
+        /// å‚æ•°æ˜¯å¦æ˜¯ç›®å½•
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -81,12 +81,12 @@ namespace cngraphi.gassets.common
 
 
         /// <summary>
-        /// »ñÈ¡Ä¿Â¼ÏÂËùÓĞÎÄ¼ş
+        /// è·å–ç›®å½•ä¸‹æ‰€æœ‰æ–‡ä»¶
         /// </summary>
-        /// <param name="path">Ä¿Â¼</param>
-        /// <param name="lst">½á¹û¼¯</param>
-        /// <param name="ignores">ºöÂÔÎÄ¼ş£¨²»¹Ü²ÎÊıÊÇ·ñÓĞÖµ£¬¶¼»áÈ¥³ı .meta ÎÄ¼ş£©</param>
-        /// <param name="starWithAsset">ÊÇ·ñÒÔAssetÎª¿ªÍ·µÄÂ·¾¶</param>
+        /// <param name="path">ç›®å½•</param>
+        /// <param name="lst">ç»“æœé›†</param>
+        /// <param name="ignores">å¿½ç•¥æ–‡ä»¶ï¼ˆä¸ç®¡å‚æ•°æ˜¯å¦æœ‰å€¼ï¼Œéƒ½ä¼šå»é™¤ .meta æ–‡ä»¶ï¼‰</param>
+        /// <param name="starWithAsset">æ˜¯å¦ä»¥Assetä¸ºå¼€å¤´çš„è·¯å¾„</param>
         static public void GetFiles(string path, List<string> lst, List<string> ignores = null, bool starWithAsset = true)
         {
             DirectoryInfo dir = new DirectoryInfo(path);
@@ -99,14 +99,14 @@ namespace cngraphi.gassets.common
                     string p = f.FullName;
                     string ext = f.Extension;
 
-                    if (ext == ".meta") { continue; } // È¥³ı .meta
-                    if (ignores != null && ignores.IndexOf(ext) != -1) { continue; } // ÊÇ·ñ´æÔÚÓÚºöÂÔ×éÖĞ
+                    if (ext == ".meta") { continue; } // å»é™¤ .meta
+                    if (ignores != null && ignores.IndexOf(ext) != -1) { continue; } // æ˜¯å¦å­˜åœ¨äºå¿½ç•¥ç»„ä¸­
 
                     if (starWithAsset)
-                    {// ÒÔ Assets Îª¿ªÍ·µÄÂ·¾¶
+                    {// ä»¥ Assets ä¸ºå¼€å¤´çš„è·¯å¾„
                         p = Paths.Replace(p);
                         if (p.IndexOf(Application.dataPath) == 0)
-                        {// ±ØĞëÊÇ Unity ¹¤³ÌÏÂµÄ×ÊÔ´²Å¿É½øĞĞÂ·¾¶ÉèÖÃ
+                        {// å¿…é¡»æ˜¯ Unity å·¥ç¨‹ä¸‹çš„èµ„æºæ‰å¯è¿›è¡Œè·¯å¾„è®¾ç½®
                             p = "Assets" + p.Substring(Application.dataPath.Length);
                         }
                     }
@@ -118,9 +118,9 @@ namespace cngraphi.gassets.common
 
 
         /// <summary>
-        /// µİ¹é´´½¨Ä¿Â¼
+        /// é€’å½’åˆ›å»ºç›®å½•
         /// </summary>
-        /// <param name="path">Â·¾¶</param>
+        /// <param name="path">è·¯å¾„</param>
         static public void RecursionDirCreate(string path)
         {
             if (Directory.Exists(path)) { return; }
@@ -140,11 +140,11 @@ namespace cngraphi.gassets.common
 
 
         /// <summary>
-        /// ÒÆ¶¯Ä¿Â¼
-        /// <para>* Èç¹ûÄ¿±êÄ¿Â¼´æÔÚÒª±»ÒÆ¶¯µÄÄ¿Â¼£¬ÔòÏÈÉ¾³ıÔÙÒÆ¶¯</para>
+        /// ç§»åŠ¨ç›®å½•
+        /// <para>* å¦‚æœç›®æ ‡ç›®å½•å­˜åœ¨è¦è¢«ç§»åŠ¨çš„ç›®å½•ï¼Œåˆ™å…ˆåˆ é™¤å†ç§»åŠ¨</para>
         /// </summary>
-        /// <param name="source">ÒªÒÆ¶¯µÄÄ¿Â¼</param>
-        /// <param name="tar">Ä¿±êÄ¿Â¼</param>
+        /// <param name="source">è¦ç§»åŠ¨çš„ç›®å½•</param>
+        /// <param name="tar">ç›®æ ‡ç›®å½•</param>
         static public void MoveFolder(string source, string tar)
         {
             if (Directory.Exists(tar))
@@ -158,11 +158,11 @@ namespace cngraphi.gassets.common
 
 
         /// <summary>
-        /// ÒÆ¶¯ÎÄ¼ş
-        /// <para>* Èç¹ûÄ¿±ê´æÔÚ£¬ÔòÏÈÉ¾³ıÔÙÒÆ¶¯</para>
+        /// ç§»åŠ¨æ–‡ä»¶
+        /// <para>* å¦‚æœç›®æ ‡å­˜åœ¨ï¼Œåˆ™å…ˆåˆ é™¤å†ç§»åŠ¨</para>
         /// </summary>
-        /// <param name="source">Òª±»ÒÆ¶¯µÄÎÄ¼ş</param>
-        /// <param name="tar">ÎÄ¼şÒÆ¶¯Ä¿Â¼Î»ÖÃ£¨ÕâÀïµÄÎ»ÖÃ²»ÊÇÄ¿Â¼£¬¶øÊÇÒÆ¶¯ºóµÄÎÄ¼ş£©</param>
+        /// <param name="source">è¦è¢«ç§»åŠ¨çš„æ–‡ä»¶</param>
+        /// <param name="tar">æ–‡ä»¶ç§»åŠ¨ç›®å½•ä½ç½®ï¼ˆè¿™é‡Œçš„ä½ç½®ä¸æ˜¯ç›®å½•ï¼Œè€Œæ˜¯ç§»åŠ¨åçš„æ–‡ä»¶ï¼‰</param>
 
         static public void MoveFile(string source, string tar)
         {

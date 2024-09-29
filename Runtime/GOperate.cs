@@ -6,25 +6,25 @@ using UnityEngine;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ×Ô¶¯·ÖÖ¡²Ù×÷Àà»ùÀà
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// è‡ªåŠ¨åˆ†å¸§æ“ä½œç±»åŸºç±»
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GOperate : IEnumerator
     {
 
-        #region ½Ó¿ÚÊµÏÖ
+        #region æ¥å£å®ç°
         public object Current => null;
 
         public bool MoveNext()
         {
-            return !IsDone; //µ±IsDoneÎªfalseÊ±£¬ËµÃ÷²Ù×÷ÕıÔÚÖ´ĞĞ¡£Í¬Ê±Ò²ËµÃ÷µü´úÆ÷ÏÂ£¬»¹´æÔÚÕıÔÚÖ´ĞĞµÄ²Ù×÷¡£
+            return !IsDone; //å½“IsDoneä¸ºfalseæ—¶ï¼Œè¯´æ˜æ“ä½œæ­£åœ¨æ‰§è¡Œã€‚åŒæ—¶ä¹Ÿè¯´æ˜è¿­ä»£å™¨ä¸‹ï¼Œè¿˜å­˜åœ¨æ­£åœ¨æ‰§è¡Œçš„æ“ä½œã€‚
         }
 
         public void Reset() { }
         #endregion
 
 
-        #region ¾²Ì¬
+        #region é™æ€
         static private readonly List<GOperate> m_runs = new List<GOperate>();
 
         static private void Running(GOperate op)
@@ -33,7 +33,7 @@ namespace cngraphi.gassets
         }
 
         /// <summary>
-        /// Ë¢ĞÂ²¢Ö´ĞĞËùÓĞµÄ²Ù×÷
+        /// åˆ·æ–°å¹¶æ‰§è¡Œæ‰€æœ‰çš„æ“ä½œ
         /// </summary>
         static public void UpdateAll()
         {
@@ -42,30 +42,30 @@ namespace cngraphi.gassets
                 GOperate op = m_runs[i];
                 if (GAssetManager.Ins.Busy) { return; }
 
-                //Ö´ĞĞ
+                //æ‰§è¡Œ
                 op.Update();
                 if (!op.IsDone) { continue; }
 
-                //Ö´ĞĞÍê±ÏºóÒÆ³ı
+                //æ‰§è¡Œå®Œæ¯•åç§»é™¤
                 m_runs.RemoveAt(i);
                 i--;
                 if (op.Status == GOperateStatus.Fail)
                 {
-                    Debug.LogWarning($"ÈÎÎñ²Ù×÷¾¯¸æ. type = {op.GetType().Name} / message = {op.Error}");
+                    Debug.LogWarning($"ä»»åŠ¡æ“ä½œè­¦å‘Š. type = {op.GetType().Name} / message = {op.Error}");
                 }
 
-                //Ö´ĞĞ²Ù×÷Íê³ÉµÄÎ¯ÍĞ»Øµ÷
+                //æ‰§è¡Œæ“ä½œå®Œæˆçš„å§”æ‰˜å›è°ƒ
                 op.Complete();
             }
 
-            //¼ì²âÒì²½ÊµÀı¶ÔÏóÊÇ·ñÓĞ²Ù×÷Íê³Éµ«²Ù×÷½á¹û¼¯Îª¿ÕµÄ£¬Èç¹ûÓĞ½«½øĞĞÊÍ·Å¡£
+            //æ£€æµ‹å¼‚æ­¥å®ä¾‹å¯¹è±¡æ˜¯å¦æœ‰æ“ä½œå®Œæˆä½†æ“ä½œç»“æœé›†ä¸ºç©ºçš„ï¼Œå¦‚æœæœ‰å°†è¿›è¡Œé‡Šæ”¾ã€‚
             GInstanceOperate.UpdateAllObjs();
         }
 
 
 
         /// <summary>
-        /// ÇåÀíËùÓĞµÄ²Ù×÷
+        /// æ¸…ç†æ‰€æœ‰çš„æ“ä½œ
         /// </summary>
         static public void ClearAll()
         {
@@ -79,48 +79,48 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ²Ù×÷Íê³ÉÊ±»Øµ÷
-        /// <para>°üº¬²Ù×÷³É¹¦¡¢Ê§°Ü</para>
+        /// æ“ä½œå®Œæˆæ—¶å›è°ƒ
+        /// <para>åŒ…å«æ“ä½œæˆåŠŸã€å¤±è´¥</para>
         /// </summary>
         public Action<GOperate> Completed;
         /// <summary>
-        /// ²Ù×÷×´Ì¬
+        /// æ“ä½œçŠ¶æ€
         /// </summary>
         public GOperateStatus Status { get; protected set; } = GOperateStatus.Wait;
         /// <summary>
-        /// ²Ù×÷½ø¶È
+        /// æ“ä½œè¿›åº¦
         /// </summary>
         public float Progress { get; protected set; }
         /// <summary>
-        /// ÊÇ·ñ²Ù×÷Íê³É
+        /// æ˜¯å¦æ“ä½œå®Œæˆ
         /// </summary>
         public bool IsDone { get { return Status == GOperateStatus.Fail || Status == GOperateStatus.Suc; } }
         /// <summary>
-        /// ²Ù×÷Ê§°ÜÊ±µÄ´íÎóĞÅÏ¢
+        /// æ“ä½œå¤±è´¥æ—¶çš„é”™è¯¯ä¿¡æ¯
         /// </summary>
         public string Error { get; protected set; }
         /// <summary>
-        /// °ó¶¨µÄ²ÎÊı
+        /// ç»‘å®šçš„å‚æ•°
         /// </summary>
         public object Param { get; set; } = null;
 
 
 
         /// <summary>
-        /// Ë¢ĞÂ£¨ÕıÔÚ²Ù×÷µÄÂß¼­Ó¦Ğ´ÔÚ´Ë´¦£©
-        /// <para>×ÓÀàÊµÏÖ</para>
+        /// åˆ·æ–°ï¼ˆæ­£åœ¨æ“ä½œçš„é€»è¾‘åº”å†™åœ¨æ­¤å¤„ï¼‰
+        /// <para>å­ç±»å®ç°</para>
         /// </summary>
         protected virtual void Update() { }
 
         /// <summary>
-        /// Ïú»Ù¡¢ÊÍ·Å
-        /// <para>×ÓÀàÊµÏÖ</para>
+        /// é”€æ¯ã€é‡Šæ”¾
+        /// <para>å­ç±»å®ç°</para>
         /// </summary>
         public virtual void Destory() { }
 
         /// <summary>
-        /// Æô¶¯²Ù×÷
-        /// <para>×ÓÀà¿É¼ÌĞøÀ©Õ¹</para>
+        /// å¯åŠ¨æ“ä½œ
+        /// <para>å­ç±»å¯ç»§ç»­æ‰©å±•</para>
         /// </summary>
         protected virtual void Start()
         {
@@ -129,7 +129,7 @@ namespace cngraphi.gassets
         }
 
         /// <summary>
-        /// ²Ù×÷Íê³ÉµÄ´¦Àí
+        /// æ“ä½œå®Œæˆçš„å¤„ç†
         /// </summary>
         /// <param name="errmsg"></param>
         protected virtual void Finish(string errmsg = null)
@@ -140,7 +140,7 @@ namespace cngraphi.gassets
         }
 
         /// <summary>
-        /// Ö´ĞĞ²Ù×÷Íê³ÉµÄÎ¯ÍĞ»Øµ÷
+        /// æ‰§è¡Œæ“ä½œå®Œæˆçš„å§”æ‰˜å›è°ƒ
         /// </summary>
         private void Complete()
         {

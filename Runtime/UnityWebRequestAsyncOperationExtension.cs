@@ -5,8 +5,8 @@ using UnityEngine.Networking;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// UnityWebRequest 异步加载扩展
-    /// <para>作者：强辰</para>
+    /// UnityWebRequest 寮傛鍔犺浇鎵╁睍
+    /// <para>浣滆�咃細寮鸿景</para>
     /// </summary>
     public static class UnityWebRequestAsyncOperationExtension
     {

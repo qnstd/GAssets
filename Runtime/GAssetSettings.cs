@@ -13,64 +13,64 @@ using UnityEditor;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ÅäÖÃ
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// é…ç½®
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GAssetSettings : ScriptableObject
     {
-        [InfoPropAttri("×ÊÔ´°æ±¾ºÅ", DomainType.General)]
+        [InfoPropAttri("èµ„æºç‰ˆæœ¬å·", DomainType.General)]
         public string Version = "1.0.0";
 
 
-        [InfoPropAttri("×ÊÔ´°üÄ¿Â¼", DomainType.General, "* ÈôÎ´ÉèÖÃ£¬ÔòÎª StreamingAssets Ä¿Â¼£»·ñÔòÎª StreamingAssets + ÉèÖÃµÄÄ¿Â¼.", 26)]
+        [InfoPropAttri("èµ„æºåŒ…ç›®å½•", DomainType.General, "* è‹¥æœªè®¾ç½®ï¼Œåˆ™ä¸º StreamingAssets ç›®å½•ï¼›å¦åˆ™ä¸º StreamingAssets + è®¾ç½®çš„ç›®å½•.", 26)]
         public string AssetRootPath = "Bundles";
 
 
-        [InfoPropAttri("³Ö¾Ã»¯Êı¾İÄ¿Â¼", DomainType.General, "* ÈôÎ´ÉèÖÃ£¬ÔòÎª PersistentData Ä¿Â¼£»·ñÔòÎª PersistentData + ÉèÖÃµÄÄ¿Â¼.", 26)]
+        [InfoPropAttri("æŒä¹…åŒ–æ•°æ®ç›®å½•", DomainType.General, "* è‹¥æœªè®¾ç½®ï¼Œåˆ™ä¸º PersistentData ç›®å½•ï¼›å¦åˆ™ä¸º PersistentData + è®¾ç½®çš„ç›®å½•.", 26)]
         public string AssetDataPath = "Data/Bundles";
 
 
-        [InfoPropAttri("×ÊÔ´ÏÂÔØµÄ´æ´¢Ä¿Â¼", DomainType.General, "* ÈôÎ´ÉèÖÃ£¬ÔòÎª PersistentData Ä¿Â¼£»·ñÔòÎª PersistentData + ÉèÖÃµÄÄ¿Â¼.", 26)]
+        [InfoPropAttri("èµ„æºä¸‹è½½çš„å­˜å‚¨ç›®å½•", DomainType.General, "* è‹¥æœªè®¾ç½®ï¼Œåˆ™ä¸º PersistentData ç›®å½•ï¼›å¦åˆ™ä¸º PersistentData + è®¾ç½®çš„ç›®å½•.", 26)]
         public string AssetDownloadPath = "Data/Download";
 
 
 #if UNITY_EDITOR
-        [InfoPropAttri("Æ½Ì¨", DomainType.Editor)]
+        [InfoPropAttri("å¹³å°", DomainType.Editor)]
         public BuildTarget Platform = BuildTarget.StandaloneWindows;
 
 
-        [InfoPropAttri("×ÊÔ´°üÑ¹Ëõ·½Ê½", DomainType.Editor)]
+        [InfoPropAttri("èµ„æºåŒ…å‹ç¼©æ–¹å¼", DomainType.Editor)]
         public BuildAssetBundleOptions ABOptions = BuildAssetBundleOptions.ChunkBasedCompression;
 
 
-        [InfoPropAttri("SpriteAtlas Í¼¼¯Êä³öÄ¿Â¼", DomainType.Editor)]
+        [InfoPropAttri("SpriteAtlas å›¾é›†è¾“å‡ºç›®å½•", DomainType.Editor)]
         public string AtlasOutputPath = "Assets/Res/Atlas";
 
 
         [InfoPropAttri
         (
-            "ÇåÀíÎ´Ê¹ÓÃ×ÊÔ´µÄ±¸·İÄ¿Â¼",
+            "æ¸…ç†æœªä½¿ç”¨èµ„æºçš„å¤‡ä»½ç›®å½•",
             DomainType.Editor,
-            "* ½¨Òé½«±¸·İÄ¿Â¼·ÅÖÃÔÚ Assets Ö®Íâ. ÈôÔÚ Assets Ö®ÄÚ»á½øĞĞ×ÊÔ´±àÒë£¬´Ó¶øÓ°Ïì´¦ÀíËÙ¶È."
+            "* å»ºè®®å°†å¤‡ä»½ç›®å½•æ”¾ç½®åœ¨ Assets ä¹‹å¤–. è‹¥åœ¨ Assets ä¹‹å†…ä¼šè¿›è¡Œèµ„æºç¼–è¯‘ï¼Œä»è€Œå½±å“å¤„ç†é€Ÿåº¦."
         )]
         public string CleanBackupPath = Paths.Replace(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "BackupUnused")); // Assets/BackupUnused
 
 
         [InfoPropAttri
         (
-            "ÇåÀíÎ´Ê¹ÓÃ×ÊÔ´Ê±µÄºöÂÔÏî",
+            "æ¸…ç†æœªä½¿ç”¨èµ„æºæ—¶çš„å¿½ç•¥é¡¹",
             DomainType.Editor,
-            "* Ä¬ÈÏºöÂÔ .unity ÎÄ¼şÀàĞÍ"
+            "* é»˜è®¤å¿½ç•¥ .unity æ–‡ä»¶ç±»å‹"
         )]
         public string CleanIgnore = "prefab,spriteatlas,shader,shadergraph,shadersubgraph,hlsl,compute,cs,txt,json,xml";
 
 
         [InfoPropAttri
         (
-            "ÇåÀíÎ´Ê¹ÓÃ×ÊÔ´Ê±µÄÎÄ¼şÀ©Õ¹",
+            "æ¸…ç†æœªä½¿ç”¨èµ„æºæ—¶çš„æ–‡ä»¶æ‰©å±•",
             DomainType.Editor,
-            "* µ±×ÊÔ´ÒÔ×ÊÔ´ÃûÔÚ½Å±¾¡¢ÅäÖÃµÈÎÄ±¾ÎÄ¼şÖĞ±»ÒıÓÃÊ±£¬ÊÇÎŞ·¨Í¨¹ı³£¹æÒÀÀµ¹ØÏµ½øĞĞÒıÓÃ¼ìË÷µÄ¡£Òò´Ë£¬À©Õ¹±à¼­¿òÄÚ¿ÉÊäÈëĞèÒª½øĞĞ¶Ô×ÊÔ´ÒıÓÃ¼ìË÷µÄÎÄ±¾ÎÄ¼şÀàĞÍ¡£\n" +
-            "* ÈôÎÄ±¾ÎÄ¼şÖĞ¼ìË÷µ½Ä³Ò»×ÊÔ´Ãû£¬µ«¼ìË÷Î»ÖÃ´¦ÓÚ×¢ÊÍ×´Ì¬£¬ÔòÒÀÈ»ÅĞ¶¨´æÔÚÒıÓÃ¹ØÏµ¡£",
+            "* å½“èµ„æºä»¥èµ„æºååœ¨è„šæœ¬ã€é…ç½®ç­‰æ–‡æœ¬æ–‡ä»¶ä¸­è¢«å¼•ç”¨æ—¶ï¼Œæ˜¯æ— æ³•é€šè¿‡å¸¸è§„ä¾èµ–å…³ç³»è¿›è¡Œå¼•ç”¨æ£€ç´¢çš„ã€‚å› æ­¤ï¼Œæ‰©å±•ç¼–è¾‘æ¡†å†…å¯è¾“å…¥éœ€è¦è¿›è¡Œå¯¹èµ„æºå¼•ç”¨æ£€ç´¢çš„æ–‡æœ¬æ–‡ä»¶ç±»å‹ã€‚\n" +
+            "* è‹¥æ–‡æœ¬æ–‡ä»¶ä¸­æ£€ç´¢åˆ°æŸä¸€èµ„æºåï¼Œä½†æ£€ç´¢ä½ç½®å¤„äºæ³¨é‡ŠçŠ¶æ€ï¼Œåˆ™ä¾ç„¶åˆ¤å®šå­˜åœ¨å¼•ç”¨å…³ç³»ã€‚",
             26
         )]
         public string CleanFileExtension = "cs,txt,json,xml";
@@ -133,7 +133,7 @@ namespace cngraphi.gassets
 
             Color c = GUI.backgroundColor;
             GUI.backgroundColor = titleBackgroundColor;
-            GUILayout.Box("<color=#333333><b>GAssets ÅäÖÃ</b></color>", titleStyle, GUILayout.Height(40));
+            GUILayout.Box("<color=#333333><b>GAssets é…ç½®</b></color>", titleStyle, GUILayout.Height(40));
             GUI.backgroundColor = c;
 
             EditorGUILayout.Space(10);
@@ -160,11 +160,11 @@ namespace cngraphi.gassets
                 foreach (string k in dic.Keys)
                 {
                     InfoPropAttri attri = dic[k];
-                    EditorGUILayout.LabelField(attri.Desc); // ÊôĞÔ±êÇ©
+                    EditorGUILayout.LabelField(attri.Desc); // å±æ€§æ ‡ç­¾
                     SerializedProperty prop = serializedObject.FindProperty(k);
-                    EditorGUILayout.PropertyField(prop, new GUIContent("")); // ÊôĞÔ
+                    EditorGUILayout.PropertyField(prop, new GUIContent("")); // å±æ€§
                     if (!string.IsNullOrEmpty(attri.Help))
-                    {// °ïÖúËµÃ÷
+                    {// å¸®åŠ©è¯´æ˜
 
                         string str = attri.Help;
                         if (k == "AssetRootPath")

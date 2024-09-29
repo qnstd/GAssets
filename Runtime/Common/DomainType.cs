@@ -1,17 +1,17 @@
 namespace cngraphi.gassets.common
 {
     /// <summary>
-    /// ÓòÀàĞÍ
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// åŸŸç±»å‹
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public enum DomainType
     {
         /// <summary>
-        /// Ö»ÔÚ±à¼­Æ÷ÄÚ
+        /// åªåœ¨ç¼–è¾‘å™¨å†…
         /// </summary>
         Editor,
         /// <summary>
-        /// Í¨ÓÃ
+        /// é€šç”¨
         /// </summary>
         General
     }

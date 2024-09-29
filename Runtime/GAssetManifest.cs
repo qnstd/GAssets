@@ -8,50 +8,50 @@ using cngraphi.gassets.common;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ×ÊÔ´¹ÜÀíÅäÖÃ
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// èµ„æºç®¡ç†é…ç½®
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GAssetManifest
     {
-        //°æ±¾ºÅ
+        //ç‰ˆæœ¬å·
         static private string m_version = "";
 
-        //×ÊÔ´×Ü³ß´ç
+        //èµ„æºæ€»å°ºå¯¸
         static private int m_size = 0;
 
-        //AssetBundleĞÅÏ¢
+        //AssetBundleä¿¡æ¯
         static private Dictionary<string, ABInfo> m_abs = new Dictionary<string, ABInfo>();
 
-        //×ÊÔ´Ó³ÉäAssetBundle
-        //key=>×ÊÔ´ÎÄ¼şÃû£¨xx.yy£©£»value=>ËùÔÚabÎÄ¼şÃû£¨xxx.ab)
+        //èµ„æºæ˜ å°„AssetBundle
+        //key=>èµ„æºæ–‡ä»¶åï¼ˆxx.yyï¼‰ï¼›value=>æ‰€åœ¨abæ–‡ä»¶åï¼ˆxxx.ab)
         static private Dictionary<string, string> m_res2ab = new Dictionary<string, string>();
 
 
         /// <summary>
-        /// ¼ÓÔØ²¢½âÎö
+        /// åŠ è½½å¹¶è§£æ
         /// </summary>
-        /// <param name="path">ManifestÅäÖÃÎÄ¼şÂ·¾¶</param>
-        /// <returns>true£º¼ÓÔØ²¢½âÎö³É¹¦£»false£ºÊ§°Ü</returns>
+        /// <param name="path">Manifesté…ç½®æ–‡ä»¶è·¯å¾„</param>
+        /// <returns>trueï¼šåŠ è½½å¹¶è§£ææˆåŠŸï¼›falseï¼šå¤±è´¥</returns>
         static public bool Load(string path)
         {
             if (string.IsNullOrEmpty(path)) { return false; }
             if (!File.Exists(path)) { return false; };
 
             /*
-                Í¬²½¼ÓÔØÅäÖÃ
+                åŒæ­¥åŠ è½½é…ç½®
                 
-                ±à¼­Æ÷Ä£Ê½£º¿ÉÒÔÊ¹ÓÃFileÎÄ¼şÀà½øĞĞ¶ÁÈ¡£»
-                ·¢²¼Ä£Ê½£¨ÒÆ¶¯Æ½Ì¨£©£º±ØĞë½«manifestÎÄ¼ş´æ·Åµ½Êı¾İÄ¿Â¼ÏÂ£¨GAssetManager³õÊ¼»¯µÄÊı¾İÄ¿Â¼²ÎÊı£©£¬·ñÔòÎŞ·¨Ê¹ÓÃFileÎÄ¼şÁ÷¶ÁÈ¡Ö÷×ÊÔ´ÅäÖÃ£»
+                ç¼–è¾‘å™¨æ¨¡å¼ï¼šå¯ä»¥ä½¿ç”¨Fileæ–‡ä»¶ç±»è¿›è¡Œè¯»å–ï¼›
+                å‘å¸ƒæ¨¡å¼ï¼ˆç§»åŠ¨å¹³å°ï¼‰ï¼šå¿…é¡»å°†manifestæ–‡ä»¶å­˜æ”¾åˆ°æ•°æ®ç›®å½•ä¸‹ï¼ˆGAssetManageråˆå§‹åŒ–çš„æ•°æ®ç›®å½•å‚æ•°ï¼‰ï¼Œå¦åˆ™æ— æ³•ä½¿ç”¨Fileæ–‡ä»¶æµè¯»å–ä¸»èµ„æºé…ç½®ï¼›
             */
             string contents = Encoding.UTF8.GetString(File.ReadAllBytes(path));
             Str.Split(contents, "\n", out List<string> lines);
 
 
-            //ÇåÀí
+            //æ¸…ç†
             m_res2ab.Clear();
             m_abs.Clear();
 
-            //½âÎö
+            //è§£æ
             m_version = lines[0];
             m_size = int.Parse(lines[1]);
 
@@ -61,23 +61,23 @@ namespace cngraphi.gassets
                 Str.Split(lines[i], "|", out List<string> rs);
                 ABInfo abinfo = new ABInfo();
 
-                //»ù´¡ĞÅÏ¢
+                //åŸºç¡€ä¿¡æ¯
                 abinfo.m_name = rs[0];
                 abinfo.m_size = int.Parse(rs[1]);
                 abinfo.m_hash = rs[2];
 
-                //°üº¬ĞÅÏ¢
+                //åŒ…å«ä¿¡æ¯
                 if (rs.Count > 3)
                 {
                     Str.Split(rs[3], ",", out List<string> childs);
 
-                    //½«°üº¬ĞÅÏ¢·´Ó³Éä
+                    //å°†åŒ…å«ä¿¡æ¯åæ˜ å°„
                     int childslen = childs.Count;
                     for (int j = 0; j < childslen; j++)
                     {
                         string childname = childs[j].Substring(childs[j].LastIndexOf("/") + 1);
 
-                        //TODO£ºÌØÊâ´¦Àí£¬³¡¾°ºæ±ºµÄ¹âÌùÍ¼ÒÔÂ·¾¶×÷ÎªkeyÖµ×öË÷Òı
+                        //TODOï¼šç‰¹æ®Šå¤„ç†ï¼Œåœºæ™¯çƒ˜ç„™çš„å…‰è´´å›¾ä»¥è·¯å¾„ä½œä¸ºkeyå€¼åšç´¢å¼•
                         int _indx_ = childname.IndexOf(".");
                         if (_indx_ != -1 && childname.Substring(_indx_).ToLower() == ".exr")
                         {
@@ -87,7 +87,7 @@ namespace cngraphi.gassets
 
                         if (m_res2ab.ContainsKey(childname))
                         {
-                            throw new Exception("½âÎöManifestÎÄ¼şÒì³££¡×ÊÔ´ÃûÖØ¸´¡£childname = " + childname);
+                            throw new Exception("è§£æManifestæ–‡ä»¶å¼‚å¸¸ï¼èµ„æºåé‡å¤ã€‚childname = " + childname);
                         }
                         //Log.Debug("childname = " + childname);
                         m_res2ab.Add(childname, abinfo.m_name);
@@ -95,14 +95,14 @@ namespace cngraphi.gassets
                     abinfo.m_contains = childs;
                 }
 
-                //ÒÀÀµĞÅÏ¢
+                //ä¾èµ–ä¿¡æ¯
                 if (rs.Count > 4)
                 {
                     Str.Split(rs[4], ",", out List<string> depends);
                     abinfo.m_depends = depends;
                 }
 
-                //½«abinfoÌí¼ÓÖÁabs¹ÜÀí×é
+                //å°†abinfoæ·»åŠ è‡³absç®¡ç†ç»„
                 m_abs.Add(abinfo.m_name, abinfo);
             }
 
@@ -112,7 +112,7 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ×ÊÔ´×Ü³ß´ç
+        /// èµ„æºæ€»å°ºå¯¸
         /// </summary>
         /// <returns></returns>
         static public int Size { get { return m_size; } }
@@ -120,7 +120,7 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ×ÊÔ´°æ±¾ºÅ
+        /// èµ„æºç‰ˆæœ¬å·
         /// </summary>
         /// <returns></returns>
         static public string Version { get { return m_version; } }
@@ -128,9 +128,9 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Í¨¹ı×ÊÔ´Ãû³Æ»ñÈ¡ËùÔÚµÄAssetBundleÃû³Æ
+        /// é€šè¿‡èµ„æºåç§°è·å–æ‰€åœ¨çš„AssetBundleåç§°
         /// </summary>
-        /// <param name="resname">×ÊÔ´Ãû³Æ£¨°üº¬ÎÄ¼şÃûºó×º£¬Ğ¡Ğ´¡£×¢Òâ£º³¡¾°ºæ±ºµÄ¹âÌùÍ¼Ó¦°üº¬Ïà¶ÔÂ·¾¶¡£ÀıÈç£ºassets/scenes/examplescene/lightmap-0_comp_light£©</param>
+        /// <param name="resname">èµ„æºåç§°ï¼ˆåŒ…å«æ–‡ä»¶ååç¼€ï¼Œå°å†™ã€‚æ³¨æ„ï¼šåœºæ™¯çƒ˜ç„™çš„å…‰è´´å›¾åº”åŒ…å«ç›¸å¯¹è·¯å¾„ã€‚ä¾‹å¦‚ï¼šassets/scenes/examplescene/lightmap-0_comp_lightï¼‰</param>
         /// <returns></returns>
         static public string GetABNameByResName(string resname)
         {
@@ -146,10 +146,10 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// »ñÈ¡AssetBundleµÄÒÀÀµÏîÃû³Æ
+        /// è·å–AssetBundleçš„ä¾èµ–é¡¹åç§°
         /// </summary>
-        /// <param name="abname">AssetBundleÃû³Æ£¨´øÎÄ¼şÃûºó×º£©</param>
-        /// <param name="result">½á¹û¼¯</param>
+        /// <param name="abname">AssetBundleåç§°ï¼ˆå¸¦æ–‡ä»¶ååç¼€ï¼‰</param>
+        /// <param name="result">ç»“æœé›†</param>
         static public void GetABDependsName(string abname, List<string> result)
         {
             GetABDependsName_(abname, abname, result);
@@ -179,10 +179,10 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ¿ìËÙ»ñÈ¡²ÎÊı¶ÔÓ¦µÄAssetBundleµÄÒÀÀµÏîÃû³Æ
+        /// å¿«é€Ÿè·å–å‚æ•°å¯¹åº”çš„AssetBundleçš„ä¾èµ–é¡¹åç§°
         /// </summary>
-        /// <param name="abname">AssetBundleÃû³Æ£¨´øÎÄ¼şÃûºó×º£©</param>
-        /// <returns>½á¹û¼¯</returns>
+        /// <param name="abname">AssetBundleåç§°ï¼ˆå¸¦æ–‡ä»¶ååç¼€ï¼‰</param>
+        /// <returns>ç»“æœé›†</returns>
         static public string[] GetABDependsNameFast(string abname)
         {
             if (string.IsNullOrEmpty(abname)) { return null; }
@@ -197,10 +197,10 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// »ñÈ¡AssetBundleµÄÒÀÀµÏîĞÅÏ¢
+        /// è·å–AssetBundleçš„ä¾èµ–é¡¹ä¿¡æ¯
         /// </summary>
-        /// <param name="abname">AssetBundleÃû³Æ£¨´øÎÄ¼şÃûºó×º£©</param>
-        /// <param name="result">½á¹û¼¯</param>
+        /// <param name="abname">AssetBundleåç§°ï¼ˆå¸¦æ–‡ä»¶ååç¼€ï¼‰</param>
+        /// <param name="result">ç»“æœé›†</param>
         static public void GetABDependsInfo(string abname, List<ABInfo> result)
         {
             GetABDependsInfo_(abname, abname, result);
@@ -229,10 +229,10 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ¿ìËÙ»ñÈ¡AssetBundleµÄÒÀÀµÏîĞÅÏ¢
+        /// å¿«é€Ÿè·å–AssetBundleçš„ä¾èµ–é¡¹ä¿¡æ¯
         /// </summary>
-        /// <param name="abname">AssetBundleÃû³Æ£¨´øÎÄ¼şÃûºó×º£©</param>
-        /// <returns>½á¹û¼¯</returns>
+        /// <param name="abname">AssetBundleåç§°ï¼ˆå¸¦æ–‡ä»¶ååç¼€ï¼‰</param>
+        /// <returns>ç»“æœé›†</returns>
         static public ABInfo[] GetABDependsInfoFast(string abname)
         {
             if (string.IsNullOrEmpty(abname)) { return null; }
@@ -254,9 +254,9 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// »ñÈ¡AssetBundleĞÅÏ¢
+        /// è·å–AssetBundleä¿¡æ¯
         /// </summary>
-        /// <param name="abname">abÎÄ¼şÃû³Æ</param>
+        /// <param name="abname">abæ–‡ä»¶åç§°</param>
         /// <returns></returns>
         static public ABInfo GetABInfo(string abname)
         {
@@ -268,9 +268,9 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// »ñÈ¡ab°üÄÚ²¿°üº¬µÄÔªËØ
+        /// è·å–abåŒ…å†…éƒ¨åŒ…å«çš„å…ƒç´ 
         /// </summary>
-        /// <param name="abname">abÎÄ¼şÃû³Æ£¨´øÎÄ¼şÃûºó×º£©</param>
+        /// <param name="abname">abæ–‡ä»¶åç§°ï¼ˆå¸¦æ–‡ä»¶ååç¼€ï¼‰</param>
         /// <returns></returns>
         static public List<string> GetABChilds(string abname)
         {
@@ -285,9 +285,9 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Í¨¹ı×ÊÔ´Ãû³Æ²éÕÒÆäÂ·¾¶£¨ÒÔAssets¿ªÍ·£©
+        /// é€šè¿‡èµ„æºåç§°æŸ¥æ‰¾å…¶è·¯å¾„ï¼ˆä»¥Assetså¼€å¤´ï¼‰
         /// </summary>
-        /// <param name="resname">×ÊÔ´ÎÄ¼şÃû£¨´øÎÄ¼şÃûºó×º£©</param>
+        /// <param name="resname">èµ„æºæ–‡ä»¶åï¼ˆå¸¦æ–‡ä»¶ååç¼€ï¼‰</param>
         /// <returns></returns>
         static public string GetResPathInAB(string resname)
         {
@@ -308,10 +308,10 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ÊÇ·ñ°üº¬²ÎÊı¶ÔÓ¦µÄabÊı¾İ¶ÔÏó
-        /// <para>abÊı¾İ¶ÔÏó°üº¬ÒÔabÎªÀ©Õ¹Ãû¼°dllÀ©Õ¹ÃûµÄÎÄ¼ş</para>
+        /// æ˜¯å¦åŒ…å«å‚æ•°å¯¹åº”çš„abæ•°æ®å¯¹è±¡
+        /// <para>abæ•°æ®å¯¹è±¡åŒ…å«ä»¥abä¸ºæ‰©å±•ååŠdllæ‰©å±•åçš„æ–‡ä»¶</para>
         /// </summary>
-        /// <param name="abname">abÎÄ¼şÃû³Æ£¨´øÎÄ¼şÃûºó×º£©</param>
+        /// <param name="abname">abæ–‡ä»¶åç§°ï¼ˆå¸¦æ–‡ä»¶ååç¼€ï¼‰</param>
         /// <returns></returns>
         static public bool ExistAB(string abname)
         {

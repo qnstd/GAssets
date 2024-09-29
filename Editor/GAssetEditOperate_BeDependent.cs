@@ -6,14 +6,14 @@ using UnityEngine;
 namespace cngraphi.gassets.editor
 {
     /// <summary>
-    /// ×ÊÔ´±»ÒÀÀµ¹ØÏµ
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// èµ„æºè¢«ä¾èµ–å…³ç³»
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public partial class GAssetEditOperate : EditorWindow
     {
         private Vector2 m_scrollpos = Vector2.zero;
         List<string> m_lst;
-        //ÎÄ¼ş±»ÒÀÀµ¹ØÏµ»º´æ£¨key£ºÎÄ¼ş£»value£ºÒÀÀµKeyµÄÎÄ¼şÊı×é£©
+        //æ–‡ä»¶è¢«ä¾èµ–å…³ç³»ç¼“å­˜ï¼ˆkeyï¼šæ–‡ä»¶ï¼›valueï¼šä¾èµ–Keyçš„æ–‡ä»¶æ•°ç»„ï¼‰
         static private Dictionary<string, List<string>> m_cache = new Dictionary<string, List<string>>();
         static private Dictionary<string, List<string>> m_have = new Dictionary<string, List<string>>();
 
@@ -34,9 +34,9 @@ namespace cngraphi.gassets.editor
             EditorGUILayout.BeginVertical("box");
             EditorGUILayout.Space(5);
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("×ÊÔ´¶ÔÏó", Gui.LabelStyle, GUILayout.Width(57));
+            EditorGUILayout.LabelField("èµ„æºå¯¹è±¡", Gui.LabelStyle, GUILayout.Width(57));
             m_obj = EditorGUILayout.ObjectField("", m_obj, typeof(Object), false);
-            if (GUILayout.Button("²éÑ¯", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(20)))
+            if (GUILayout.Button("æŸ¥è¯¢", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(20)))
             {
                 Search();
             }
@@ -45,7 +45,7 @@ namespace cngraphi.gassets.editor
             EditorGUI.indentLevel += 4;
             EditorGUILayout.BeginHorizontal();
             m_readAllDepends = EditorGUILayout.Toggle("", m_readAllDepends, GUILayout.Width(20));
-            EditorGUILayout.LabelField("<color=#cccccc>ÊÇ·ñÖØĞÂÀ­È¡ËùÓĞÒÀÀµ¹ØÏµ</color>", Gui.LabelStyle);
+            EditorGUILayout.LabelField("<color=#cccccc>æ˜¯å¦é‡æ–°æ‹‰å–æ‰€æœ‰ä¾èµ–å…³ç³»</color>", Gui.LabelStyle);
             EditorGUILayout.EndHorizontal();
             EditorGUI.indentLevel -= 4;
             EditorGUILayout.Space(5);
@@ -67,7 +67,7 @@ namespace cngraphi.gassets.editor
                     string f = m_lst[i];
                     GUILayout.BeginHorizontal("box", GUILayout.Height(14));
                     EditorGUILayout.LabelField(f, Gui.LabelStyle);
-                    if (GUILayout.Button("¶¨Î»", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+                    if (GUILayout.Button("å®šä½", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
                     {
                         EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>(f));
                     }
@@ -79,7 +79,7 @@ namespace cngraphi.gassets.editor
 
 
         /// <summary>
-        /// ËÑË÷
+        /// æœç´¢
         /// </summary>
         private void Search()
         {
@@ -93,8 +93,8 @@ namespace cngraphi.gassets.editor
             List<string> beDependent;
             string asset = AssetDatabase.GetAssetPath(m_obj);
             if (!m_cache.TryGetValue(asset, out beDependent))
-            {//×ÊÔ´Î´±»ÈÎºÎÆäËû×ÊÔ´ÒÀÀµ
-                Dialog.Tip("Î´±»ÆäËû×ÊÔ´ÒıÓÃ.");
+            {//èµ„æºæœªè¢«ä»»ä½•å…¶ä»–èµ„æºä¾èµ–
+                Dialog.Tip("æœªè¢«å…¶ä»–èµ„æºå¼•ç”¨.");
             }
             else
             {
@@ -104,7 +104,7 @@ namespace cngraphi.gassets.editor
 
 
         /// <summary>
-        /// ²éÕÒËùÓĞÒÀÀµ¹ØÏµ
+        /// æŸ¥æ‰¾æ‰€æœ‰ä¾èµ–å…³ç³»
         /// </summary>
         private void AllDepends()
         {
@@ -119,7 +119,7 @@ namespace cngraphi.gassets.editor
             foreach (string guid in guids)
             {
                 string assetPath = AssetDatabase.GUIDToAssetPath(guid);
-                string[] depends = AssetDatabase.GetDependencies(assetPath, false); //²»µİ¹éËÑË÷£¬Ö±½Ó»ñÈ¡
+                string[] depends = AssetDatabase.GetDependencies(assetPath, false); //ä¸é€’å½’æœç´¢ï¼Œç›´æ¥è·å–
 
                 foreach (string file in depends)
                 {
@@ -134,10 +134,10 @@ namespace cngraphi.gassets.editor
 
                 count++;
 
-                //ÏÔÊ¾½ø¶È
+                //æ˜¾ç¤ºè¿›åº¦
                 proval = (float)(count * 1.0f / guidsLen);
                 pro = (proval * 100).ToString("f1") + "%";
-                EditorUtility.DisplayProgressBar("¼ìË÷ÒÀÀµ¹ØÏµ", "½ø¶È£º" + pro, proval);
+                EditorUtility.DisplayProgressBar("æ£€ç´¢ä¾èµ–å…³ç³»", "è¿›åº¦ï¼š" + pro, proval);
             }
             EditorUtility.ClearProgressBar();
         }

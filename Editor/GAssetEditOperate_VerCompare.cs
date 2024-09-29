@@ -10,14 +10,14 @@ using UnityEngine;
 namespace cngraphi.gassets.editor
 {
     /// <summary>
-    /// ×ÊÔ´²îÒì»¯±È¶Ô
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// èµ„æºå·®å¼‚åŒ–æ¯”å¯¹
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public partial class GAssetEditOperate : EditorWindow
     {
-        // °æ±¾²îÒì»¯ÎÄ¼ş´æ´¢µÄÄ¿Â¼Ãû³Æºó×º ¼° ²îÒì»¯ÎÄ¼şÅäÖÃµÄÎÄ¼şÃûÇ°×º
+        // ç‰ˆæœ¬å·®å¼‚åŒ–æ–‡ä»¶å­˜å‚¨çš„ç›®å½•åç§°åç¼€ åŠ å·®å¼‚åŒ–æ–‡ä»¶é…ç½®çš„æ–‡ä»¶åå‰ç¼€
         const string C_HotfixDirPrefix = "hotfix";
-        // °æ±¾²îÒì»¯£¨¸÷¸öÀúÊ·°æ±¾£©ÎÄ¼ş´æ´¢Ä¿Â¼Ãû³Æºó×º
+        // ç‰ˆæœ¬å·®å¼‚åŒ–ï¼ˆå„ä¸ªå†å²ç‰ˆæœ¬ï¼‰æ–‡ä»¶å­˜å‚¨ç›®å½•åç§°åç¼€
         const string C_HotfixDirPrefix_History = "hotfix_histroy";
 
 
@@ -32,13 +32,13 @@ namespace cngraphi.gassets.editor
         {
             EditorGUILayout.BeginVertical("box");
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("²îÒì»¯±È¶ÔÇåµ¥", Gui.LabelStyle, GUILayout.Width(90));
-            if (GUILayout.Button("Ñ¡Ôñ", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+            EditorGUILayout.LabelField("å·®å¼‚åŒ–æ¯”å¯¹æ¸…å•", Gui.LabelStyle, GUILayout.Width(90));
+            if (GUILayout.Button("é€‰æ‹©", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
             {
-                string p = Dialog.File("Ñ¡Ôñ²îÒì»¯±È¶ÔÇåµ¥");
+                string p = Dialog.File("é€‰æ‹©å·®å¼‚åŒ–æ¯”å¯¹æ¸…å•");
                 m_diffverPath = string.IsNullOrEmpty(p) ? m_diffverPath : p;
             }
-            if (GUILayout.Button("Ö´ĞĞ", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+            if (GUILayout.Button("æ‰§è¡Œ", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
             {
                 GenDiffVersion();
             }
@@ -49,16 +49,16 @@ namespace cngraphi.gassets.editor
             EditorGUI.EndDisabledGroup();
             EditorGUILayout.BeginHorizontal();
             m_isDelDiff = EditorGUILayout.Toggle(m_isDelDiff, GUILayout.Width(20), GUILayout.Height(20));
-            EditorGUILayout.LabelField("<color=#d0a600>ÊÇ·ñ½«²îÒì»¯ÎÄ¼ş´Óµ±Ç°×ÊÔ´¹¹½¨Ä¿Â¼ÄÚÉ¾³ı</color>", Gui.LabelStyle);
+            EditorGUILayout.LabelField("<color=#d0a600>æ˜¯å¦å°†å·®å¼‚åŒ–æ–‡ä»¶ä»å½“å‰èµ„æºæ„å»ºç›®å½•å†…åˆ é™¤</color>", Gui.LabelStyle);
             EditorGUILayout.EndHorizontal();
 
             EditorGUILayout.Space(10);
             EditorGUILayout.LabelField(
                 "<color=#999999>" +
-                "* ²îÒì»¯±È¶ÔÇåµ¥ÊÇÖ¸¹ıÍù°æ±¾¶ÔÓ¦µÄ Manifest Çåµ¥ÎÄ¼ş£¬²Ù×÷Ê±Óëµ±Ç°µÄÇåµ¥ÎÄ¼ş½øĞĞ±È¶Ô£»\n" +
-                "* ´Ë¹¦ÄÜÓÃÓÚµ±Ç°Çåµ¥ÓëÉÏÒ»°æ±¾ºÅ¶ÔÓ¦µÄÇåµ¥½øĞĞ±È¶Ô£»\n" +
-                "* ²îÒì»¯±È¶Ô²Ù×÷ÎªÔöÁ¿·½Ê½£¬Ö»¶ÔĞÂÔö»òĞŞ¸ÄÎÄ¼ş½øĞĞ¼ÇÂ¼£¬¶øÒÑÉ¾³ıµÄÎÄ¼ş²»×÷Îª×ÊÔ´²îÒì»¯±È¶Ô·¶³ë£»\n" +
-                "* Ã¿´ÎÖ´ĞĞ²îÒì»¯±È¶ÔÊ±£¬»áÇå³ıÉÏÒ»´ÎµÄ±È¶Ô½á¹û£¬²Ù×÷Ê±ÇëÁôÒâ£»" +
+                "* å·®å¼‚åŒ–æ¯”å¯¹æ¸…å•æ˜¯æŒ‡è¿‡å¾€ç‰ˆæœ¬å¯¹åº”çš„ Manifest æ¸…å•æ–‡ä»¶ï¼Œæ“ä½œæ—¶ä¸å½“å‰çš„æ¸…å•æ–‡ä»¶è¿›è¡Œæ¯”å¯¹ï¼›\n" +
+                "* æ­¤åŠŸèƒ½ç”¨äºå½“å‰æ¸…å•ä¸ä¸Šä¸€ç‰ˆæœ¬å·å¯¹åº”çš„æ¸…å•è¿›è¡Œæ¯”å¯¹ï¼›\n" +
+                "* å·®å¼‚åŒ–æ¯”å¯¹æ“ä½œä¸ºå¢é‡æ–¹å¼ï¼Œåªå¯¹æ–°å¢æˆ–ä¿®æ”¹æ–‡ä»¶è¿›è¡Œè®°å½•ï¼Œè€Œå·²åˆ é™¤çš„æ–‡ä»¶ä¸ä½œä¸ºèµ„æºå·®å¼‚åŒ–æ¯”å¯¹èŒƒç•´ï¼›\n" +
+                "* æ¯æ¬¡æ‰§è¡Œå·®å¼‚åŒ–æ¯”å¯¹æ—¶ï¼Œä¼šæ¸…é™¤ä¸Šä¸€æ¬¡çš„æ¯”å¯¹ç»“æœï¼Œæ“ä½œæ—¶è¯·ç•™æ„ï¼›" +
                 "</color>"
                 , Gui.LabelStyle, GUILayout.Height(45));
 
@@ -71,13 +71,13 @@ namespace cngraphi.gassets.editor
             EditorGUILayout.BeginVertical("box");
             EditorGUILayout.Space(10);
             EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("²îÒì»¯Çåµ¥Ä¿Â¼", Gui.LabelStyle, GUILayout.Width(90));
-            if (GUILayout.Button("Ñ¡Ôñ", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+            EditorGUILayout.LabelField("å·®å¼‚åŒ–æ¸…å•ç›®å½•", Gui.LabelStyle, GUILayout.Width(90));
+            if (GUILayout.Button("é€‰æ‹©", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
             {
-                string p = Dialog.Directory("Ñ¡Ôñ²îÒì»¯ Manifest Çåµ¥Ä¿Â¼");
+                string p = Dialog.Directory("é€‰æ‹©å·®å¼‚åŒ– Manifest æ¸…å•ç›®å½•");
                 m_diffpath = string.IsNullOrEmpty(p) ? m_diffpath : p;
             }
-            if (GUILayout.Button("Ö´ĞĞ", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+            if (GUILayout.Button("æ‰§è¡Œ", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
             {
                 GenAllDiffVersionFiles();
             }
@@ -89,8 +89,8 @@ namespace cngraphi.gassets.editor
             EditorGUILayout.Space(5);
             EditorGUILayout.LabelField(
                 "<color=#999999>" +
-                "* ¸ù¾İµ±Ç°°æ±¾µÄ Manifest£¬ÎªÖ®Ç°Ã¿Ò»¸ö°æ±¾µÄ Manifest Éú³É²îÒì»¯Çåµ¥£»\n" +
-                "* Ö»Éú³É²îÒì»¯Çåµ¥£¬²¢²»°üº¬²îÒì»¯ÎÄ¼ş£»" +
+                "* æ ¹æ®å½“å‰ç‰ˆæœ¬çš„ Manifestï¼Œä¸ºä¹‹å‰æ¯ä¸€ä¸ªç‰ˆæœ¬çš„ Manifest ç”Ÿæˆå·®å¼‚åŒ–æ¸…å•ï¼›\n" +
+                "* åªç”Ÿæˆå·®å¼‚åŒ–æ¸…å•ï¼Œå¹¶ä¸åŒ…å«å·®å¼‚åŒ–æ–‡ä»¶ï¼›" +
                 "</color>", Gui.LabelStyle, GUILayout.Height(34));
             EditorGUILayout.Space(10);
             EditorGUILayout.EndVertical();
@@ -99,17 +99,17 @@ namespace cngraphi.gassets.editor
 
 
         /// <summary>
-        /// ²îÒì»¯±È¶Ô
+        /// å·®å¼‚åŒ–æ¯”å¯¹
         /// </summary>
         private void GenDiffVersion()
         {
-            if (Dialog.Confirm("È·ÈÏ¿ªÊ¼Ö´ĞĞ²îÒì»¯±È¶Ô?") != 0) { return; }
-            if (string.IsNullOrEmpty(m_diffverPath)) { Dialog.Tip("ÇëÑ¡Ôñ²îÒì»¯±È¶ÔÎÄ¼ş"); return; }
+            if (Dialog.Confirm("ç¡®è®¤å¼€å§‹æ‰§è¡Œå·®å¼‚åŒ–æ¯”å¯¹?") != 0) { return; }
+            if (string.IsNullOrEmpty(m_diffverPath)) { Dialog.Tip("è¯·é€‰æ‹©å·®å¼‚åŒ–æ¯”å¯¹æ–‡ä»¶"); return; }
 
             string outp = cngraphi.gassets.common.Paths.StreamingPathAppend(settings.AssetRootPath);
-            if (string.IsNullOrEmpty(outp)) { Dialog.Tip("ÇëÔÚÅäÖÃÖĞÉèÖÃ¹¹½¨×ÊÔ´µÄÂ·¾¶£¡"); return; }
+            if (string.IsNullOrEmpty(outp)) { Dialog.Tip("è¯·åœ¨é…ç½®ä¸­è®¾ç½®æ„å»ºèµ„æºçš„è·¯å¾„ï¼"); return; }
 
-            //Éú³É´æ´¢¸ùÄ¿Â¼
+            //ç”Ÿæˆå­˜å‚¨æ ¹ç›®å½•
             outp = cngraphi.gassets.common.Paths.Replace(outp);
             int indx = outp.LastIndexOf("/");
             string diffdir = Path.Combine(
@@ -121,17 +121,17 @@ namespace cngraphi.gassets.editor
             else { IO.DirClear(diffdir); }
 
 
-            //¶ÁÈ¡µ±Ç°Êä³öÄ¿Â¼ÏÂµÄ Manifest Çåµ¥
+            //è¯»å–å½“å‰è¾“å‡ºç›®å½•ä¸‹çš„ Manifest æ¸…å•
             string curpath = Path.Combine(outp, "manifest");
             if (!System.IO.File.Exists(curpath))
             {
-                Dialog.Confirm("µ±Ç°×ÊÔ´°üÊä³öÄ¿Â¼ÏÂÎ´ÕÒµ½ Manifest ÎÄ¼ş");
+                Dialog.Confirm("å½“å‰èµ„æºåŒ…è¾“å‡ºç›®å½•ä¸‹æœªæ‰¾åˆ° Manifest æ–‡ä»¶");
                 return;
             }
             string[] news = System.IO.File.ReadAllLines(curpath);
             string newversion = news[0];
 
-            //¶ÁÈ¡ÒÑÑ¡ÔñµÄ Manifest Çåµ¥
+            //è¯»å–å·²é€‰æ‹©çš„ Manifest æ¸…å•
             Dictionary<string, string> origins = new Dictionary<string, string>();
             string[] orign = System.IO.File.ReadAllLines(m_diffverPath);
             int len = orign.Length;
@@ -141,11 +141,11 @@ namespace cngraphi.gassets.editor
                 origins.Add(rs[0], rs[2]);
             }
 
-            //½øĞĞ±È¶Ô
+            //è¿›è¡Œæ¯”å¯¹
             int newslen = news.Length;
             int allsize = 0;
             StringBuilder cnf_base = new StringBuilder();
-            //cnf_base.Append(newversion + C_LineSeq); //°æ±¾ºÅ£¨Óëµ±Ç°×îĞÂ manifest ÅäÖÃÖĞµÄ°æ±¾ºÅÒ»ÖÂ£©
+            //cnf_base.Append(newversion + C_LineSeq); //ç‰ˆæœ¬å·ï¼ˆä¸å½“å‰æœ€æ–° manifest é…ç½®ä¸­çš„ç‰ˆæœ¬å·ä¸€è‡´ï¼‰
             StringBuilder cnf_info = new StringBuilder();
             for (int i = 2; i < newslen; i++)
             {
@@ -153,13 +153,13 @@ namespace cngraphi.gassets.editor
                 string filename = rs[0];
                 origins.TryGetValue(filename, out string originval);
                 if (string.IsNullOrEmpty(originval) || originval != rs[2])
-                {//ĞÂÔö or ×ÊÔ´ÓĞĞŞ¸Ä¡£ÔöÁ¿°ü²Ù×÷£¬µ±Ç° Manifest ÅäÖÃÒÑÉ¾³ıµÄÎÄ¼ş²»×÷Îª×ÊÔ´¸üĞÂµÄ±ê×¼¡£
-                    //¿½±´ÎÄ¼ş
+                {//æ–°å¢ or èµ„æºæœ‰ä¿®æ”¹ã€‚å¢é‡åŒ…æ“ä½œï¼Œå½“å‰ Manifest é…ç½®å·²åˆ é™¤çš„æ–‡ä»¶ä¸ä½œä¸ºèµ„æºæ›´æ–°çš„æ ‡å‡†ã€‚
+                    //æ‹·è´æ–‡ä»¶
                     string srcfile = Path.Combine(outp, filename);
                     IO.CopyFile(srcfile, Path.Combine(diffdir, filename));
                     allsize += int.Parse(rs[1]);
                     cnf_info.Append(filename + C_LineSeq);
-                    //É¾³ıÎÄ¼ş
+                    //åˆ é™¤æ–‡ä»¶
                     if (m_isDelDiff)
                     {
                         System.IO.File.Delete(srcfile);
@@ -167,58 +167,58 @@ namespace cngraphi.gassets.editor
                     }
                 }
             }
-            cnf_base.Append(allsize.ToString()); //²îÒì»¯ÎÄ¼ş´óĞ¡£¨µ¥Î»£º×Ö½Ú£©
+            cnf_base.Append(allsize.ToString()); //å·®å¼‚åŒ–æ–‡ä»¶å¤§å°ï¼ˆå•ä½ï¼šå­—èŠ‚ï¼‰
 
-            //Éú³É±È¶ÔÇåµ¥
+            //ç”Ÿæˆæ¯”å¯¹æ¸…å•
             string cnf = cnf_base.ToString().Trim() + C_LineSeq + cnf_info.ToString().Trim();
             cnf = cnf.Trim();
             string savefileName = C_HotfixDirPrefix + "_" + newversion + "_" + orign[0];
             System.IO.File.WriteAllBytes(Path.Combine(diffdir, savefileName), Encoding.UTF8.GetBytes(cnf));
 
-            //½«×îĞÂµÄ×ÊÔ´Çåµ¥Ò²¿½±´µ½²îÒì»¯Ä¿Â¼
+            //å°†æœ€æ–°çš„èµ„æºæ¸…å•ä¹Ÿæ‹·è´åˆ°å·®å¼‚åŒ–ç›®å½•
             IO.CopyFile(curpath, Path.Combine(diffdir, "manifest"));
 
             AssetDatabase.Refresh();
-            Dialog.Tip("²îÒì»¯±È¶ÔÍê±Ï£¡");
+            Dialog.Tip("å·®å¼‚åŒ–æ¯”å¯¹å®Œæ¯•ï¼");
         }
 
 
         /// <summary>
-        /// Éú³ÉËùÓĞÀúÊ·°æ±¾µÄ²îÒì»¯ÅäÖÃ
+        /// ç”Ÿæˆæ‰€æœ‰å†å²ç‰ˆæœ¬çš„å·®å¼‚åŒ–é…ç½®
         /// </summary>
         private void GenAllDiffVersionFiles()
         {
             if (string.IsNullOrEmpty(m_diffpath))
             {
-                Dialog.Tip("Î´Ñ¡Ôñ²îÒì»¯Çåµ¥Ä¿Â¼");
+                Dialog.Tip("æœªé€‰æ‹©å·®å¼‚åŒ–æ¸…å•ç›®å½•");
                 return;
             }
 
             string outp = cngraphi.gassets.common.Paths.StreamingPathAppend(settings.AssetRootPath);
-            if (string.IsNullOrEmpty(outp)) { Dialog.Tip("ÇëÔÚÅäÖÃÖĞÉèÖÃ¹¹½¨×ÊÔ´µÄÂ·¾¶£¡"); return; }
-            if (Dialog.Confirm("È·ÈÏ¿ªÊ¼Ö´ĞĞËùÓĞÀúÊ·°æ±¾µÄ²îÒì»¯Çåµ¥±È¶Ô?") != 0) { return; }
+            if (string.IsNullOrEmpty(outp)) { Dialog.Tip("è¯·åœ¨é…ç½®ä¸­è®¾ç½®æ„å»ºèµ„æºçš„è·¯å¾„ï¼"); return; }
+            if (Dialog.Confirm("ç¡®è®¤å¼€å§‹æ‰§è¡Œæ‰€æœ‰å†å²ç‰ˆæœ¬çš„å·®å¼‚åŒ–æ¸…å•æ¯”å¯¹?") != 0) { return; }
 
             List<string> files = new List<string>();
             IO.GetFiles(m_diffpath, files);
             int len = files.Count;
             if (len == 0)
             {
-                Dialog.Tip("Ñ¡ÔñµÄÄ¿Â¼ÄÚÎ´ÕÒµ½ÈÎºÎ Manifest Çåµ¥ÎÄ¼ş");
+                Dialog.Tip("é€‰æ‹©çš„ç›®å½•å†…æœªæ‰¾åˆ°ä»»ä½• Manifest æ¸…å•æ–‡ä»¶");
                 return;
             }
 
-            //¶ÁÈ¡µ±Ç°Êä³öÄ¿Â¼ÏÂµÄ×îĞÂ Manifest ÎÄ¼ş
+            //è¯»å–å½“å‰è¾“å‡ºç›®å½•ä¸‹çš„æœ€æ–° Manifest æ–‡ä»¶
             string curpath = Path.Combine(outp, "manifest");
             if (!System.IO.File.Exists(curpath))
             {
-                Dialog.Confirm("µ±Ç°Êä³öÄ¿Â¼ÏÂÎ´ÕÒµ½ Manifest ÎÄ¼ş");
+                Dialog.Confirm("å½“å‰è¾“å‡ºç›®å½•ä¸‹æœªæ‰¾åˆ° Manifest æ–‡ä»¶");
                 return;
             }
             string[] news = System.IO.File.ReadAllLines(curpath);
             string newversion = news[0];
             int newslen = news.Length;
 
-            //Éú³É´æ´¢Ä¿Â¼
+            //ç”Ÿæˆå­˜å‚¨ç›®å½•
             outp = cngraphi.gassets.common.Paths.Replace(outp);
             int indx = outp.LastIndexOf("/");
             string savedir = Path.Combine(
@@ -229,15 +229,15 @@ namespace cngraphi.gassets.editor
             if (!System.IO.Directory.Exists(savedir)) { System.IO.Directory.CreateDirectory(savedir); }
             else { IO.DirClear(savedir); }
 
-            //¿ªÊ¼ÎªÃ¿Ò»¸öÀúÊ·°æ±¾µÄ manifest ½øĞĞ²îÒì»¯±È¶Ô
+            //å¼€å§‹ä¸ºæ¯ä¸€ä¸ªå†å²ç‰ˆæœ¬çš„ manifest è¿›è¡Œå·®å¼‚åŒ–æ¯”å¯¹
             for (int i = 0; i < len; i++)
             {
-                //¶ÁÈ¡ÀúÊ·°æ±¾
+                //è¯»å–å†å²ç‰ˆæœ¬
                 string fname = files[i];
                 Str.Split(fname, "_", out List<string> result);
-                if (result[2] == newversion) { continue; } //ÀúÊ·°æ±¾µÄ°æ±¾ºÅÓëµ±Ç°×îĞÂ ManifestÖĞ µÄ°æ±¾ºÅÒ»ÖÂ£¬Ôò²»´¦Àí
+                if (result[2] == newversion) { continue; } //å†å²ç‰ˆæœ¬çš„ç‰ˆæœ¬å·ä¸å½“å‰æœ€æ–° Manifestä¸­ çš„ç‰ˆæœ¬å·ä¸€è‡´ï¼Œåˆ™ä¸å¤„ç†
 
-                Dictionary<string, string> origins = new Dictionary<string, string>(); // ×ÊÔ´abÃû³Æ£¬×ÊÔ´µÄmd5
+                Dictionary<string, string> origins = new Dictionary<string, string>(); // èµ„æºabåç§°ï¼Œèµ„æºçš„md5
                 string[] orign = System.IO.File.ReadAllLines(fname);
                 int _len = orign.Length;
                 for (int j = 2; j < _len; j++)
@@ -246,10 +246,10 @@ namespace cngraphi.gassets.editor
                     origins.Add(rs[0], rs[2]);
                 }
 
-                //½øĞĞ±È¶Ô
+                //è¿›è¡Œæ¯”å¯¹
                 int allsize = 0;
                 StringBuilder cnf_base = new StringBuilder();
-                //cnf_base.Append(newversion + C_LineSeq); //°æ±¾ºÅ£¨Óëµ±Ç°×îĞÂ manifest ÅäÖÃÖĞµÄ°æ±¾ºÅÒ»ÖÂ£©
+                //cnf_base.Append(newversion + C_LineSeq); //ç‰ˆæœ¬å·ï¼ˆä¸å½“å‰æœ€æ–° manifest é…ç½®ä¸­çš„ç‰ˆæœ¬å·ä¸€è‡´ï¼‰
                 StringBuilder cnf_info = new StringBuilder();
                 for (int k = 2; k < newslen; k++)
                 {
@@ -257,14 +257,14 @@ namespace cngraphi.gassets.editor
                     string filename = rs[0];
                     origins.TryGetValue(filename, out string originval);
                     if (string.IsNullOrEmpty(originval) || originval != rs[2])
-                    {//ĞÂÔö or ×ÊÔ´ÓĞĞŞ¸Ä¡£ÔöÁ¿°ü²Ù×÷£¬µ±Ç°ManifestÅäÖÃÒÑÉ¾³ıµÄÎÄ¼ş²»×÷Îª×ÊÔ´¸üĞÂµÄ±ê×¼¡£
+                    {//æ–°å¢ or èµ„æºæœ‰ä¿®æ”¹ã€‚å¢é‡åŒ…æ“ä½œï¼Œå½“å‰Manifesté…ç½®å·²åˆ é™¤çš„æ–‡ä»¶ä¸ä½œä¸ºèµ„æºæ›´æ–°çš„æ ‡å‡†ã€‚
                         allsize += int.Parse(rs[1]);
                         cnf_info.Append(filename + C_LineSeq);
                     }
                 }
-                cnf_base.Append(allsize.ToString()); //²îÒì»¯ÎÄ¼ş´óĞ¡£¨µ¥Î»£º×Ö½Ú£©
+                cnf_base.Append(allsize.ToString()); //å·®å¼‚åŒ–æ–‡ä»¶å¤§å°ï¼ˆå•ä½ï¼šå­—èŠ‚ï¼‰
 
-                //Éú³É±È¶ÔÅäÖÃ
+                //ç”Ÿæˆæ¯”å¯¹é…ç½®
                 string cnf = cnf_base.ToString().Trim() + C_LineSeq + cnf_info.ToString().Trim();
                 cnf = cnf.Trim();
                 string savefileName = C_HotfixDirPrefix + "_" + newversion + "_" + orign[0];
@@ -272,7 +272,7 @@ namespace cngraphi.gassets.editor
             }
 
             AssetDatabase.Refresh();
-            Dialog.Tip("²îÒì»¯±È¶ÔÍê³É£¡");
+            Dialog.Tip("å·®å¼‚åŒ–æ¯”å¯¹å®Œæˆï¼");
         }
     }
 

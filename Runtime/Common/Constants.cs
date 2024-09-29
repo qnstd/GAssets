@@ -3,33 +3,33 @@ using System.Collections.Generic;
 namespace cngraphi.gassets.common
 {
     /// <summary>
-    /// ³£Á¿
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// å¸¸é‡
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class Constants
     {
         /// <summary>
-        /// ´´½¨×ÊÔ´¹ÜÀíÆ÷ÅäÖÃÎÄ¼şµÄÂ·¾¶¡£´ËÂ·¾¶±ØĞëÊÇ Resources Ä¿Â¼£¬ÇÒ±ØĞëÔÚ¸ùÄ¿Â¼ÏÂ±£´æ¡£ÔËĞĞÊ±×´Ì¬ÏÂ»á×Ô¶¯´Ó´ËÂ·¾¶ÏÂ¼ÓÔØ¡£
+        /// åˆ›å»ºèµ„æºç®¡ç†å™¨é…ç½®æ–‡ä»¶çš„è·¯å¾„ã€‚æ­¤è·¯å¾„å¿…é¡»æ˜¯ Resources ç›®å½•ï¼Œä¸”å¿…é¡»åœ¨æ ¹ç›®å½•ä¸‹ä¿å­˜ã€‚è¿è¡Œæ—¶çŠ¶æ€ä¸‹ä¼šè‡ªåŠ¨ä»æ­¤è·¯å¾„ä¸‹åŠ è½½ã€‚
         /// </summary>
         public const string CONFIGURE_PATH = "Assets/Resources";
         /// <summary>
-        /// ×ÊÔ´¹ÜÀíÆ÷ÅäÖÃÎÄ¼şÃû
+        /// èµ„æºç®¡ç†å™¨é…ç½®æ–‡ä»¶å
         /// </summary>
         public const string CONFIGURE_FILENAME = "GAssetSettings";
         /// <summary>
-        /// ×ÊÔ´¿â°üÃû
+        /// èµ„æºåº“åŒ…å
         /// </summary>
         public const string PACKAGES_NAME = "com.cngraphi.gassets";
         /// <summary>
-        /// ×ÊÔ´ÅäÖÃĞÅÏ¢ÎÄ¼ş
+        /// èµ„æºé…ç½®ä¿¡æ¯æ–‡ä»¶
         /// </summary>
         public const string MANIFEST = "manifest";
         /// <summary>
-        /// ×ÊÔ´¹ÜÀíÆ÷ÏÔÊ¾Ãû³Æ
+        /// èµ„æºç®¡ç†å™¨æ˜¾ç¤ºåç§°
         /// </summary>
-        public const string LIBRARY_DISPLAYNAME = "GAssets ×ÊÔ´¹ÜÀí¿ò¼Ü";
+        public const string LIBRARY_DISPLAYNAME = "GAssets èµ„æºç®¡ç†æ¡†æ¶";
         /// <summary>
-        /// ÎÄµµ±êÇ©/Ïà¶ÔÂ·¾¶
+        /// æ–‡æ¡£æ ‡ç­¾/ç›¸å¯¹è·¯å¾„
         /// </summary>
         static public Dictionary<string, string> MDS = new Dictionary<string, string>()
         {

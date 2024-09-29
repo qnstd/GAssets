@@ -4,29 +4,29 @@ using UnityEngine;
 namespace cngraphi.gassets.common
 {
     /// <summary>
-    /// ĞÅÏ¢Ôª±ê¼Ç
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// ä¿¡æ¯å…ƒæ ‡è®°
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Enum)] // ×Ö¶Î¡¢Ã¶¾Ù
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Enum)] // å­—æ®µã€æšä¸¾
     public class InfoPropAttri : PropertyAttribute
     {
         /// <summary>
-        /// ÀàĞÍ
+        /// ç±»å‹
         /// </summary>
         public DomainType Type { get; set; } = DomainType.General;
 
         /// <summary>
-        /// ×Ö¶ÎÃèÊöĞÅÏ¢
+        /// å­—æ®µæè¿°ä¿¡æ¯
         /// </summary>
         public string Desc { get; set; } = "";
 
         /// <summary>
-        /// ×Ö¶Î°ïÖúËµÃ÷
+        /// å­—æ®µå¸®åŠ©è¯´æ˜
         /// </summary>
         public string Help { get; set; } = "";
 
         /// <summary>
-        /// ×Ö¶Î°ïÖúËµÃ÷¸ß¶È
+        /// å­—æ®µå¸®åŠ©è¯´æ˜é«˜åº¦
         /// </summary>
         public int HelpHeight { get; set; } = 0;
 

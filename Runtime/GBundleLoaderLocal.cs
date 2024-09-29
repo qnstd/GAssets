@@ -3,8 +3,8 @@ using UnityEngine;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ±¾µØ AssetBundle ¼ÓÔØÆ÷
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// æœ¬åœ° AssetBundle åŠ è½½å™¨
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GBundleLoaderLocal : GBundleLoader
     {

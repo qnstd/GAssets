@@ -5,8 +5,8 @@ using UnityEngine;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ÏÂÔØ
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// ä¸‹è½½
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GDownload : MonoBehaviour
     {
@@ -72,13 +72,13 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Ö´ĞĞÏÂÔØÈÎÎñ
+        /// æ‰§è¡Œä¸‹è½½ä»»åŠ¡
         /// </summary>
-        /// <param name="url">ÏÂÔØµØÖ·</param>
-        /// <param name="progress">ÏÂÔØ½ø¶È»Øµ÷</param>
-        /// <param name="finish">ÏÂÔØÍê³É»Øµ÷</param>
-        /// <param name="err">ÏÂÔØ´íÎó»Øµ÷</param>
-        /// <returns>ÏÂÔØÈÎÎñ</returns>
+        /// <param name="url">ä¸‹è½½åœ°å€</param>
+        /// <param name="progress">ä¸‹è½½è¿›åº¦å›è°ƒ</param>
+        /// <param name="finish">ä¸‹è½½å®Œæˆå›è°ƒ</param>
+        /// <param name="err">ä¸‹è½½é”™è¯¯å›è°ƒ</param>
+        /// <returns>ä¸‹è½½ä»»åŠ¡</returns>
         static public GDownloadTask Excute(string url, Action<double, ulong, ulong> progress = null, Action finish = null, Action<string, string> err = null)
         {
             if (string.IsNullOrEmpty(url)) { return null; }
@@ -87,7 +87,7 @@ namespace cngraphi.gassets
             string key = task.FileName;
 
             if (m_dic.TryGetValue(key, out GDownloadTask _task))
-            {// ÒÑ´æÔÚ
+            {// å·²å­˜åœ¨
                 task.Cancel();
                 GDownloadTaskHandler handler = _task.Handler;
                 if (handler != null)
@@ -107,13 +107,13 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// È¡ÏûÕıÔÚÖ´ĞĞµÄÏÂÔØÈÎÎñ
+        /// å–æ¶ˆæ­£åœ¨æ‰§è¡Œçš„ä¸‹è½½ä»»åŠ¡
         /// </summary>
-        /// <param name="key">Ë÷ÒıÖµ£¨ÏÂÔØÎÄ¼şµÄÎÄ¼şÃû£©</param>
+        /// <param name="key">ç´¢å¼•å€¼ï¼ˆä¸‹è½½æ–‡ä»¶çš„æ–‡ä»¶åï¼‰</param>
         static public void UnExcute(string key)
         {
             if (string.IsNullOrEmpty(key)) { return; }
-            if (!m_dic.TryGetValue(key, out GDownloadTask task)) { return; } // ²ÎÊı¶ÔÓ¦µÄÈÎÎñÎ´ÔÚÖ´ĞĞÁĞ±íÖĞ
+            if (!m_dic.TryGetValue(key, out GDownloadTask task)) { return; } // å‚æ•°å¯¹åº”çš„ä»»åŠ¡æœªåœ¨æ‰§è¡Œåˆ—è¡¨ä¸­
 
             if (task.Status == GDownloadStatus.Start || task.Status == GDownloadStatus.Ing)
             {

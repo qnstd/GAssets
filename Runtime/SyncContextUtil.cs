@@ -5,12 +5,12 @@ using UnityEngine;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// Ïß³ÌÉÏÏÂÎÄµ÷ÓÃ
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// çº¿ç¨‹ä¸Šä¸‹æ–‡è°ƒç”¨
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class SyncContextUtil
     {
-        //Ôª±ê¼Ç£¬ÔÚ¼ÓÔØ³¡¾°Ö®Ç°×Ô¶¯³õÊ¼»¯
+        //å…ƒæ ‡è®°ï¼Œåœ¨åŠ è½½åœºæ™¯ä¹‹å‰è‡ªåŠ¨åˆå§‹åŒ–
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static private void Initialize()
         {
@@ -20,7 +20,7 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// µ±Ç°Ïß³ÌID
+        /// å½“å‰çº¿ç¨‹ID
         /// </summary>
         static public int UnityThreadId
         {
@@ -29,7 +29,7 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// µ±Ç°Ö´ĞĞ³ÌĞòµÄÉÏÏÂÎÄ
+        /// å½“å‰æ‰§è¡Œç¨‹åºçš„ä¸Šä¸‹æ–‡
         /// </summary>
         static public SynchronizationContext UnitySynchronizationContext
         {
@@ -38,17 +38,17 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ÔÚunityÏß³ÌÉÏÏÂÎÄÖĞÔËĞĞ
+        /// åœ¨unityçº¿ç¨‹ä¸Šä¸‹æ–‡ä¸­è¿è¡Œ
         /// </summary>
-        /// <param name="action">Î¯ÍĞ</param>
+        /// <param name="action">å§”æ‰˜</param>
         static public void RunOnUnityScheduler(Action action)
         {
             if (SynchronizationContext.Current == UnitySynchronizationContext)
-            {//µ±Ç°Ïß³Ìµ÷ÓÃ£¬Í¬²½Ö´ĞĞ
+            {//å½“å‰çº¿ç¨‹è°ƒç”¨ï¼ŒåŒæ­¥æ‰§è¡Œ
                 action();
             }
             else
-            {//·Çµ±Ç°Ïß³Ìµ÷ÓÃ£¬Òì²½POSTÖ´ĞĞ
+            {//éå½“å‰çº¿ç¨‹è°ƒç”¨ï¼Œå¼‚æ­¥POSTæ‰§è¡Œ
                 UnitySynchronizationContext.Post(_ => action(), null);
             }
         }

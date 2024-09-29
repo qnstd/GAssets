@@ -10,8 +10,8 @@ using UnityEngine.U2D;
 namespace cngraphi.gassets.editor
 {
     /// <summary>
-    /// ´´½¨¡¢¸üĞÂ SpriteAtlas Í¼¼¯¹¤¾ß
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// åˆ›å»ºã€æ›´æ–° SpriteAtlas å›¾é›†å·¥å…·
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public partial class GAssetEditOperate : EditorWindow
     {
@@ -95,45 +95,45 @@ namespace cngraphi.gassets.editor
         }
         private void OnGUI_Atlas()
         {
-            #region ´´½¨¡¢¸üĞÂ SpriteAtlas
-            m_atlasFoldout = EditorGUILayout.Foldout(m_atlasFoldout, new GUIContent("Í¼¼¯"), true);
+            #region åˆ›å»ºã€æ›´æ–° SpriteAtlas
+            m_atlasFoldout = EditorGUILayout.Foldout(m_atlasFoldout, new GUIContent("å›¾é›†"), true);
             if (m_atlasFoldout)
             {
                 EditorGUILayout.BeginVertical("box");
                 EditorGUI.indentLevel += 2;
-                //É¢Í¼³ß´ç
-                m_limitSize = EditorGUILayout.Vector2IntField("µ¥ÕÅÎÆÀí³ß´çÏŞÖÆ", m_limitSize);
+                //æ•£å›¾å°ºå¯¸
+                m_limitSize = EditorGUILayout.Vector2IntField("å•å¼ çº¹ç†å°ºå¯¸é™åˆ¶", m_limitSize);
 
-                //Í¼¼¯³ß´ç
+                //å›¾é›†å°ºå¯¸
                 EditorGUILayout.Space(10);
-                m_size = EditorGUILayout.IntField("Í¼¼¯³ß´ç", m_size);
+                m_size = EditorGUILayout.IntField("å›¾é›†å°ºå¯¸", m_size);
 
-                //Í¼¼¯¸ñÊ½
+                //å›¾é›†æ ¼å¼
                 EditorGUILayout.Space(10);
-                EditorGUILayout.LabelField("Í¼¼¯¸ñÊ½");
+                EditorGUILayout.LabelField("å›¾é›†æ ¼å¼");
                 EditorGUI.indentLevel += 2;
                 EditorGUILayout.BeginVertical("box");
-                OnGUI_PlatformTexInfo("Ä¬ÈÏ£º", ref m_default, ref m_defaultQuality);
-                OnGUI_PlatformTexInfo("PC£º", ref m_pc, ref m_pcQuality);
-                OnGUI_PlatformTexInfo("Android£º", ref m_android, ref m_androidQuality);
-                OnGUI_PlatformTexInfo("iOS£º", ref m_ios, ref m_iosQuality);
-                OnGUI_PlatformTexInfo("WebGL£º", ref m_webgl, ref m_webglQuality);
+                OnGUI_PlatformTexInfo("é»˜è®¤ï¼š", ref m_default, ref m_defaultQuality);
+                OnGUI_PlatformTexInfo("PCï¼š", ref m_pc, ref m_pcQuality);
+                OnGUI_PlatformTexInfo("Androidï¼š", ref m_android, ref m_androidQuality);
+                OnGUI_PlatformTexInfo("iOSï¼š", ref m_ios, ref m_iosQuality);
+                OnGUI_PlatformTexInfo("WebGLï¼š", ref m_webgl, ref m_webglQuality);
                 EditorGUILayout.Space(5);
-                EditorGUILayout.LabelField("<color=#ffcc00>* Ñ¹ËõÆ·ÖÊ 50% ÊÓÎªÕı³£Æ·ÖÊ</color>", Gui.LabelStyle);
+                EditorGUILayout.LabelField("<color=#ffcc00>* å‹ç¼©å“è´¨ 50% è§†ä¸ºæ­£å¸¸å“è´¨</color>", Gui.LabelStyle);
                 EditorGUILayout.EndVertical();
                 EditorGUI.indentLevel -= 2;
 
-                //Í¼¼¯Ñ¡Ôñ
+                //å›¾é›†é€‰æ‹©
                 EditorGUILayout.Space(15);
-                EditorGUILayout.LabelField("<color=#999999>É¢Í¼Ä¿Â¼£¨Ö§³Ö¶à¸öÄ¿Â¼¡£´Ó Project ´°¿ÚÑ¡ÔñÄ¿Â¼ºóÖ±½ÓÍÏÖÁÏÂ·½ÇøÓò£©</color>", Gui.LabelStyle);
+                EditorGUILayout.LabelField("<color=#999999>æ•£å›¾ç›®å½•ï¼ˆæ”¯æŒå¤šä¸ªç›®å½•ã€‚ä» Project çª—å£é€‰æ‹©ç›®å½•åç›´æ¥æ‹–è‡³ä¸‹æ–¹åŒºåŸŸï¼‰</color>", Gui.LabelStyle);
                 Gui.DragTextArea(this, 160, ref m_resdirs, ref m_resDirsAry);
 
 
-                //ÆäËûÄ£¿é
+                //å…¶ä»–æ¨¡å—
                 EditorGUILayout.Space(10);
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.Space(1);
-                if (GUILayout.Button("Éú³É", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(20))) { CreateAtlas(); }
+                if (GUILayout.Button("ç”Ÿæˆ", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(20))) { CreateAtlas(); }
                 EditorGUILayout.EndHorizontal();
                 EditorGUI.indentLevel -= 2;
                 EditorGUILayout.EndVertical();
@@ -142,21 +142,21 @@ namespace cngraphi.gassets.editor
 
             EditorGUILayout.Space(8);
 
-            #region SpriteAtlas ±äÌå
-            m_atlasVariFoldout = EditorGUILayout.Foldout(m_atlasVariFoldout, new GUIContent("Í¼¼¯±äÌå"), true);
+            #region SpriteAtlas å˜ä½“
+            m_atlasVariFoldout = EditorGUILayout.Foldout(m_atlasVariFoldout, new GUIContent("å›¾é›†å˜ä½“"), true);
             if (m_atlasVariFoldout)
             {
                 EditorGUILayout.BeginVertical("box");
                 EditorGUI.indentLevel += 2;
-                m_Master = (SpriteAtlas)EditorGUILayout.ObjectField("Ö÷Í¼¼¯", m_Master, typeof(SpriteAtlas), false);
+                m_Master = (SpriteAtlas)EditorGUILayout.ObjectField("ä¸»å›¾é›†", m_Master, typeof(SpriteAtlas), false);
                 EditorGUILayout.Space(5);
-                m_MasterVariScale = EditorGUILayout.Slider("·Ö±æÂÊ", m_MasterVariScale, 0.1f, 1.0f);
+                m_MasterVariScale = EditorGUILayout.Slider("åˆ†è¾¨ç‡", m_MasterVariScale, 0.1f, 1.0f);
                 EditorGUILayout.Space(5);
-                m_VariName = EditorGUILayout.TextField("±äÌåÃû³ÆÇ°×º", m_VariName);
+                m_VariName = EditorGUILayout.TextField("å˜ä½“åç§°å‰ç¼€", m_VariName);
                 EditorGUILayout.Space(8);
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.Space(1);
-                if (GUILayout.Button("Éú³É", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(20)))
+                if (GUILayout.Button("ç”Ÿæˆ", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(20)))
                 {
                     GenMaterVari();
                 }
@@ -170,7 +170,7 @@ namespace cngraphi.gassets.editor
         {
             EditorGUILayout.BeginHorizontal();
             f = (TextureImporterFormat)EditorGUILayout.EnumPopup(platform, f);
-            quality = EditorGUILayout.IntSlider("Ñ¹ËõÆ·ÖÊ", quality, 0, 100); // ·¶Î§ [0, 100]
+            quality = EditorGUILayout.IntSlider("å‹ç¼©å“è´¨", quality, 0, 100); // èŒƒå›´ [0, 100]
             EditorGUILayout.EndHorizontal();
         }
 
@@ -179,20 +179,20 @@ namespace cngraphi.gassets.editor
         {
             if (m_resDirsAry == null || m_resDirsAry.Length == 0)
             {
-                Dialog.Tip("ÇëÑ¡Ôñ²Ù×÷Ä¿Â¼£¡");
+                Dialog.Tip("è¯·é€‰æ‹©æ“ä½œç›®å½•ï¼");
                 return;
             }
             if (string.IsNullOrEmpty(settings.AtlasOutputPath))
             {
-                Dialog.Tip("ÇëÑ¡ÔñÊä³öÄ¿Â¼!");
+                Dialog.Tip("è¯·é€‰æ‹©è¾“å‡ºç›®å½•!");
                 return;
             }
             if (m_size <= 0)
             {
-                Dialog.Tip("Í¼¼¯³ß´ç²»ÕıÈ·£¡");
+                Dialog.Tip("å›¾é›†å°ºå¯¸ä¸æ­£ç¡®ï¼");
                 return;
             }
-            // ´¦Àí
+            // å¤„ç†
             foreach (string s in m_resDirsAry)
             {
                 if (IO.IsDir(s))
@@ -200,23 +200,23 @@ namespace cngraphi.gassets.editor
                     DealOne(s);
                 }
             }
-            Dialog.Tip("²Ù×÷Íê±Ï!");
+            Dialog.Tip("æ“ä½œå®Œæ¯•!");
         }
         private void DealOne(string dir)
         {
-            //»ñÈ¡Í¼¼¯°ó¶¨µÄ¾«Áé
+            //è·å–å›¾é›†ç»‘å®šçš„ç²¾çµ
             List<string> lst = new List<string>();
             IO.GetFiles(dir, lst);
             if (lst.Count == 0)
             {
-                Debug.LogError($"ÎŞ·¨´´½¨Í¼¼¯£¡É¢Í¼Ä¿Â¼Îª¿Õ¡£Path = {dir}");
+                Debug.LogError($"æ— æ³•åˆ›å»ºå›¾é›†ï¼æ•£å›¾ç›®å½•ä¸ºç©ºã€‚Path = {dir}");
                 return;
             }
 
-            //Í¼¼¯ÎÄ¼şÃûÒÔ¼°AB°ü±êÇ©Ãû
+            //å›¾é›†æ–‡ä»¶åä»¥åŠABåŒ…æ ‡ç­¾å
             string filename = dir.Substring(dir.LastIndexOf("/") + 1).ToLower();
 
-            //´´½¨atlasÍ¼¼¯£¬²¢ÉèÖÃÏà¹Ø²Ù×÷
+            //åˆ›å»ºatlaså›¾é›†ï¼Œå¹¶è®¾ç½®ç›¸å…³æ“ä½œ
             SpriteAtlas atlas = new SpriteAtlas();
             atlas.SetIncludeInBuild(false);
             atlas.SetPackingSettings(m_packingSettings);
@@ -238,7 +238,7 @@ namespace cngraphi.gassets.editor
                 int curheight = sp.texture.height;
                 if (curwidth > m_limitSize.x || curheight > m_limitSize.y)
                 {
-                    Debug.LogError($"µ¥ÕÅÉ¢Í¼³ß´çÔ½½ç¡£width = {curwidth} / height = {curheight} / file = {s}");
+                    Debug.LogError($"å•å¼ æ•£å›¾å°ºå¯¸è¶Šç•Œã€‚width = {curwidth} / height = {curheight} / file = {s}");
                     //im.assetBundleName = string.Empty;
                 }
                 else
@@ -251,12 +251,12 @@ namespace cngraphi.gassets.editor
             }
             if (splst.Count == 0)
             {
-                Debug.LogError($"ÎŞ·¨´´½¨Í¼¼¯£¡µ¥ÕÅÉ¢Í¼µÄ³ß´ç¾ùÔ½½ç¡£Path = {dir}");
+                Debug.LogError($"æ— æ³•åˆ›å»ºå›¾é›†ï¼å•å¼ æ•£å›¾çš„å°ºå¯¸å‡è¶Šç•Œã€‚Path = {dir}");
                 return;
             }
             atlas.Add(splst.ToArray());
 
-            //´´½¨ÎÄ¼ş
+            //åˆ›å»ºæ–‡ä»¶
             string file = filename + C_FileExten;
             file = Path.Combine(settings.AtlasOutputPath, file);
             file = file.Substring(file.IndexOf("Assets"));
@@ -268,7 +268,7 @@ namespace cngraphi.gassets.editor
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
-            //ÉèÖÃAB°ü±êÇ©
+            //è®¾ç½®ABåŒ…æ ‡ç­¾
             //AssetImporter importer = AssetImporter.GetAtPath(file);
             //importer.assetBundleName = filename;
             //importer.assetBundleVariant = "ab";
@@ -284,23 +284,23 @@ namespace cngraphi.gassets.editor
 
 
         /// <summary>
-        /// Éú³ÉÖ÷Í¼¼¯µÄ±äÌå£¨ÆäËû·Ö±æÂÊÍ¼¼¯£©
+        /// ç”Ÿæˆä¸»å›¾é›†çš„å˜ä½“ï¼ˆå…¶ä»–åˆ†è¾¨ç‡å›¾é›†ï¼‰
         /// </summary>
         private void GenMaterVari()
         {
             if (m_Master == null || string.IsNullOrEmpty(m_VariName))
             {
-                Dialog.Tip("²ÎÊı²»ÕıÈ·.");
+                Dialog.Tip("å‚æ•°ä¸æ­£ç¡®.");
                 return;
             }
 
             SpriteAtlas atlas = new SpriteAtlas();
-            atlas.SetIsVariant(true); // ÉèÖÃ±äÌåÀàĞÍ
-            atlas.SetMasterAtlas(m_Master); // °ó¶¨Ö÷Í¼¼¯
+            atlas.SetIsVariant(true); // è®¾ç½®å˜ä½“ç±»å‹
+            atlas.SetMasterAtlas(m_Master); // ç»‘å®šä¸»å›¾é›†
             atlas.SetIncludeInBuild(false);
-            atlas.SetVariantScale(m_MasterVariScale); // ÉèÖÃ±äÌåµÄËõ·Å±È
+            atlas.SetVariantScale(m_MasterVariScale); // è®¾ç½®å˜ä½“çš„ç¼©æ”¾æ¯”
 
-            // ½«Ö÷Í¼¼¯µÄÎÆÀíÉèÖÃĞÅÏ¢´«¸ø±äÌå
+            // å°†ä¸»å›¾é›†çš„çº¹ç†è®¾ç½®ä¿¡æ¯ä¼ ç»™å˜ä½“
             SpriteAtlasTextureSettings sats = m_Master.GetTextureSettings();
             SpriteAtlasTextureSettings texset = new SpriteAtlasTextureSettings()
             {
@@ -322,7 +322,7 @@ namespace cngraphi.gassets.editor
             string filename = m_VariName + Path.GetFileName(p);
             string newp = prefix + filename;
 
-            //´´½¨ÎÄ¼ş
+            //åˆ›å»ºæ–‡ä»¶
             if (File.Exists(newp))
             {
                 AssetDatabase.DeleteAsset(newp);
@@ -331,13 +331,13 @@ namespace cngraphi.gassets.editor
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
-            //ÉèÖÃAB°ü±êÇ©
+            //è®¾ç½®ABåŒ…æ ‡ç­¾
             //AssetImporter importer = AssetImporter.GetAtPath(newp);
-            //importer.assetBundleName = filename.Split(".")[0]; // µ¥¶ÀÎª±äÌåÉú³ÉÒ»¸öab±ê¼Ç
+            //importer.assetBundleName = filename.Split(".")[0]; // å•ç‹¬ä¸ºå˜ä½“ç”Ÿæˆä¸€ä¸ªabæ ‡è®°
             //importer.assetBundleVariant = "ab";
             //importer.SaveAndReimport();
 
-            Dialog.Tip("Éú³ÉÍê±Ï.");
+            Dialog.Tip("ç”Ÿæˆå®Œæ¯•.");
         }
 
     }

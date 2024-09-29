@@ -4,13 +4,13 @@ using UnityEngine;
 namespace cngraphi.gassets.common
 {
     /// <summary>
-    /// Â·¾¶¹¤¾ß
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// è·¯å¾„å·¥å…·
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class Paths
     {
         /// <summary>
-        /// »ñÈ¡¸÷Æ½Ì¨ StreamingAssets Ä¿Â¼Â·¾¶
+        /// è·å–å„å¹³å° StreamingAssets ç›®å½•è·¯å¾„
         /// </summary>
         /// <returns></returns>
         static public string StreamingPath
@@ -34,7 +34,7 @@ namespace cngraphi.gassets.common
 
 
         /// <summary>
-        /// »ñÈ¡¸÷Æ½Ì¨ PersistentData Ä¿Â¼Â·¾¶
+        /// è·å–å„å¹³å° PersistentData ç›®å½•è·¯å¾„
         /// </summary>
         /// <returns></returns>
         static public string PersistentPath
@@ -48,9 +48,9 @@ namespace cngraphi.gassets.common
 
 
         /// <summary>
-        /// ½«²ÎÊıÂ·¾¶µÄ'\'·ûºÅÌæ»»Îª'/'·ûºÅ
+        /// å°†å‚æ•°è·¯å¾„çš„'\'ç¬¦å·æ›¿æ¢ä¸º'/'ç¬¦å·
         /// </summary>
-        /// <param name="path">Â·¾¶</param>
+        /// <param name="path">è·¯å¾„</param>
         /// <returns></returns>
         static public string Replace(string path)
         {
@@ -60,9 +60,9 @@ namespace cngraphi.gassets.common
 
 
         /// <summary>
-        /// ÔÚ StreamingAsset Ä¿Â¼ÏÂ×·¼ÓÄ¿Â¼½á¹¹
+        /// åœ¨ StreamingAsset ç›®å½•ä¸‹è¿½åŠ ç›®å½•ç»“æ„
         /// </summary>
-        /// <param name="p">Ä¿Â¼½á¹¹</param>
+        /// <param name="p">ç›®å½•ç»“æ„</param>
         /// <returns></returns>
         static public string StreamingPathAppend(string p)
         {
@@ -75,9 +75,9 @@ namespace cngraphi.gassets.common
 
 
         /// <summary>
-        /// ÔÚ PersistentData Ä¿Â¼ÏÂ×·¼ÓÄ¿Â¼½á¹¹
+        /// åœ¨ PersistentData ç›®å½•ä¸‹è¿½åŠ ç›®å½•ç»“æ„
         /// </summary>
-        /// <param name="p">Ä¿Â¼½á¹¹</param>
+        /// <param name="p">ç›®å½•ç»“æ„</param>
         /// <returns></returns>
         static public string PersistentPathAppend(string p)
         {

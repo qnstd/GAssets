@@ -8,8 +8,8 @@ using UnityEngine;
 namespace cngraphi.gassets.editor.common
 {
     /// <summary>
-    /// 窗体工具
-    /// <para>作者：强辰</para>
+    /// 绐椾綋宸ュ叿
+    /// <para>浣滆�咃細寮鸿景</para>
     /// </summary>
     public class Gui
     {
@@ -92,7 +92,7 @@ namespace cngraphi.gassets.editor.common
 
 
         /// <summary>
-        /// 创建可由外部拖拽的文本域
+        /// 鍒涘缓鍙敱澶栭儴鎷栨嫿鐨勬枃鏈煙
         /// </summary>
         static public void DragTextArea(EditorWindow win, int h, ref string content, ref string[] contentAry, Action drag = null, Action checkChange = null)
         {
@@ -115,7 +115,7 @@ namespace cngraphi.gassets.editor.common
                 checkChange?.Invoke();
             }
 
-            // 拖拽监听
+            // 鎷栨嫿鐩戝惉
             if (EditorWindow.mouseOverWindow == win && rect.Contains(Event.current.mousePosition))
             {
                 if (Event.current.type == EventType.DragUpdated)

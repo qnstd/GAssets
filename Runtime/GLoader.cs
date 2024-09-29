@@ -4,31 +4,31 @@ using UnityEngine;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ¼ÓÔØÆ÷»ùÀà
-    /// <para>¸ºÔğÎ¬»¤¼ÓÔØÆ÷µÄ¼ÓÔØ¡¢Ğ¶ÔØ¡¢Ë¢ĞÂ¡¢×´Ì¬¡¢ÒıÓÃ¼ÆÊıµÈ»ù´¡²Ù×÷£¬²¢°üº¬ÁË¾²Ì¬´¦Àí£¨ËùÓĞ¼ÓÔØÆ÷´¦ÓÚÕıÔÚ¼ÓÔØ»òÎ´Ê¹ÓÃµÄ»º´æ´¦Àí¡¢Ë¢ĞÂ¼ì²âµÈ£©</para>
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// åŠ è½½å™¨åŸºç±»
+    /// <para>è´Ÿè´£ç»´æŠ¤åŠ è½½å™¨çš„åŠ è½½ã€å¸è½½ã€åˆ·æ–°ã€çŠ¶æ€ã€å¼•ç”¨è®¡æ•°ç­‰åŸºç¡€æ“ä½œï¼Œå¹¶åŒ…å«äº†é™æ€å¤„ç†ï¼ˆæ‰€æœ‰åŠ è½½å™¨å¤„äºæ­£åœ¨åŠ è½½æˆ–æœªä½¿ç”¨çš„ç¼“å­˜å¤„ç†ã€åˆ·æ–°æ£€æµ‹ç­‰ï¼‰</para>
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GLoader
     {
-        #region ¾²Ì¬
+        #region é™æ€
 
         /// <summary>
-        /// ´¦ÓÚ¼ÓÔØ×´Ì¬µÄ¼ÓÔØÆ÷»º´æ
+        /// å¤„äºåŠ è½½çŠ¶æ€çš„åŠ è½½å™¨ç¼“å­˜
         /// </summary>
         static public readonly List<GLoader> m_loading = new List<GLoader>();
 
         /// <summary>
-        /// Î´Ê¹ÓÃµÄ¼ÓÔØÆ÷»º´æ
+        /// æœªä½¿ç”¨çš„åŠ è½½å™¨ç¼“å­˜
         /// </summary>
         static public readonly List<GLoader> m_unused = new List<GLoader>();
 
 
         /// <summary>
-        /// Ö´ĞĞ²¢¸üĞÂËùÓĞ¼ÓÔØÆ÷
+        /// æ‰§è¡Œå¹¶æ›´æ–°æ‰€æœ‰åŠ è½½å™¨
         /// </summary>
         static public void UpdateAll()
         {
-            //¼ÓÔØ
+            //åŠ è½½
             for (var index = 0; index < m_loading.Count; index++)
             {
                 var loa = m_loading[index];
@@ -44,35 +44,35 @@ namespace cngraphi.gassets
 
             //////////////////////////////////////////////////////////////////////
             //TODO:
-            //  Èô´æÔÚ .unity ÎÄ¼şÀàĞÍµÄ¼ÓÔØ£¬ÕâÀïĞèÒªÅĞ¶Ï³¡¾°ÊÇ·ñÕıÔÚ¼ÓÔØ»òÕßÕıÔÚĞ¶ÔØ.
-            //  Èô´¦ÓÚÕâÁ½ÖÖ×´Ì¬£¬ÔòĞèÒªÔÚ´Ë´¦Ö´ĞĞ return ´¦Àí.
+            //  è‹¥å­˜åœ¨ .unity æ–‡ä»¶ç±»å‹çš„åŠ è½½ï¼Œè¿™é‡Œéœ€è¦åˆ¤æ–­åœºæ™¯æ˜¯å¦æ­£åœ¨åŠ è½½æˆ–è€…æ­£åœ¨å¸è½½.
+            //  è‹¥å¤„äºè¿™ä¸¤ç§çŠ¶æ€ï¼Œåˆ™éœ€è¦åœ¨æ­¤å¤„æ‰§è¡Œ return å¤„ç†.
             //
             //
             //END
             //////////////////////////////////////////////////////////////////////
 
-            // Î´Ê¹ÓÃµÄ¼ÓÔØÆ÷×öĞ¶ÔØ
+            // æœªä½¿ç”¨çš„åŠ è½½å™¨åšå¸è½½
             for (int index = 0, max = m_unused.Count; index < max; index++)
             {
                 var loa = m_unused[index];
                 if (GAssetManager.Ins.Busy) break;
 
-                if (!loa.IsDone) continue; //²»ÊÇok || fail || unloaded×´Ì¬£¬·µ»Ø
+                if (!loa.IsDone) continue; //ä¸æ˜¯ok || fail || unloadedçŠ¶æ€ï¼Œè¿”å›
 
                 m_unused.RemoveAt(index);
                 index--;
                 max--;
-                if (!loa.IsUnused) continue;//»¹ÓĞÒıÓÃ£¬·µ»Ø¡£
+                if (!loa.IsUnused) continue;//è¿˜æœ‰å¼•ç”¨ï¼Œè¿”å›ã€‚
 
-                loa.Unload(); //Ğ¶ÔØ
+                loa.Unload(); //å¸è½½
             }
         }
 
 
 
         /// <summary>
-        /// ÇåÀí²Ù×÷
-        /// <para>ËùÓĞ¼ÓÔØÆ÷µÄÇåÀí²¢½«ÒÔ¼ÓÔØµÄËùÓĞAssetBundleÎÄ¼ş½øĞĞÊÍ·Å</para>
+        /// æ¸…ç†æ“ä½œ
+        /// <para>æ‰€æœ‰åŠ è½½å™¨çš„æ¸…ç†å¹¶å°†ä»¥åŠ è½½çš„æ‰€æœ‰AssetBundleæ–‡ä»¶è¿›è¡Œé‡Šæ”¾</para>
         /// </summary>
         static public void ClearAll()
         {
@@ -85,15 +85,15 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Í¨¹ı AssetBundle ÎÄ¼şÃû»ñÈ¡Æä¶ÔÏó
+        /// é€šè¿‡ AssetBundle æ–‡ä»¶åè·å–å…¶å¯¹è±¡
         /// </summary>
-        /// <param name="abname">abÎÄ¼şÃû£¨²»´øºó×º£©</param>
+        /// <param name="abname">abæ–‡ä»¶åï¼ˆä¸å¸¦åç¼€ï¼‰</param>
         /// <returns></returns>
         static public AssetBundle FindABundleByName(string abname)
         {
             /*
-                GDependLoader / GAssetLoader »º´æ×éÖĞµÄkeyÊÇ×ÊÔ´Â·¾¶£¬²¢·ÇÊÇABÎÄ¼şÃû¡£
-                ËùÒÔ£¬Ö»ĞèÒª´ÓGBundleLoaderÖĞ²éÑ¯¼´¿É¡£
+                GDependLoader / GAssetLoader ç¼“å­˜ç»„ä¸­çš„keyæ˜¯èµ„æºè·¯å¾„ï¼Œå¹¶éæ˜¯ABæ–‡ä»¶åã€‚
+                æ‰€ä»¥ï¼Œåªéœ€è¦ä»GBundleLoaderä¸­æŸ¥è¯¢å³å¯ã€‚
              */
             string key = abname + ".ab";
             if (GBundleLoader.m_cache.ContainsKey(key))
@@ -108,23 +108,23 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// µ±Ç°ÒıÓÃÊı
+        /// å½“å‰å¼•ç”¨æ•°
         /// </summary>
         public int Ref { get; private set; } = 0;
 
         /// <summary>
-        /// ÊÇ·ñÊÇÎ´Ê¹ÓÃ
-        /// <para>true£ºÎ´Ê¹ÓÃ£»false£º´æÔÚÒıÓÃ</para>
+        /// æ˜¯å¦æ˜¯æœªä½¿ç”¨
+        /// <para>trueï¼šæœªä½¿ç”¨ï¼›falseï¼šå­˜åœ¨å¼•ç”¨</para>
         /// </summary>
         public bool IsUnused { get { return Ref == 0; } }
 
         /// <summary>
-        /// ÒıÓÃ¼ÆÊı +1
+        /// å¼•ç”¨è®¡æ•° +1
         /// </summary>
         public void AddRef() { Ref++; }
 
         /// <summary>
-        /// ÒıÓÃ¼ÆÊı -1
+        /// å¼•ç”¨è®¡æ•° -1
         /// </summary>
         public void SubRef()
         {
@@ -134,19 +134,19 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Ë¢ĞÂ
+        /// åˆ·æ–°
         /// </summary>
         private void Update() { OnUpdate(); }
 
 
         /// <summary>
-        /// ¼ÓÔØÆ÷¼ÓÔØ²Ù×÷Íê±ÏµÄ´¦Àí
+        /// åŠ è½½å™¨åŠ è½½æ“ä½œå®Œæ¯•çš„å¤„ç†
         /// </summary>
         private void LoadingDone()
         {
             if (Status == GLoaderStatus.Fail)
             {
-                Debug.LogError($"¼ÓÔØÊ§°Ü. path = {Path} / error = {Error}");
+                Debug.LogError($"åŠ è½½å¤±è´¥. path = {Path} / error = {Error}");
                 Dispose();
             }
             OnComplete();
@@ -154,9 +154,9 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ÉèÖÃ¼ÓÔØ²Ù×÷Íê³É×´Ì¬
-        /// <para>°üº¬ÉèÖÃ½ø¶È=1¡¢¼ÓÔØ×´Ì¬£¨Ö»ÓĞ³É¹¦»òÊ§°ÜÁ½ÖÖ×´Ì¬£©</para>
-        /// <para>×ÓÀàÖ±½Óµ÷ÓÃ£¬ÎŞĞèÖØĞ´£¬ÉèÖÃ¼ÓÔØÆ÷²Ù×÷½á¹û</para>
+        /// è®¾ç½®åŠ è½½æ“ä½œå®ŒæˆçŠ¶æ€
+        /// <para>åŒ…å«è®¾ç½®è¿›åº¦=1ã€åŠ è½½çŠ¶æ€ï¼ˆåªæœ‰æˆåŠŸæˆ–å¤±è´¥ä¸¤ç§çŠ¶æ€ï¼‰</para>
+        /// <para>å­ç±»ç›´æ¥è°ƒç”¨ï¼Œæ— éœ€é‡å†™ï¼Œè®¾ç½®åŠ è½½å™¨æ“ä½œç»“æœ</para>
         /// </summary>
         /// <param name="err"></param>
         protected void Finish(string err = null)
@@ -168,7 +168,7 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ¼ÓÔØ
+        /// åŠ è½½
         /// </summary>
         protected void Load()
         {
@@ -186,13 +186,13 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Ğ¶ÔØ
+        /// å¸è½½
         /// </summary>
         protected void Unload()
         {
             if (Status == GLoaderStatus.Unloaded) return;
 
-            Debug.Log($"Ğ¶ÔØ×ÊÔ´. path = {Path}{(string.IsNullOrEmpty(Error) ? "" : $" / error = {Error}")}");
+            Debug.Log($"å¸è½½èµ„æº. path = {Path}{(string.IsNullOrEmpty(Error) ? "" : $" / error = {Error}")}");
 
             OnUnload();
             Status = GLoaderStatus.Unloaded;
@@ -200,8 +200,8 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ÊÇ·ñ²Ù×÷Íê±Ï
-        /// <param>¼ÓÔØ³É¹¦¡¢Ê§°Ü»òĞ¶ÔØ×´Ì¬Ö®Ò»£¬¼´ÊÓÎª²Ù×÷Íê±Ï</param>
+        /// æ˜¯å¦æ“ä½œå®Œæ¯•
+        /// <param>åŠ è½½æˆåŠŸã€å¤±è´¥æˆ–å¸è½½çŠ¶æ€ä¹‹ä¸€ï¼Œå³è§†ä¸ºæ“ä½œå®Œæ¯•</param>
         /// </summary>
         public bool IsDone
         {
@@ -215,42 +215,42 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ×ÊÔ´µØÖ·
+        /// èµ„æºåœ°å€
         /// </summary>
         public string Path { get; protected set; }
 
 
         /// <summary>
-        /// ´íÎóĞÅÏ¢
+        /// é”™è¯¯ä¿¡æ¯
         /// </summary>
         public string Error { get; internal set; }
 
 
         /// <summary>
-        /// ¼ÓÔØ×´Ì¬
+        /// åŠ è½½çŠ¶æ€
         /// </summary>
         public GLoaderStatus Status { get; protected set; } = GLoaderStatus.Wait;
 
 
         /// <summary>
-        /// ¼ÓÔØ½ø¶ÈÖµ
+        /// åŠ è½½è¿›åº¦å€¼
         /// </summary>
         public float Progress { get; protected set; }
 
 
         /// <summary>
-        /// Á¢¿ÌÏìÓ¦¼ÓÔØ²Ù×÷Íê³É
-        /// <para>Ğè×ÓÀàÖØĞ´£¬»ùÀàÎŞ·¨Ö±½Óµ÷ÓÃ</para>
+        /// ç«‹åˆ»å“åº”åŠ è½½æ“ä½œå®Œæˆ
+        /// <para>éœ€å­ç±»é‡å†™ï¼ŒåŸºç±»æ— æ³•ç›´æ¥è°ƒç”¨</para>
         /// </summary>
         public virtual void Immediate()
         {
-            throw new System.Exception("×ÓÀàĞèÖØĞ´£¬»ùÀàÎŞ·¨Ö±½Óµ÷ÓÃ");
+            throw new System.Exception("å­ç±»éœ€é‡å†™ï¼ŒåŸºç±»æ— æ³•ç›´æ¥è°ƒç”¨");
         }
 
 
         /// <summary>
-        /// ÊÍ·Å
-        /// <para>¸üĞÂÒıÓÃ¼ÆÊı£¨ÈôÎª0£¬Ôò¼ÓÈëµ½Î´Ê¹ÓÃ»º´æ×éÖĞ£©</para>
+        /// é‡Šæ”¾
+        /// <para>æ›´æ–°å¼•ç”¨è®¡æ•°ï¼ˆè‹¥ä¸º0ï¼Œåˆ™åŠ å…¥åˆ°æœªä½¿ç”¨ç¼“å­˜ç»„ä¸­ï¼‰</para>
         /// </summary>
         public void Dispose()
         {
@@ -267,29 +267,29 @@ namespace cngraphi.gassets
 
 
 
-        #region ×ÓÀàÖØĞ´
+        #region å­ç±»é‡å†™
 
         /// <summary>
-        /// ¼ÓÔØ×´Ì¬ÏÂµÄÊµÊ±Ë¢ĞÂ
+        /// åŠ è½½çŠ¶æ€ä¸‹çš„å®æ—¶åˆ·æ–°
         /// </summary>
         protected virtual void OnUpdate() { }
         /// <summary>
-        /// ×¼±¸¿ªÊ¼¼ÓÔØÊ±µÄ²Ù×÷
+        /// å‡†å¤‡å¼€å§‹åŠ è½½æ—¶çš„æ“ä½œ
         /// </summary>
         protected virtual void OnLoad() { }
         /// <summary>
-        /// ¼ÓÔØÆ÷ÕıÔÚ±»Ğ¶ÔØÊ±µÄ²Ù×÷
+        /// åŠ è½½å™¨æ­£åœ¨è¢«å¸è½½æ—¶çš„æ“ä½œ
         /// </summary>
         protected virtual void OnUnload() { }
         /// <summary>
-        /// ¶ÔÓÚÕıÔÚÖ´ĞĞµÄ¼ÓÔØÆ÷£¬¼ÓÔØ²Ù×÷Íê±ÏÊ±µÄÏìÓ¦
-        /// <para>1. ²»¹Ü¼ÓÔØ´¦Àí½á¹ûÊÇÊ²Ã´£¨³É¹¦¡¢Ê§°Ü¡¢Ğ¶ÔØµÈ£©¶¼»á´¥·¢´ËÏìÓ¦£»</para>
-        /// <para>2. Èç¹û¼ÓÔØ²Ù×÷Íê±ÏÊ±¼ÓÔØ×´Ì¬ÎªÊ§°Ü£¬ÄÇÃ´µ±Ç°¼ÓÔØÆ÷»áÔÚµ×²ãµ÷ÓÃDispose½øĞĞÒıÓÃÊÍ·Å£»</para>
-        /// <para>3. ¿ÉÒÔÔÚ×ÓÀàÊµÏÖ´Ëº¯ÊıÊ±£¬Ôö¼ÓÍâ²¿»Øµ÷Î¯ÍĞ½øĞĞÉÏ²ãÂß¼­²Ù×÷£»</para>
+        /// å¯¹äºæ­£åœ¨æ‰§è¡Œçš„åŠ è½½å™¨ï¼ŒåŠ è½½æ“ä½œå®Œæ¯•æ—¶çš„å“åº”
+        /// <para>1. ä¸ç®¡åŠ è½½å¤„ç†ç»“æœæ˜¯ä»€ä¹ˆï¼ˆæˆåŠŸã€å¤±è´¥ã€å¸è½½ç­‰ï¼‰éƒ½ä¼šè§¦å‘æ­¤å“åº”ï¼›</para>
+        /// <para>2. å¦‚æœåŠ è½½æ“ä½œå®Œæ¯•æ—¶åŠ è½½çŠ¶æ€ä¸ºå¤±è´¥ï¼Œé‚£ä¹ˆå½“å‰åŠ è½½å™¨ä¼šåœ¨åº•å±‚è°ƒç”¨Disposeè¿›è¡Œå¼•ç”¨é‡Šæ”¾ï¼›</para>
+        /// <para>3. å¯ä»¥åœ¨å­ç±»å®ç°æ­¤å‡½æ•°æ—¶ï¼Œå¢åŠ å¤–éƒ¨å›è°ƒå§”æ‰˜è¿›è¡Œä¸Šå±‚é€»è¾‘æ“ä½œï¼›</para>
         /// </summary>
         protected virtual void OnComplete() { }
         /// <summary>
-        /// ÒıÓÃ¼ÆÊıÎª0£¬±»¼ÓÈëµ½Î´Ê¹ÓÃ»º´æ×éºóµÄ²Ù×÷
+        /// å¼•ç”¨è®¡æ•°ä¸º0ï¼Œè¢«åŠ å…¥åˆ°æœªä½¿ç”¨ç¼“å­˜ç»„åçš„æ“ä½œ
         /// </summary>
         protected virtual void OnUnused() { }
 

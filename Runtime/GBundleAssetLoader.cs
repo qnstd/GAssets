@@ -4,8 +4,8 @@ using UnityEngine;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ¼ÓÔØ AssetBundle ÖĞ×ÊÔ´µÄ¼ÓÔØÆ÷
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// åŠ è½½ AssetBundle ä¸­èµ„æºçš„åŠ è½½å™¨
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GBundleAssetLoader : GAssetLoader
     {
@@ -16,14 +16,14 @@ namespace cngraphi.gassets
         {
             return new GBundleAssetLoader
             {
-                Path = path, //×ÊÔ´Â·¾¶
-                Typ = type //ÀàĞÍ
+                Path = path, //èµ„æºè·¯å¾„
+                Typ = type //ç±»å‹
             };
         }
 
 
         /// <summary>
-        /// ¿ªÊ¼¼ÓÔØ×¼±¸
+        /// å¼€å§‹åŠ è½½å‡†å¤‡
         /// </summary>
         protected override void OnLoad()
         {
@@ -33,7 +33,7 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Ğ¶ÔØ
+        /// å¸è½½
         /// </summary>
         protected override void OnUnload()
         {
@@ -49,7 +49,7 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Á¢¿ÌÍê³É¼ÓÔØ²Ù×÷
+        /// ç«‹åˆ»å®ŒæˆåŠ è½½æ“ä½œ
         /// </summary>
         public override void Immediate()
         {
@@ -57,7 +57,7 @@ namespace cngraphi.gassets
 
             if (m_dependLoader == null)
             {
-                Finish("µ±Ç°ÄÚ²¿¼ÓÔØ´¦ÀíµÄGDependLoader¼ÓÔØÆ÷Îªnull¡£");
+                Finish("å½“å‰å†…éƒ¨åŠ è½½å¤„ç†çš„GDependLoaderåŠ è½½å™¨ä¸ºnullã€‚");
                 return;
             }
 
@@ -65,17 +65,17 @@ namespace cngraphi.gassets
 
             if (m_dependLoader.AssetBundle == null)
             {
-                Finish("µ±Ç°ÄÚ²¿¼ÓÔØ´¦ÀíµÄ GDependLoader.AssetBundle Ö÷abÎÄ¼şÄÚ´æÓ³ÉäÎª¿Õ.");
+                Finish("å½“å‰å†…éƒ¨åŠ è½½å¤„ç†çš„ GDependLoader.AssetBundle ä¸»abæ–‡ä»¶å†…å­˜æ˜ å°„ä¸ºç©º.");
                 return;
             }
 
             if (IsSubAssets)
-            {//¼ÓÔØ¸´ºÏĞÍ×ÊÔ´
+            {//åŠ è½½å¤åˆå‹èµ„æº
                 SubAssets = m_dependLoader.AssetBundle.LoadAssetWithSubAssets(Path, Typ);
                 Finish();
             }
             else
-            {//¼ÓÔØÖ¸¶¨×ÊÔ´
+            {//åŠ è½½æŒ‡å®šèµ„æº
                 OnLoaded(m_dependLoader.AssetBundle.LoadAsset(Path, Typ));
             }
         }
@@ -95,13 +95,13 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ¼ÓÔØËùĞèµÄ×ÊÔ´
+        /// åŠ è½½æ‰€éœ€çš„èµ„æº
         /// </summary>
         private void ResLoading()
         {
             if (m_req == null)
             {
-                Finish("¸ºÔğ×ÊÔ´¼ÓÔØµÄAssetBundleRequest¶ÔÏóÎª¿Õ£¨null£©");
+                Finish("è´Ÿè´£èµ„æºåŠ è½½çš„AssetBundleRequestå¯¹è±¡ä¸ºç©ºï¼ˆnullï¼‰");
                 return;
             }
 
@@ -111,7 +111,7 @@ namespace cngraphi.gassets
             if (IsSubAssets)
             {
                 SubAssets = m_req.allAssets;
-                Finish(SubAssets == null ? "¸´ºÏĞÍ×ÊÔ´¼ÓÔØºóÎª¿Õ" : null);
+                Finish(SubAssets == null ? "å¤åˆå‹èµ„æºåŠ è½½åä¸ºç©º" : null);
             }
             else
             {
@@ -121,13 +121,13 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ¼ÓÔØ×ÊÔ´ËùĞèµÄabÎÄ¼ş¼°ÒÀÀµabÎÄ¼ş
+        /// åŠ è½½èµ„æºæ‰€éœ€çš„abæ–‡ä»¶åŠä¾èµ–abæ–‡ä»¶
         /// </summary>
         private void DepLoading()
         {
             if (m_dependLoader == null)
             {
-                Finish("µ±Ç°ÄÚ²¿¼ÓÔØ´¦ÀíµÄGDependLoader¼ÓÔØÆ÷Îªnull¡£");
+                Finish("å½“å‰å†…éƒ¨åŠ è½½å¤„ç†çš„GDependLoaderåŠ è½½å™¨ä¸ºnullã€‚");
                 return;
             }
 
@@ -137,11 +137,11 @@ namespace cngraphi.gassets
             var ab = m_dependLoader.AssetBundle;
             if (ab == null)
             {
-                Finish("µ±Ç°ÄÚ²¿¼ÓÔØ´¦ÀíµÄ GDependLoader.AssetBundle Ö÷abÎÄ¼şÄÚ´æÓ³ÉäÎª¿Õ.");
+                Finish("å½“å‰å†…éƒ¨åŠ è½½å¤„ç†çš„ GDependLoader.AssetBundle ä¸»abæ–‡ä»¶å†…å­˜æ˜ å°„ä¸ºç©º.");
                 return;
             }
 
-            //¼ÓÔØab°ü¼°ÒÀÀµÍê±Ï£¬½øĞĞ×ÊÔ´¼ÓÔØ
+            //åŠ è½½abåŒ…åŠä¾èµ–å®Œæ¯•ï¼Œè¿›è¡Œèµ„æºåŠ è½½
             m_req = IsSubAssets ? ab.LoadAssetWithSubAssetsAsync(Path, Typ) : ab.LoadAssetAsync(Path, Typ);
             Status = GLoaderStatus.Loading;
         }

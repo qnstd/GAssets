@@ -6,26 +6,26 @@ using UnityEngine;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ×ÊÔ´¼ÓÔØÆ÷
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// èµ„æºåŠ è½½å™¨
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GAssetLoader : GLoader, IEnumerator
     {
 
-        #region ¾²Ì¬
+        #region é™æ€
 
         /// <summary>
-        /// ¼ÓÔØÆ÷»º´æ
+        /// åŠ è½½å™¨ç¼“å­˜
         /// </summary>
         static public readonly Dictionary<string, GAssetLoader> m_cache = new Dictionary<string, GAssetLoader>();
 
         /// <summary>
-        /// ´´½¨ab°üÄÚ×ÊÔ´¼ÓÔØµÄ¼ÓÔØÆ÷¶ÔÏó
+        /// åˆ›å»ºabåŒ…å†…èµ„æºåŠ è½½çš„åŠ è½½å™¨å¯¹è±¡
         /// </summary>
         static public Func<string, Type, GAssetLoader> Creator { get; set; } = GBundleAssetLoader.Create;
 
         /// <summary>
-        /// ´´½¨ GAssetLoader ÊµÀı¶ÔÏó
+        /// åˆ›å»º GAssetLoader å®ä¾‹å¯¹è±¡
         /// </summary>
         /// <param name="path"></param>
         /// <param name="type"></param>
@@ -39,21 +39,21 @@ namespace cngraphi.gassets
 
         static private GAssetLoader LoadInternal(string resname, Type type, Action<GAssetLoader> com = null)
         {
-            //¸ù¾İ×ÊÔ´Ãû³Æ£¬ÅĞ¶ÏËùÔÚµÄAssetBundleÎÄ¼şÊÇ·ñ´æÔÚ
+            //æ ¹æ®èµ„æºåç§°ï¼Œåˆ¤æ–­æ‰€åœ¨çš„AssetBundleæ–‡ä»¶æ˜¯å¦å­˜åœ¨
             string rname = resname.ToLower();
             string abname = GAssetManifest.GetABNameByResName(rname);
             if (abname == null)
             {
-                Debug.LogError($"Òª¼ÓÔØ×ÊÔ´ËùÔÚµÄAssetBundleÎÄ¼ş£¬ÔÚµ±Ç°°æ±¾ManifestÖĞ²»´æÔÚ. resname = {rname}");
+                Debug.LogError($"è¦åŠ è½½èµ„æºæ‰€åœ¨çš„AssetBundleæ–‡ä»¶ï¼Œåœ¨å½“å‰ç‰ˆæœ¬Manifestä¸­ä¸å­˜åœ¨. resname = {rname}");
                 return null;
             }
             if (!GAssetManager.Ins.ExistAssetBundleOnLocal(abname))
             {
-                Debug.LogError($"Òª¼ÓÔØ×ÊÔ´ËùÔÚµÄAssetBundleÎÄ¼ş£¬ÔÚ±¾µØ×ÊÔ´»º´æÄ¿Â¼ÖĞÎ´ÕÒµ½. resname = {rname} / abname = {abname}");
+                Debug.LogError($"è¦åŠ è½½èµ„æºæ‰€åœ¨çš„AssetBundleæ–‡ä»¶ï¼Œåœ¨æœ¬åœ°èµ„æºç¼“å­˜ç›®å½•ä¸­æœªæ‰¾åˆ°. resname = {rname} / abname = {abname}");
                 return null;
             }
 
-            string path = GAssetManifest.GetResPathInAB(rname); //×ÊÔ´Â·¾¶£¬ÒÔAssets¿ªÍ·µÄÏà¶ÔÂ·¾¶
+            string path = GAssetManifest.GetResPathInAB(rname); //èµ„æºè·¯å¾„ï¼Œä»¥Assetså¼€å¤´çš„ç›¸å¯¹è·¯å¾„
             if (!m_cache.TryGetValue(path, out var loa))
             {
                 loa = CreateInstance(path, type);
@@ -69,11 +69,11 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Òì²½¼ÓÔØ×ÊÔ´
+        /// å¼‚æ­¥åŠ è½½èµ„æº
         /// </summary>
-        /// <param name="resname">×ÊÔ´Ãû³Æ</param>
-        /// <param name="type">×ÊÔ´ÀàĞÍ</param>
-        /// <param name="com">»Øµ÷Î¯ÍĞ</param>
+        /// <param name="resname">èµ„æºåç§°</param>
+        /// <param name="type">èµ„æºç±»å‹</param>
+        /// <param name="com">å›è°ƒå§”æ‰˜</param>
         /// <returns></returns>
         static public GAssetLoader LoadAsync(string resname, Type type, Action<GAssetLoader> com = null)
         {
@@ -82,10 +82,10 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ¼ÓÔØ×ÊÔ´
+        /// åŠ è½½èµ„æº
         /// </summary>
-        /// <param name="resname">×ÊÔ´Ãû³Æ</param>
-        /// <param name="type">×ÊÔ´ÀàĞÍ</param>
+        /// <param name="resname">èµ„æºåç§°</param>
+        /// <param name="type">èµ„æºç±»å‹</param>
         /// <returns></returns>
         static public GAssetLoader Load(string resname, Type type)
         {
@@ -95,14 +95,14 @@ namespace cngraphi.gassets
         }
 
         /// <summary>
-        /// ¼ÓÔØº¬ÓĞ¶à¸öÇ¶Ì×ObjectµÄ¸´ºÏAsset×ÊÔ´
+        /// åŠ è½½å«æœ‰å¤šä¸ªåµŒå¥—Objectçš„å¤åˆAssetèµ„æº
         /// <para>
-        /// ÀıÈç£º¼ÓÔØÇ¶ÈëÁË¶¯»­µÄFBXÎÄ¼ş£¬»òÕß¼ÓÔØÇ¶ÈëÁË¶à¸ö¾«ÁéµÄÍ¼¼¯¡£Èç¹ûÒª¼ÓÔØµÄObject¶¼À´×ÔÓÚÍ¬Ò»Asset£¬
-        /// ¶øËûÃÇÓÖºÍºÜ¶à²»Ïà¹ØµÄÆäËûObject´æ·ÅÔÚÍ¬Ò»¸öAssetBundleÖĞ£¬ÄÇ¾ÍÓ¦¸ÃÊ¹ÓÃ´Ë·½·¨¡£
+        /// ä¾‹å¦‚ï¼šåŠ è½½åµŒå…¥äº†åŠ¨ç”»çš„FBXæ–‡ä»¶ï¼Œæˆ–è€…åŠ è½½åµŒå…¥äº†å¤šä¸ªç²¾çµçš„å›¾é›†ã€‚å¦‚æœè¦åŠ è½½çš„Objectéƒ½æ¥è‡ªäºåŒä¸€Assetï¼Œ
+        /// è€Œä»–ä»¬åˆå’Œå¾ˆå¤šä¸ç›¸å…³çš„å…¶ä»–Objectå­˜æ”¾åœ¨åŒä¸€ä¸ªAssetBundleä¸­ï¼Œé‚£å°±åº”è¯¥ä½¿ç”¨æ­¤æ–¹æ³•ã€‚
         /// </para>
         /// </summary>
-        /// <param name="resname">×ÊÔ´Ãû³Æ</param>
-        /// <param name="type">×ÊÔ´ÀàĞÍ</param>
+        /// <param name="resname">èµ„æºåç§°</param>
+        /// <param name="type">èµ„æºç±»å‹</param>
         /// <returns></returns>
         static public GAssetLoader LoadSubAssets(string resname, Type type)
         {
@@ -116,15 +116,15 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ¼ÓÔØº¬ÓĞ¶à¸öÇ¶Ì×ObjectµÄ¸´ºÏAsset×ÊÔ´£¨Òì²½£©
+        /// åŠ è½½å«æœ‰å¤šä¸ªåµŒå¥—Objectçš„å¤åˆAssetèµ„æºï¼ˆå¼‚æ­¥ï¼‰
         /// <para>
-        /// ÀıÈç£º¼ÓÔØÇ¶ÈëÁË¶¯»­µÄFBXÎÄ¼ş£¬»òÕß¼ÓÔØÇ¶ÈëÁË¶à¸ö¾«ÁéµÄÍ¼¼¯¡£Èç¹ûÒª¼ÓÔØµÄObject¶¼À´×ÔÓÚÍ¬Ò»Asset£¬
-        /// ¶øËûÃÇÓÖºÍºÜ¶à²»Ïà¹ØµÄÆäËûObject´æ·ÅÔÚÍ¬Ò»¸öAssetBundleÖĞ£¬ÄÇ¾ÍÓ¦¸ÃÊ¹ÓÃ´Ë·½·¨¡£
+        /// ä¾‹å¦‚ï¼šåŠ è½½åµŒå…¥äº†åŠ¨ç”»çš„FBXæ–‡ä»¶ï¼Œæˆ–è€…åŠ è½½åµŒå…¥äº†å¤šä¸ªç²¾çµçš„å›¾é›†ã€‚å¦‚æœè¦åŠ è½½çš„Objectéƒ½æ¥è‡ªäºåŒä¸€Assetï¼Œ
+        /// è€Œä»–ä»¬åˆå’Œå¾ˆå¤šä¸ç›¸å…³çš„å…¶ä»–Objectå­˜æ”¾åœ¨åŒä¸€ä¸ªAssetBundleä¸­ï¼Œé‚£å°±åº”è¯¥ä½¿ç”¨æ­¤æ–¹æ³•ã€‚
         /// </para>
         /// </summary>
-        /// <param name="resname">×ÊÔ´Ãû³Æ</param>
-        /// <param name="type">×ÊÔ´ÀàĞÍ</param>
-        /// <param name="com">Î¯ÍĞ»Øµ÷</param>
+        /// <param name="resname">èµ„æºåç§°</param>
+        /// <param name="type">èµ„æºç±»å‹</param>
+        /// <param name="com">å§”æ‰˜å›è°ƒ</param>
         /// <returns></returns>
         static public GAssetLoader LoadSubAssetsAsync(string resname, Type type, Action<GAssetLoader> com = null)
         {
@@ -137,9 +137,9 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// »ñÈ¡¼ÓÔØÆ÷
+        /// è·å–åŠ è½½å™¨
         /// </summary>
-        /// <param name="key">¼ÓÔØÆ÷µÄË÷Òı£¨Ë÷Òı£º×ÊÔ´ÎÄ¼şÃû£¨´øÎÄ¼şÃûºó×º£©£©</param>
+        /// <param name="key">åŠ è½½å™¨çš„ç´¢å¼•ï¼ˆç´¢å¼•ï¼šèµ„æºæ–‡ä»¶åï¼ˆå¸¦æ–‡ä»¶ååç¼€ï¼‰ï¼‰</param>
         /// <returns></returns>
         static public GAssetLoader GetLoader(string key)
         {
@@ -158,10 +158,10 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ÊÍ·Å¼ÓÔØÆ÷
-        /// <para>Èô¼ÓÔØÆ÷»¹ÓĞÆäËûÒıÓÃ£¬Ôò¶ÔÒıÓÃ¼ÆÊı-1. Èô²»´æÔÚÈÎºÎÒıÓÃ£¬ÒıÓÃ¼ÆÊıÎª0£¬Ôò½øĞĞÊÍ·Å.</para>
+        /// é‡Šæ”¾åŠ è½½å™¨
+        /// <para>è‹¥åŠ è½½å™¨è¿˜æœ‰å…¶ä»–å¼•ç”¨ï¼Œåˆ™å¯¹å¼•ç”¨è®¡æ•°-1. è‹¥ä¸å­˜åœ¨ä»»ä½•å¼•ç”¨ï¼Œå¼•ç”¨è®¡æ•°ä¸º0ï¼Œåˆ™è¿›è¡Œé‡Šæ”¾.</para>
         /// </summary>
-        /// <param name="key">¼ÓÔØÆ÷µÄË÷Òı£¨Ë÷Òı£º×ÊÔ´ÎÄ¼şÃû£¨´øÎÄ¼şÃûºó×º£©£©</param>
+        /// <param name="key">åŠ è½½å™¨çš„ç´¢å¼•ï¼ˆç´¢å¼•ï¼šèµ„æºæ–‡ä»¶åï¼ˆå¸¦æ–‡ä»¶ååç¼€ï¼‰ï¼‰</param>
         static public void DisposeLoader(string key)
         {
             GAssetLoader loa = GetLoader(key);
@@ -172,13 +172,13 @@ namespace cngraphi.gassets
         #endregion
 
 
-        #region ÊµÏÖ IEnumerator ½Ó¿Ú
+        #region å®ç° IEnumerator æ¥å£
 
         public object Current => null;
 
         public bool MoveNext()
         {
-            return !IsDone; //µ±²Ù×÷Íê³ÉÊ±£¬·µ»Øfalse£»Èç¹û¼ÓÔØ²Ù×÷Î´Íê³É£¬Ôò·µ»Øtrue¡£
+            return !IsDone; //å½“æ“ä½œå®Œæˆæ—¶ï¼Œè¿”å›falseï¼›å¦‚æœåŠ è½½æ“ä½œæœªå®Œæˆï¼Œåˆ™è¿”å›trueã€‚
         }
 
         public void Reset() { }
@@ -187,22 +187,22 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ×ÊÔ´¶ÔÏó
+        /// èµ„æºå¯¹è±¡
         /// </summary>
         public UnityEngine.Object Asset { get; protected set; }
 
         /// <summary>
-        /// Ç¶Ì×¸´ºÏĞÍ×ÊÔ´×é
+        /// åµŒå¥—å¤åˆå‹èµ„æºç»„
         /// </summary>
         public UnityEngine.Object[] SubAssets { get; protected set; }
 
         /// <summary>
-        /// ²Ù×÷Íê³ÉµÄÎ¯ÍĞ
+        /// æ“ä½œå®Œæˆçš„å§”æ‰˜
         /// </summary>
         public Action<GAssetLoader> Completed;
 
         /// <summary>
-        /// »ñÈ¡×ÊÔ´¶ÔÏó
+        /// è·å–èµ„æºå¯¹è±¡
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -212,27 +212,27 @@ namespace cngraphi.gassets
         }
 
         /// <summary>
-        /// ×ÊÔ´ÀàĞÍ
+        /// èµ„æºç±»å‹
         /// </summary>
         protected Type Typ { get; set; }
 
         /// <summary>
-        /// ÊÇ·ñÕıÔÚ×öÇ¶Ì×¸´ºÏAssetµÄ¼ÓÔØ
+        /// æ˜¯å¦æ­£åœ¨åšåµŒå¥—å¤åˆAssetçš„åŠ è½½
         /// </summary>
         protected bool IsSubAssets { get; set; }
 
         /// <summary>
-        /// ¼ÓÔØÍê³ÉµÄ´¦Àí
+        /// åŠ è½½å®Œæˆçš„å¤„ç†
         /// </summary>
         /// <param name="target"></param>
         protected void OnLoaded(UnityEngine.Object target)
         {
             Asset = target;
-            Finish(Asset == null ? "×ÊÔ´¼ÓÔØÊ§°Ü£¬Îª¿Õ£¨null£©" : null);
+            Finish(Asset == null ? "èµ„æºåŠ è½½å¤±è´¥ï¼Œä¸ºç©ºï¼ˆnullï¼‰" : null);
         }
 
         /// <summary>
-        /// ²Ù×÷Íê³ÉÊ±µÄµ÷ÓÃ
+        /// æ“ä½œå®Œæˆæ—¶çš„è°ƒç”¨
         /// </summary>
         protected override void OnComplete()
         {
@@ -245,7 +245,7 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Î´Ê¹ÓÃºóĞø²Ù×÷
+        /// æœªä½¿ç”¨åç»­æ“ä½œ
         /// </summary>
         protected override void OnUnused()
         {
@@ -253,7 +253,7 @@ namespace cngraphi.gassets
         }
 
         /// <summary>
-        /// Ğ¶ÔØÊ±µÄ²Ù×÷
+        /// å¸è½½æ—¶çš„æ“ä½œ
         /// </summary>
         protected override void OnUnload()
         {

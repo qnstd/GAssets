@@ -2,29 +2,29 @@ using System.Collections.Generic;
 namespace cngraphi.gassets.common
 {
     /// <summary>
-    /// AssetBundleÎÄ¼şĞÅÏ¢
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// AssetBundleæ–‡ä»¶ä¿¡æ¯
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class ABInfo
     {
         /// <summary>
-        /// AssetBundleÎÄ¼şÃû£¨Î¨Ò»Ë÷Òı£©£¨ÀıÈç£ºxxx.ab£©
+        /// AssetBundleæ–‡ä»¶åï¼ˆå”¯ä¸€ç´¢å¼•ï¼‰ï¼ˆä¾‹å¦‚ï¼šxxx.abï¼‰
         /// </summary>
         public string m_name;
         /// <summary>
-        /// °üÌå³ß´ç£¨µ¥Î»£º×Ö½Ú£©
+        /// åŒ…ä½“å°ºå¯¸ï¼ˆå•ä½ï¼šå­—èŠ‚ï¼‰
         /// </summary>
         public int m_size;
         /// <summary>
-        /// Hash MD5Öµ
+        /// Hash MD5å€¼
         /// </summary>
         public string m_hash;
         /// <summary>
-        /// °üº¬ÄÚÈİ£¨ÒÔAssets¿ªÍ·µÄÂ·¾¶£©
+        /// åŒ…å«å†…å®¹ï¼ˆä»¥Assetså¼€å¤´çš„è·¯å¾„ï¼‰
         /// </summary>
         public List<string> m_contains;
         /// <summary>
-        /// ÒÀÀµÏî AssetBundle ÎÄ¼şÃû
+        /// ä¾èµ–é¡¹ AssetBundle æ–‡ä»¶å
         /// </summary>
         public List<string> m_depends;
     }

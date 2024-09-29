@@ -10,8 +10,8 @@ using UnityEngine;
 namespace cngraphi.gassets.editor
 {
     /// <summary>
-    /// ¹¹½¨×ÊÔ´¼°×ÊÔ´ÅäÖÃ
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// æ„å»ºèµ„æºåŠèµ„æºé…ç½®
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public partial class GAssetEditOperate : EditorWindow
     {
@@ -39,40 +39,40 @@ namespace cngraphi.gassets.editor
         }
         private void OnGUI_BuildAndManifest()
         {
-            // ¹¹½¨
-            m_BuildFoldout = EditorGUILayout.Foldout(m_BuildFoldout, new GUIContent("¹¹½¨"), true);
+            // æ„å»º
+            m_BuildFoldout = EditorGUILayout.Foldout(m_BuildFoldout, new GUIContent("æ„å»º"), true);
             if (m_BuildFoldout)
             {
                 EditorGUI.indentLevel += 2;
                 EditorGUILayout.BeginVertical("box");
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("* °´ <color=#ffcc00>×ÊÔ´±ê¼ÇÃû</color> ¹¹½¨", Gui.LabelStyle, GUILayout.Width(140));
-                if (GUILayout.Button("¹¹½¨", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+                EditorGUILayout.LabelField("* æŒ‰ <color=#ffcc00>èµ„æºæ ‡è®°å</color> æ„å»º", Gui.LabelStyle, GUILayout.Width(140));
+                if (GUILayout.Button("æ„å»º", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
                 { BuildByABundleName(); }
                 EditorGUILayout.EndHorizontal();
                 m_buildStr = EditorGUILayout.TextField("", m_buildStr, GUILayout.Height(100));
-                EditorGUILayout.LabelField("<color=#999999>* ÊäÈë¿òÄÚÓ¦ÊäÈë×ÊÔ´µÄ AssetBundle ±ê¼ÇÃû³Æ. ¶à¸ö±ê¼ÇÃû³ÆÒÔ ',' Ó¢ÎÄ¶ººÅ·Ö¿ª.</color>", Gui.LabelStyle);
+                EditorGUILayout.LabelField("<color=#999999>* è¾“å…¥æ¡†å†…åº”è¾“å…¥èµ„æºçš„ AssetBundle æ ‡è®°åç§°. å¤šä¸ªæ ‡è®°åç§°ä»¥ ',' è‹±æ–‡é€—å·åˆ†å¼€.</color>", Gui.LabelStyle);
 
                 EditorGUILayout.Space(20);
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("* °´ <color=#ffcc00>×ÊÔ´ÒÀÀµÏî</color> ¹¹½¨", Gui.LabelStyle, GUILayout.Width(140));
-                if (GUILayout.Button("¹¹½¨", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+                EditorGUILayout.LabelField("* æŒ‰ <color=#ffcc00>èµ„æºä¾èµ–é¡¹</color> æ„å»º", Gui.LabelStyle, GUILayout.Width(140));
+                if (GUILayout.Button("æ„å»º", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
                 { BuildByABundleDepends(); }
                 EditorGUILayout.EndHorizontal();
                 m_buildStr2 = EditorGUILayout.TextField("", m_buildStr2, GUILayout.Height(100));
                 EditorGUILayout.LabelField(
                     "<color=#999999>" +
-                    "* ¸ù¾İÊäÈëµÄ×ÊÔ´±ê¼ÇÃû£¬ËÑË÷ÆäËùÓĞµÄÒÀÀµÏî¼°×ÔÉíÖ´ĞĞ¹¹½¨. ¶à¸ö±ê¼ÇÃû³ÆÒÔ ',' Ó¢ÎÄ¶ººÅ·Ö¿ª." +
+                    "* æ ¹æ®è¾“å…¥çš„èµ„æºæ ‡è®°åï¼Œæœç´¢å…¶æ‰€æœ‰çš„ä¾èµ–é¡¹åŠè‡ªèº«æ‰§è¡Œæ„å»º. å¤šä¸ªæ ‡è®°åç§°ä»¥ ',' è‹±æ–‡é€—å·åˆ†å¼€." +
                     "</color>", Gui.LabelStyle);
 
 
                 EditorGUILayout.Space(18);
-                EditorGUILayout.LabelField("¿ì½İ²Ù×÷", Gui.LabelStyle);
+                EditorGUILayout.LabelField("å¿«æ·æ“ä½œ", Gui.LabelStyle);
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("", GUILayout.Width(28));
-                if (GUILayout.Button("¹¹½¨ËùÓĞ×ÊÔ´£¨ÒÑ±ê¼ÇµÄ£©", Gui.BtnStyle, GUILayout.Width(150), GUILayout.Height(20)))
+                if (GUILayout.Button("æ„å»ºæ‰€æœ‰èµ„æºï¼ˆå·²æ ‡è®°çš„ï¼‰", Gui.BtnStyle, GUILayout.Width(150), GUILayout.Height(20)))
                 { BuildAll(); }
-                if (GUILayout.Button("ÇåÀíÎŞÓÃµÄ AssetBundle ×ÊÔ´ÎÄ¼ş", Gui.BtnStyle, GUILayout.Width(200), GUILayout.Height(20)))
+                if (GUILayout.Button("æ¸…ç†æ— ç”¨çš„ AssetBundle èµ„æºæ–‡ä»¶", Gui.BtnStyle, GUILayout.Width(200), GUILayout.Height(20)))
                 { ClearAssetBundle(); }
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.Space(10);
@@ -82,7 +82,7 @@ namespace cngraphi.gassets.editor
 
             EditorGUILayout.Space(10);
 
-            // ÅäÖÃ
+            // é…ç½®
             m_ManifestFoldout = EditorGUILayout.Foldout(m_ManifestFoldout, new GUIContent("Manifest"), true);
             if (m_ManifestFoldout)
             {
@@ -90,18 +90,18 @@ namespace cngraphi.gassets.editor
                 EditorGUILayout.BeginVertical("box");
                 EditorGUILayout.Space(10);
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("¹¹½¨×ÊÔ´Çåµ¥: ", Gui.LabelStyle, GUILayout.Width(110));
-                if (GUILayout.Button("¹¹½¨", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+                EditorGUILayout.LabelField("æ„å»ºèµ„æºæ¸…å•: ", Gui.LabelStyle, GUILayout.Width(110));
+                if (GUILayout.Button("æ„å»º", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
                 {
                     GenManifest();
                 }
                 m_bBackupManifest = EditorGUILayout.Toggle("", m_bBackupManifest, GUILayout.Width(20));
-                EditorGUILayout.LabelField("<color=#cccccc>±£´æÇåµ¥ÎÄ¼ş</color>", Gui.LabelStyle);
+                EditorGUILayout.LabelField("<color=#cccccc>ä¿å­˜æ¸…å•æ–‡ä»¶</color>", Gui.LabelStyle);
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.Space(10);
                 EditorGUILayout.LabelField(
                     "<color=#999999>" +
-                    "* Ö»Òª²Ù×÷¹ı×ÊÔ´°ü¹¹½¨»òÇåÀí£¬¶¼ĞèÒªÖØĞÂÉú³É Manifest ÎÄ¼ş." +
+                    "* åªè¦æ“ä½œè¿‡èµ„æºåŒ…æ„å»ºæˆ–æ¸…ç†ï¼Œéƒ½éœ€è¦é‡æ–°ç”Ÿæˆ Manifest æ–‡ä»¶." +
                     "</color>", Gui.LabelStyle);
                 EditorGUILayout.Space(10);
                 EditorGUILayout.EndVertical();
@@ -112,31 +112,31 @@ namespace cngraphi.gassets.editor
 
 
         /// <summary>
-        /// ÊÇ·ñ¿É½øĞĞ×ÊÔ´¹¹½¨²Ù×÷
+        /// æ˜¯å¦å¯è¿›è¡Œèµ„æºæ„å»ºæ“ä½œ
         /// </summary>
-        /// <param name="outpath">Êä³öÂ·¾¶</param>
+        /// <param name="outpath">è¾“å‡ºè·¯å¾„</param>
         /// <returns></returns>
         private bool IsCanOperateBuild(string outpath)
         {
-            if (Dialog.Confirm("È·ÈÏ¿ªÊ¼¹¹½¨£¿") != 0) { return false; }
+            if (Dialog.Confirm("ç¡®è®¤å¼€å§‹æ„å»ºï¼Ÿ") != 0) { return false; }
             if (string.IsNullOrEmpty(outpath))
             {
-                Dialog.Tip("¹¹½¨Â·¾¶Î´ÅäÖÃ£¡");
+                Dialog.Tip("æ„å»ºè·¯å¾„æœªé…ç½®ï¼");
                 return false;
             }
             if (!IO.IsDir(outpath) || !Directory.Exists(outpath))
             {
-                Dialog.Tip("¹¹½¨Â·¾¶²»ÊÇÒ»¸öÄ¿Â¼»ò²»´æÔÚ£¡");
+                Dialog.Tip("æ„å»ºè·¯å¾„ä¸æ˜¯ä¸€ä¸ªç›®å½•æˆ–ä¸å­˜åœ¨ï¼");
                 return false;
             }
             if (settings.Platform == BuildTarget.NoTarget)
             {
-                Dialog.Tip("¹¹½¨Æ½Ì¨Î´ÅäÖÃ£¡");
+                Dialog.Tip("æ„å»ºå¹³å°æœªé…ç½®ï¼");
                 return false;
             }
             if (settings.ABOptions == BuildAssetBundleOptions.None)
             {
-                Dialog.Tip("×ÊÔ´°üÑ¹Ëõ·½Ê½Î´ÅäÖÃ£¡");
+                Dialog.Tip("èµ„æºåŒ…å‹ç¼©æ–¹å¼æœªé…ç½®ï¼");
                 return false;
             }
             return true;
@@ -144,7 +144,7 @@ namespace cngraphi.gassets.editor
 
 
         /// <summary>
-        /// ¹¹½¨ËùÓĞ×ÊÔ´(ÒÑ±ê¼ÇµÄ£©
+        /// æ„å»ºæ‰€æœ‰èµ„æº(å·²æ ‡è®°çš„ï¼‰
         /// </summary>
         private void BuildAll()
         {
@@ -153,14 +153,14 @@ namespace cngraphi.gassets.editor
             {
                 BuildPipeline.BuildAssetBundles(outpath, settings.ABOptions, settings.Platform);
                 AssetDatabase.Refresh();
-                Dialog.Tip("¹¹½¨Íê±Ï£¡");
+                Dialog.Tip("æ„å»ºå®Œæ¯•ï¼");
                 GUIUtility.ExitGUI();
             }
         }
 
 
         /// <summary>
-        /// °´×ÊÔ´±ê¼ÇÃû¹¹½¨
+        /// æŒ‰èµ„æºæ ‡è®°åæ„å»º
         /// </summary>
         private void BuildByABundleName()
         {
@@ -175,7 +175,7 @@ namespace cngraphi.gassets.editor
                 if (abfiles.Length == 0) { continue; }
                 if (abblst.FindIndex((AssetBundleBuild abb) => { return abb.assetBundleName == abname; }) != -1)
                 {
-                    Debug.LogError($"ÎŞ·¨¹¹½¨AssetBundle£¬Óöµ½ÖØÃû±ê¼Ç£¡ab name = {abname}");
+                    Debug.LogError($"æ— æ³•æ„å»ºAssetBundleï¼Œé‡åˆ°é‡åæ ‡è®°ï¼ab name = {abname}");
                     continue;
                 }
 
@@ -187,25 +187,25 @@ namespace cngraphi.gassets.editor
             }
             if (abblst.Count == 0)
             {
-                Dialog.Tip("Î´ÕÒµ½¿ÉÓÃÓÚ¹¹½¨AssetBundleµÄ×ÊÔ´£¡");
+                Dialog.Tip("æœªæ‰¾åˆ°å¯ç”¨äºæ„å»ºAssetBundleçš„èµ„æºï¼");
                 return;
             }
 
             BuildPipeline.BuildAssetBundles(outpath, abblst.ToArray(), settings.ABOptions, settings.Platform);
             AssetDatabase.Refresh();
-            Dialog.Tip("¹¹½¨Íê±Ï£¡");
+            Dialog.Tip("æ„å»ºå®Œæ¯•ï¼");
             GUIUtility.ExitGUI();
         }
 
 
         /// <summary>
-        /// °´×ÊÔ´±ê¼ÇÃûÒÀÀµÏî¹¹½¨
+        /// æŒ‰èµ„æºæ ‡è®°åä¾èµ–é¡¹æ„å»º
         /// </summary>
         private void BuildByABundleDepends()
         {
             if (string.IsNullOrEmpty(m_buildStr2))
             {
-                Dialog.Tip("Î´ÊäÈëĞÅÏ¢!");
+                Dialog.Tip("æœªè¾“å…¥ä¿¡æ¯!");
                 return;
             }
 
@@ -228,14 +228,14 @@ namespace cngraphi.gassets.editor
             }
             if (abnames.Count == 0)
             {
-                Dialog.Tip("Î´ÕÒµ½¿ÉÓÃÓÚ¹¹½¨AssetBundleµÄ×ÊÔ´£¡");
+                Dialog.Tip("æœªæ‰¾åˆ°å¯ç”¨äºæ„å»ºAssetBundleçš„èµ„æºï¼");
                 return;
             }
 
-            //´´½¨abĞÅÏ¢
+            //åˆ›å»ºabä¿¡æ¯
             List<AssetBundleBuild> abblst = new List<AssetBundleBuild>();
             foreach (string name in abnames)
-            {//abnamesÀï±ß²»»áÓĞÖØÃûÏî
+            {//abnamesé‡Œè¾¹ä¸ä¼šæœ‰é‡åé¡¹
                 AssetBundleBuild abb = new AssetBundleBuild();
                 abb.assetBundleName = name.Substring(0, name.IndexOf("."));
                 abb.assetBundleVariant = "ab";
@@ -243,41 +243,41 @@ namespace cngraphi.gassets.editor
                 abblst.Add(abb);
             }
 
-            //¹¹½¨
+            //æ„å»º
             BuildPipeline.BuildAssetBundles(outpath, abblst.ToArray(), settings.ABOptions, settings.Platform);
             AssetDatabase.Refresh();
-            Dialog.Tip("¹¹½¨Íê±Ï£¡");
+            Dialog.Tip("æ„å»ºå®Œæ¯•ï¼");
             GUIUtility.ExitGUI();
         }
 
 
         /// <summary>
-        /// ÇåÀíÎŞÓÃµÄAssetBundleÎÄ¼ş
+        /// æ¸…ç†æ— ç”¨çš„AssetBundleæ–‡ä»¶
         /// </summary>
         private void ClearAssetBundle()
         {
-            if (Dialog.Confirm("È·ÈÏ¿ªÊ¼ÇåÀí AssetBundle ÎÄ¼ş?") != 0) { return; }
+            if (Dialog.Confirm("ç¡®è®¤å¼€å§‹æ¸…ç† AssetBundle æ–‡ä»¶?") != 0) { return; }
 
             string buildoutpath = cngraphi.gassets.common.Paths.StreamingPathAppend(settings.AssetRootPath);
-            if (string.IsNullOrEmpty(buildoutpath)) { Dialog.Tip("ÇëÔÚÅäÖÃÖĞÉèÖÃ¹¹½¨×ÊÔ´°üµÄÊä³öÂ·¾¶£¡"); return; }
-            if (!IO.IsDir(buildoutpath) || !Directory.Exists(buildoutpath)) { Dialog.Tip("Êä³öÂ·¾¶²»ÊÇÒ»¸öÄ¿Â¼»ò²»´æÔÚ."); return; }
+            if (string.IsNullOrEmpty(buildoutpath)) { Dialog.Tip("è¯·åœ¨é…ç½®ä¸­è®¾ç½®æ„å»ºèµ„æºåŒ…çš„è¾“å‡ºè·¯å¾„ï¼"); return; }
+            if (!IO.IsDir(buildoutpath) || !Directory.Exists(buildoutpath)) { Dialog.Tip("è¾“å‡ºè·¯å¾„ä¸æ˜¯ä¸€ä¸ªç›®å½•æˆ–ä¸å­˜åœ¨."); return; }
 
-            // ÇåÀíµ±Ç°¹¤³ÌÄÚÎ´Ê¹ÓÃµÄ ab ±ê¼Ç
+            // æ¸…ç†å½“å‰å·¥ç¨‹å†…æœªä½¿ç”¨çš„ ab æ ‡è®°
             AssetDatabase.RemoveUnusedAssetBundleNames();
             string[] abnames = AssetDatabase.GetAllAssetBundleNames();
             if (abnames == null || abnames.Length == 0)
-            {// ²»´æÔÚÈçºÎ±ê¼Ç£¬½«µ±Ç°¹¹½¨Ä¿Â¼ÏÂµÄËùÓĞ×ÊÔ´È«²¿É¾³ı£¬°üÀ¨×Ô¶¨ÒåµÄ Manifest ÎÄ¼ş
+            {// ä¸å­˜åœ¨å¦‚ä½•æ ‡è®°ï¼Œå°†å½“å‰æ„å»ºç›®å½•ä¸‹çš„æ‰€æœ‰èµ„æºå…¨éƒ¨åˆ é™¤ï¼ŒåŒ…æ‹¬è‡ªå®šä¹‰çš„ Manifest æ–‡ä»¶
                 IO.DirClear(buildoutpath);
                 AssetDatabase.Refresh();
-                Dialog.Tip("ÇåÀí²Ù×÷Íê±Ï.");
+                Dialog.Tip("æ¸…ç†æ“ä½œå®Œæ¯•.");
                 return;
             }
 
 
-            // »ñÈ¡Êä³öÂ·¾¶ÏÂµÄËùÓĞÎÄ¼ş
+            // è·å–è¾“å‡ºè·¯å¾„ä¸‹çš„æ‰€æœ‰æ–‡ä»¶
             List<string> abs = new List<string>();
             IO.GetFiles(buildoutpath, abs, new List<string> { ".manifest" });
-            if (abs.Count == 0) { Dialog.Tip("Î´ÕÒµ½ÈÎºÎ AssetBundle ÎÄ¼ş!"); return; }
+            if (abs.Count == 0) { Dialog.Tip("æœªæ‰¾åˆ°ä»»ä½• AssetBundle æ–‡ä»¶!"); return; }
 
             buildoutpath = cngraphi.gassets.common.Paths.Replace(buildoutpath);
             int indx = buildoutpath.LastIndexOf("/");
@@ -289,7 +289,7 @@ namespace cngraphi.gassets.editor
                 string fname = Path.GetFileNameWithoutExtension(f);
                 if (fname == "manifest" || fname == rootname) { continue; }
                 if (Array.IndexOf(abnames, Path.GetFileName(f)) == -1)
-                {//Êä³öÄ¿Â¼ÏÂµÄabÎÄ¼şÃûÔÚÕû¸ö¹¤³ÌµÄAssetBundle×ÊÔ´±ê¼Ç×éÖĞÎ´ÕÒµ½£¬ĞèÒª½«¹ıÆÚ²»Ê¹ÓÃµÄabÎÄ¼şÉ¾³ı
+                {//è¾“å‡ºç›®å½•ä¸‹çš„abæ–‡ä»¶ååœ¨æ•´ä¸ªå·¥ç¨‹çš„AssetBundleèµ„æºæ ‡è®°ç»„ä¸­æœªæ‰¾åˆ°ï¼Œéœ€è¦å°†è¿‡æœŸä¸ä½¿ç”¨çš„abæ–‡ä»¶åˆ é™¤
                     string p = cngraphi.gassets.common.Paths.Replace(f);
                     p = p.Substring(p.IndexOf("Assets"));
                     dels.Add(p);
@@ -299,45 +299,45 @@ namespace cngraphi.gassets.editor
 
             if (dels.Count != 0)
             {
-                Debug.LogWarning($"É¾³ıµÄÎÄ¼şÈçÏÂ£º{C_LineSeq}{string.Join(C_LineSeq, dels)}");
+                Debug.LogWarning($"åˆ é™¤çš„æ–‡ä»¶å¦‚ä¸‹ï¼š{C_LineSeq}{string.Join(C_LineSeq, dels)}");
 
                 List<string> outFailedPaths = new List<string>();
                 AssetDatabase.DeleteAssets(dels.ToArray(), outFailedPaths);
                 AssetDatabase.Refresh();
 
                 if (outFailedPaths.Count != 0)
-                    Debug.LogWarning($"Î´ÄÜÕı³£É¾³ıµÄ×ÊÔ´ÈçÏÂ£º{C_LineSeq}{string.Join(C_LineSeq, outFailedPaths)}");
+                    Debug.LogWarning($"æœªèƒ½æ­£å¸¸åˆ é™¤çš„èµ„æºå¦‚ä¸‹ï¼š{C_LineSeq}{string.Join(C_LineSeq, outFailedPaths)}");
             }
 
-            Dialog.Tip("ÇåÀí²Ù×÷Íê±Ï!");
+            Dialog.Tip("æ¸…ç†æ“ä½œå®Œæ¯•!");
         }
 
 
         /// <summary>
-        /// Éú³É×Ô¶¨ÒåµÄManifestÎÄ¼ş
+        /// ç”Ÿæˆè‡ªå®šä¹‰çš„Manifestæ–‡ä»¶
         /// </summary>
         private void GenManifest()
         {
-            if (Dialog.Confirm("È·ÈÏ¿ªÊ¼¹¹½¨ Manifest ÎÄ¼ş£¿") != 0) { return; }
+            if (Dialog.Confirm("ç¡®è®¤å¼€å§‹æ„å»º Manifest æ–‡ä»¶ï¼Ÿ") != 0) { return; }
 
             string version = settings.Version;
-            if (string.IsNullOrEmpty(version)) { Dialog.Tip("Î´ÊäÈë°æ±¾ºÅ£¡"); return; }
+            if (string.IsNullOrEmpty(version)) { Dialog.Tip("æœªè¾“å…¥ç‰ˆæœ¬å·ï¼"); return; }
 
             string buildoutpath = cngraphi.gassets.common.Paths.StreamingPathAppend(settings.AssetRootPath);
 
-            if (string.IsNullOrEmpty(buildoutpath)) { Dialog.Tip("ÇëÔÚÅäÖÃÖĞÉèÖÃ¹¹½¨×ÊÔ´°üµÄÊä³öÂ·¾¶£¡"); return; }
-            if (!IO.IsDir(buildoutpath) || !Directory.Exists(buildoutpath)) { Dialog.Tip("¹¹½¨Â·¾¶²»ÊÇÒ»¸öÄ¿Â¼»ò²»´æÔÚ."); return; }
+            if (string.IsNullOrEmpty(buildoutpath)) { Dialog.Tip("è¯·åœ¨é…ç½®ä¸­è®¾ç½®æ„å»ºèµ„æºåŒ…çš„è¾“å‡ºè·¯å¾„ï¼"); return; }
+            if (!IO.IsDir(buildoutpath) || !Directory.Exists(buildoutpath)) { Dialog.Tip("æ„å»ºè·¯å¾„ä¸æ˜¯ä¸€ä¸ªç›®å½•æˆ–ä¸å­˜åœ¨."); return; }
 
-            // À­È¡¹¹½¨Ä¿Â¼µÄ ab °ü×ÊÔ´
+            // æ‹‰å–æ„å»ºç›®å½•çš„ ab åŒ…èµ„æº
             List<string> abs = new List<string>();
             IO.GetFiles(buildoutpath, abs, new List<string> { ".manifest" });
             if (abs.Count == 0)
             {
-                Dialog.Tip("Î´ÊÕ¼¯µ½ÈÎºÎ AssetBundle ÎÄ¼ş£¬ÎŞ·¨Éú³É GAssets Manifest ÎÄ¼ş!");
+                Dialog.Tip("æœªæ”¶é›†åˆ°ä»»ä½• AssetBundle æ–‡ä»¶ï¼Œæ— æ³•ç”Ÿæˆ GAssets Manifest æ–‡ä»¶!");
                 return;
             }
 
-            //Ö÷abÃû³Æ
+            //ä¸»abåç§°
             buildoutpath = cngraphi.gassets.common.Paths.Replace(buildoutpath);
             int indx = buildoutpath.LastIndexOf("/");
             string rootname = buildoutpath.Substring(indx + 1);
@@ -349,20 +349,20 @@ namespace cngraphi.gassets.editor
             {
                 int allsize = 0;
                 manifest_base = new StringBuilder();
-                manifest_base.Append(version + C_LineSeq); //°æ±¾ºÅ
+                manifest_base.Append(version + C_LineSeq); //ç‰ˆæœ¬å·
                 manifest_info = new StringBuilder();
                 foreach (string f in abs)
                 {
                     string exten = Path.GetFileNameWithoutExtension(f);
                     if (exten == rootname || exten == "manifest") { continue; }
 
-                    string filename = Path.GetFileName(f); //ÎÄ¼şÃû
-                    int size = System.IO.File.ReadAllBytes(f).Length; //³ß´ç
-                    string hash = Str.MD5_File(f); //hashÖµ
+                    string filename = Path.GetFileName(f); //æ–‡ä»¶å
+                    int size = System.IO.File.ReadAllBytes(f).Length; //å°ºå¯¸
+                    string hash = Str.MD5_File(f); //hashå€¼
 
                     if (C_DllExten == Path.GetExtension(f))
-                    {//dllÎÄ¼ş´¦Àí
-                        manifest_info.Append(filename + "|" + size + "|" + hash + C_LineSeq); //×·¼ÓÒ»Ìõ
+                    {//dllæ–‡ä»¶å¤„ç†
+                        manifest_info.Append(filename + "|" + size + "|" + hash + C_LineSeq); //è¿½åŠ ä¸€æ¡
                         allsize += size;
                     }
                     else
@@ -371,47 +371,47 @@ namespace cngraphi.gassets.editor
 
                         string containfiles;
                         if (ab.isStreamedSceneAssetBundle)
-                        {// ³¡¾°ab°ü
+                        {// åœºæ™¯abåŒ…
                             containfiles = string.Join(",", ab.GetAllScenePaths());
                         }
                         else
-                        {// ·Ç³¡¾°ab°ü
+                        {// éåœºæ™¯abåŒ…
                             containfiles = string.Join(",", ab.GetAllAssetNames());
                         }
 
-                        string[] depends = AssetDatabase.GetAssetBundleDependencies(ab.name, true); //ÒÀÀµÏî£¨µİ¹éËùÓĞ£©
+                        string[] depends = AssetDatabase.GetAssetBundleDependencies(ab.name, true); //ä¾èµ–é¡¹ï¼ˆé€’å½’æ‰€æœ‰ï¼‰
                         string combinestr = filename + "|" + size + "|" + hash + "|" + containfiles;
                         if (depends.Length != 0)
                             combinestr += "|" + string.Join(",", depends);
-                        manifest_info.Append(combinestr + C_LineSeq); //×·¼ÓÒ»Ìõ
+                        manifest_info.Append(combinestr + C_LineSeq); //è¿½åŠ ä¸€æ¡
                         allsize += size;
 
                         ab.Unload(true);
                         ab = null;
                     }
                 }
-                manifest_base.Append(allsize.ToString()); //×ÊÔ´×Ü³ß´ç
+                manifest_base.Append(allsize.ToString()); //èµ„æºæ€»å°ºå¯¸
 
-                //Ğ´Èë²¢±£´æManifestÎÄ¼ş
+                //å†™å…¥å¹¶ä¿å­˜Manifestæ–‡ä»¶
                 string info = manifest_base.ToString() + C_LineSeq + manifest_info.ToString();
                 info = info.Trim();
                 string savefile = Path.Combine(buildoutpath, "manifest");
                 System.IO.File.WriteAllBytes(savefile, Encoding.UTF8.GetBytes(info));
 
-                //±¸·İµ±Ç°Éú³ÉµÄManifestÎÄ¼ş
+                //å¤‡ä»½å½“å‰ç”Ÿæˆçš„Manifestæ–‡ä»¶
                 if (m_bBackupManifest)
                 {
                     string manifestBackupPath = Path.Combine(buildoutpath.Substring(0, indx), rootname + "_" + "manifest");
                     manifestBackupPath = cngraphi.gassets.common.Paths.Replace(manifestBackupPath);
                     if (!System.IO.Directory.Exists(manifestBackupPath)) { System.IO.Directory.CreateDirectory(manifestBackupPath); }
 
-                    //long timestamp = Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0)).TotalSeconds); // Ê±¼ä´Á
+                    //long timestamp = Convert.ToInt64((DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0)).TotalSeconds); // æ—¶é—´æˆ³
                     //IO.CopyFile(savefile, Path.Combine(manifestBackupPath, "manifest" + "_" + version + "_" + timestamp));
                     IO.CopyFile(savefile, Path.Combine(manifestBackupPath, "manifest" + "_" + version));
                 }
 
                 AssetDatabase.Refresh();
-                Dialog.Tip("¹¹½¨ GAssets Manifest Íê³É£¡");
+                Dialog.Tip("æ„å»º GAssets Manifest å®Œæˆï¼");
             }
             catch (Exception e) { Debug.LogError(e.Message); }
             finally

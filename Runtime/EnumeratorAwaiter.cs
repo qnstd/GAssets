@@ -5,10 +5,10 @@ using System.Runtime.ExceptionServices;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// Òì²½²Ù×÷µ÷ÖÆÆ÷
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// å¼‚æ­¥æ“ä½œè°ƒåˆ¶å™¨
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
-    /// <typeparam name="T">ÀàÀàĞÍ</typeparam>
+    /// <typeparam name="T">ç±»ç±»å‹</typeparam>
     public class EnumeratorAwaiter<T> : INotifyCompletion
     {
         bool m_isDone;
@@ -17,16 +17,16 @@ namespace cngraphi.gassets
         T m_result;
 
 
-        #region ÊµÏÖ INotifyCompletion ±ØÒª½Ó¿Ú
+        #region å®ç° INotifyCompletion å¿…è¦æ¥å£
 
         /// <summary>
-        /// ÊÇ·ñÖ´ĞĞÍê±Ï
+        /// æ˜¯å¦æ‰§è¡Œå®Œæ¯•
         /// </summary>
         public bool IsCompleted { get { return m_isDone; } }
 
 
         /// <summary>
-        /// ²Ù×÷½á¹ûÊı¾İ
+        /// æ“ä½œç»“æœæ•°æ®
         /// </summary>
         /// <returns></returns>
         public T GetResult()
@@ -34,14 +34,14 @@ namespace cngraphi.gassets
             if (!m_isDone) { return default; }
 
             if (m_exception != null)
-                ExceptionDispatchInfo.Capture(m_exception).Throw(); //½«¶ÑÕ»ĞÅÏ¢Å×³ö
+                ExceptionDispatchInfo.Capture(m_exception).Throw(); //å°†å †æ ˆä¿¡æ¯æŠ›å‡º
 
             return m_result;
         }
 
 
         /// <summary>
-        /// ÊµÏÖINotifyCompletion½Ó¿Ú·½·¨
+        /// å®ç°INotifyCompletionæ¥å£æ–¹æ³•
         /// </summary>
         /// <param name="continuation"></param>
         public void OnCompleted(Action continuation)
@@ -54,10 +54,10 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Òì²½´¦ÀíÍê±Ï£¬²¢Ö´ĞĞ»Øµ÷Î¯ÍĞ
+        /// å¼‚æ­¥å¤„ç†å®Œæ¯•ï¼Œå¹¶æ‰§è¡Œå›è°ƒå§”æ‰˜
         /// </summary>
-        /// <param name="result">½á¹û</param>
-        /// <param name="e">Òì³£</param>
+        /// <param name="result">ç»“æœ</param>
+        /// <param name="e">å¼‚å¸¸</param>
         public void Complete(T result, Exception e)
         {
             if (!m_isDone)

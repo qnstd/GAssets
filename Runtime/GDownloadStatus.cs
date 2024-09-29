@@ -1,29 +1,29 @@
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// обтьв╢л╛
-    /// <para>вВуъё╨г©Ё╫</para>
+    /// Д╦▀Х╫╫Г┼╤Ф─│
+    /// <para>Д╫°Х─┘О╪ Е╪╨Х╬╟</para>
     /// </summary>
     public enum GDownloadStatus
     {
         /// <summary>
-        /// нчв╢л╛
+        /// Ф≈═Г┼╤Ф─│
         /// </summary>
         None,
         /// <summary>
-        /// ©╙й╪обть
+        /// Е╪─Е╖▀Д╦▀Х╫╫
         /// </summary>
         Start,
         /// <summary>
-        /// уЩтзобть
+        /// Ф╜ёЕ°╗Д╦▀Х╫╫
         /// </summary>
         Ing,
         /// <summary>
-        /// обтьмЙЁи
+        /// Д╦▀Х╫╫Е╝▄Ф┬░
         /// </summary>
         Finish,
         /// <summary>
-        /// обть╢МнС
+        /// Д╦▀Х╫╫И■≥Х╞╞
         /// </summary>
         Err
     }

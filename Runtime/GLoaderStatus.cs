@@ -1,33 +1,33 @@
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ╪стьв╢л╛
-    /// <para>вВуъё╨г©Ё╫</para>
+    /// Е┼═Х╫╫Г┼╤Ф─│
+    /// <para>Д╫°Х─┘О╪ Е╪╨Х╬╟</para>
     /// </summary>
     public enum GLoaderStatus
     {
         /// <summary>
-        /// ╣х╢Щ
+        /// Г╜┴Е╬┘
         /// </summary>
         Wait,
         /// <summary>
-        /// уЩтз╪сть
+        /// Ф╜ёЕ°╗Е┼═Х╫╫
         /// </summary>
         Loading,
         /// <summary>
-        /// ╪стьЁи╧╕
+        /// Е┼═Х╫╫Ф┬░Е┼÷
         /// </summary>
         Suc,
         /// <summary>
-        /// ╪стьй╖╟э
+        /// Е┼═Х╫╫Е╓╠Х╢╔
         /// </summary>
         Fail,
         /// <summary>
-        /// п╤ть
+        /// Е█╦Х╫╫
         /// </summary>
         Unloaded,
         /// <summary>
-        /// рюю╣╪сть
+        /// Д╬²Х╣√Е┼═Х╫╫
         /// </summary>
         DependsLoading
     }

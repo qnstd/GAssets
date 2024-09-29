@@ -11,8 +11,8 @@ using UnityEngine;
 namespace cngraphi.gassets.editor
 {
     /// <summary>
-    /// ×ÊÔ´ÇåÀí¹¤¾ß
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// èµ„æºæ¸…ç†å·¥å…·
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public partial class GAssetEditOperate : EditorWindow
     {
@@ -44,30 +44,30 @@ namespace cngraphi.gassets.editor
         private void OnGUI_UnuseClear()
         {
             EditorGUILayout.BeginHorizontal("helpbox");
-            EditorGUILayout.LabelField("Òª±»ÇåÀíµÄ×ÊÔ´Ä¿Â¼", Gui.LabelStyle, GUILayout.Width(110));
+            EditorGUILayout.LabelField("è¦è¢«æ¸…ç†çš„èµ„æºç›®å½•", Gui.LabelStyle, GUILayout.Width(110));
             EditorGUI.BeginDisabledGroup(true);
             m_clearfolder = EditorGUILayout.TextField("", m_clearfolder);
             EditorGUI.EndDisabledGroup();
-            if (GUILayout.Button("Ñ¡Ôñ", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+            if (GUILayout.Button("é€‰æ‹©", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
             {
-                string p = Dialog.Directory("ÇëÑ¡ÔñÒªÇåÀí×ÊÔ´µÄÄ¿Â¼");
+                string p = Dialog.Directory("è¯·é€‰æ‹©è¦æ¸…ç†èµ„æºçš„ç›®å½•");
                 m_clearfolder = string.IsNullOrEmpty(p) ? m_clearfolder : p;
             }
             Color c = GUI.backgroundColor;
             GUI.backgroundColor = Color.yellow;
-            if (GUILayout.Button("ÇåÀí", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+            if (GUILayout.Button("æ¸…ç†", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
             {
                 RunClear();
             }
             GUI.backgroundColor = c;
             EditorGUILayout.EndHorizontal();
 
-            // ÏÔÊ¾Î´Ê¹ÓÃ×ÊÔ´
+            // æ˜¾ç¤ºæœªä½¿ç”¨èµ„æº
             if (m_unuses != null && m_unuses.Count != 0)
             {
                 EditorGUILayout.Space(5);
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField(" <color=#ffcc00>Î´Ê¹ÓÃµÄ×ÊÔ´ÁĞ±í</color>" + "£¨" + m_unuses.Count + "¸ö£©", Gui.LabelStyle);
+                EditorGUILayout.LabelField(" <color=#ffcc00>æœªä½¿ç”¨çš„èµ„æºåˆ—è¡¨</color>" + "ï¼ˆ" + m_unuses.Count + "ä¸ªï¼‰", Gui.LabelStyle);
                 EditorGUILayout.Space(1);
                 m_searchkey = EditorGUILayout.TextField("", m_searchkey, "SearchTextField", GUILayout.Width(200));
                 EditorGUILayout.EndHorizontal();
@@ -84,7 +84,7 @@ namespace cngraphi.gassets.editor
                             "<color=#777777>[Backup]:  " + tarpath + "</color>",
                             Gui.LabelStyle, GUILayout.Height(34)
                         );
-                        if (GUILayout.Button("´ò¿ª", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+                        if (GUILayout.Button("æ‰“å¼€", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
                         {
                             OpenUnuseFilePath(tarpath);
                         }
@@ -100,7 +100,7 @@ namespace cngraphi.gassets.editor
         {
             if (!File.Exists(p))
             {
-                Dialog.Tip("Ä¿±ê²»´æÔÚ.");
+                Dialog.Tip("ç›®æ ‡ä¸å­˜åœ¨.");
             }
             else
             {
@@ -113,12 +113,12 @@ namespace cngraphi.gassets.editor
         {
             IO.DirDelete(settings.CleanBackupPath);
 
-            int result = Dialog.Confirm("ÊÇ·ñÈ·¶¨Ö´ĞĞ×ÊÔ´ÇåÀí¹¤×÷?");
+            int result = Dialog.Confirm("æ˜¯å¦ç¡®å®šæ‰§è¡Œèµ„æºæ¸…ç†å·¥ä½œ?");
             if (result == 0)
             {
                 if (string.IsNullOrEmpty(m_clearfolder))
                 {
-                    Dialog.Tip("Î´Ñ¡ÔñÇåÀíÄ¿Â¼£¡");
+                    Dialog.Tip("æœªé€‰æ‹©æ¸…ç†ç›®å½•ï¼");
                     return;
                 }
 
@@ -133,7 +133,7 @@ namespace cngraphi.gassets.editor
                 m_unuses.Clear();
                 UnuseClear();
                 DirNullClear(m_clearfolder);
-                Dialog.Tip("ÇåÀíÍê±Ï!");
+                Dialog.Tip("æ¸…ç†å®Œæ¯•!");
             }
         }
         private void UnuseClear()
@@ -141,19 +141,19 @@ namespace cngraphi.gassets.editor
             string checktypes = settings.CleanFileExtension;
             string backupFolder = settings.CleanBackupPath;
 
-            //ÇåÀí
+            //æ¸…ç†
             m_clscheckReses.Clear();
             m_allReses.Clear();
 
-            //»ñÈ¡Òª±»ÇåÀí×ÊÔ´Ä¿Â¼µÄ×ÊÔ´ ÒÔ¼° AssetsÄ¿Â¼ÏÂËùÓĞ×ÊÔ´
+            //è·å–è¦è¢«æ¸…ç†èµ„æºç›®å½•çš„èµ„æº ä»¥åŠ Assetsç›®å½•ä¸‹æ‰€æœ‰èµ„æº
             IO.GetFiles(m_clearfolder, m_clscheckReses, new List<string> { ".manifest" }, false);
             IO.GetFiles(Application.dataPath, m_allReses, new List<string> { ".manifest" }, false);
 
-            //´´½¨±¸·İÄ¿Â¼
+            //åˆ›å»ºå¤‡ä»½ç›®å½•
             if (!System.IO.Directory.Exists(backupFolder))
                 System.IO.Directory.CreateDirectory(backupFolder);
 
-            //¼ì²â
+            //æ£€æµ‹
             checktypes = checktypes.Replace("\n", "").Replace(" ", "");
             string[] types = checktypes.Split(new char[] { ',' });
             List<string> unusefiles = new List<string>();
@@ -165,18 +165,18 @@ namespace cngraphi.gassets.editor
                 string fextendsion = Path.GetExtension(checkfile).Substring(1);
                 if (Array.IndexOf(m_ignoresLst, fextendsion) != -1) { continue; }
 
-                //»ñÈ¡¼ì²âÎÄ¼şµÄÎÄ¼şÃû
+                //è·å–æ£€æµ‹æ–‡ä»¶çš„æ–‡ä»¶å
                 checkfile = checkfile.Substring(checkfile.IndexOf("Assets"));
                 checkfile = cngraphi.gassets.common.Paths.Replace(checkfile);
                 string clsfileName = checkfile.Substring(checkfile.LastIndexOf("/") + 1);
                 int clsfileName_indx = clsfileName.IndexOf(".");
                 if (clsfileName_indx != -1)
-                {//ÎÄ¼şÃû°üº¬"."£¬Ôò½ØÈ¡"."Ö®Ç°µÄÃû³Æ
+                {//æ–‡ä»¶ååŒ…å«"."ï¼Œåˆ™æˆªå–"."ä¹‹å‰çš„åç§°
                     clsfileName = clsfileName.Substring(0, clsfileName_indx);
                 }
 
-                Regex regex = new Regex(clsfileName); //±£³ÖÔ­ÎÄ¼şÃüÃû
-                Regex regex2 = new Regex(clsfileName.ToLower());//½«Ô­ÎÄ¼şÃüÃû×ªÈ«²¿Ğ¡Ğ´
+                Regex regex = new Regex(clsfileName); //ä¿æŒåŸæ–‡ä»¶å‘½å
+                Regex regex2 = new Regex(clsfileName.ToLower());//å°†åŸæ–‡ä»¶å‘½åè½¬å…¨éƒ¨å°å†™
                 bool b = false;
                 for (int j = 0; j < m_allReses.Count; j++)
                 {
@@ -186,19 +186,19 @@ namespace cngraphi.gassets.editor
 
                     string file_extension = Path.GetExtension(file);
                     if (file_extension == "" || Array.IndexOf(types, file_extension.Substring(1)) != -1)
-                    {//½Å±¾¡¢ÅäÖÃ»òÖ§³ÖµÄÎÄ¼şÀàĞÍ
+                    {//è„šæœ¬ã€é…ç½®æˆ–æ”¯æŒçš„æ–‡ä»¶ç±»å‹
                         string baseval = Encoding.UTF8.GetString(System.IO.File.ReadAllBytes(file));
                         MatchCollection mc = regex.Matches(baseval);
                         MatchCollection mc2 = regex2.Matches(baseval);
                         if ((mc != null && mc.Count != 0) || (mc2 != null && mc2.Count != 0))
-                        {//°üº¬µ±Ç°¼ì²âÎÄ¼ş
+                        {//åŒ…å«å½“å‰æ£€æµ‹æ–‡ä»¶
                             b = true;
                             break;
                         }
 
                     }
                     else
-                    { //ÆäËûÀàĞÍÎÄ¼ş 
+                    { //å…¶ä»–ç±»å‹æ–‡ä»¶ 
                         string[] depends = AssetDatabase.GetDependencies(assetfile, true);
                         List<string> dependslst = new List<string>(depends);
                         int indx = Array.IndexOf(depends, assetfile);
@@ -206,7 +206,7 @@ namespace cngraphi.gassets.editor
                             dependslst.RemoveAt(indx);
                         depends = dependslst.ToArray();
                         if (Array.IndexOf(depends, checkfile) != -1)
-                        {//ÆäËûÎÄ¼şÒÀÀµÏîÖĞ°üº¬¼ì²âÎÄ¼ş
+                        {//å…¶ä»–æ–‡ä»¶ä¾èµ–é¡¹ä¸­åŒ…å«æ£€æµ‹æ–‡ä»¶
                             b = true;
                             break;
                         }
@@ -214,13 +214,13 @@ namespace cngraphi.gassets.editor
                 }
 
                 if (!b)
-                {//Ã»ÓĞÎÄ¼şÒÀÀµµ±Ç°¼ì²âµÄÎÄ¼ş
+                {//æ²¡æœ‰æ–‡ä»¶ä¾èµ–å½“å‰æ£€æµ‹çš„æ–‡ä»¶
                     if (!unusefiles.Contains(checkfile))
                         unusefiles.Add(checkfile);
                 }
             }
 
-            //±¸·İ
+            //å¤‡ä»½
             if (unusefiles.Count != 0)
             {
                 m_unuses.AddRange(unusefiles);
@@ -229,18 +229,18 @@ namespace cngraphi.gassets.editor
                 for (int a = 0; a < l; a++)
                 {
                     file = unusefiles[a];
-                    // ±¸·İÂ·¾¶
+                    // å¤‡ä»½è·¯å¾„
                     filepath = backupFolder + "/" + Path.GetDirectoryName(file);
                     IO.RecursionDirCreate(filepath);
-                    //¿½±´²¢É¾³ı
+                    //æ‹·è´å¹¶åˆ é™¤
                     System.IO.File.Copy(file, filepath + "/" + Path.GetFileName(file));
                     AssetDatabase.DeleteAsset(file);
                 }
                 AssetDatabase.Refresh();
-                //µİ¹é¼ÌĞøËÑË÷
+                //é€’å½’ç»§ç»­æœç´¢
                 UnuseClear();
             }
-            else { /* ÎŞÎ´Ê¹ÓÃ×ÊÔ´ĞèÒª´¦Àí */ }
+            else { /* æ— æœªä½¿ç”¨èµ„æºéœ€è¦å¤„ç† */ }
         }
         private void DirNullClear(string path)
         {

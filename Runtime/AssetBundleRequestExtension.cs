@@ -5,8 +5,8 @@ using UnityEngine;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// Òì²½´Ó AssetBundle °üÖĞ¼ÓÔØ×ÊÔ´À©Õ¹
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// å¼‚æ­¥ä» AssetBundle åŒ…ä¸­åŠ è½½èµ„æºæ‰©å±•
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public static class AssetBundleRequestExtension
     {

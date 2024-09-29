@@ -1,25 +1,25 @@
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ²Ù×÷×´Ì¬
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// æ“ä½œçŠ¶æ€
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public enum GOperateStatus
     {
         /// <summary>
-        /// µÈ´ı
+        /// ç­‰å¾…
         /// </summary>
         Wait,
         /// <summary>
-        /// ÕıÔÚÖ´ĞĞ
+        /// æ­£åœ¨æ‰§è¡Œ
         /// </summary>
         Ing,
         /// <summary>
-        /// ³É¹¦
+        /// æˆåŠŸ
         /// </summary>
         Suc,
         /// <summary>
-        /// Ê§°Ü
+        /// å¤±è´¥
         /// </summary>
         Fail
     }

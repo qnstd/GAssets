@@ -18,29 +18,29 @@ using UnityEditor;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ×ÊÔ´¹ÜÀíÆ÷
-    /// <para>¸ºÔğ×ÊÔ´µÄÊı¾İÔ´¡¢ÒÀÀµ¼°ÒıÓÃ¹ØÏµµÄÏà¹Ø¹ÜÀí¹¤×÷¡£</para>
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// èµ„æºç®¡ç†å™¨
+    /// <para>è´Ÿè´£èµ„æºçš„æ•°æ®æºã€ä¾èµ–åŠå¼•ç”¨å…³ç³»çš„ç›¸å…³ç®¡ç†å·¥ä½œã€‚</para>
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GAssetManager : MonoBehaviour
     {
-        #region ¾²Ì¬
+        #region é™æ€
 
-        static private string m_resRootPath = ""; //×ÊÔ´Â·¾¶£¨Ö»¶ÁÄ¿Â¼£©
-        static private string m_resDataPath = ""; //Êı¾İÂ·¾¶£¨¿É¶Á¿ÉĞ´Ä¿Â¼£©
+        static private string m_resRootPath = ""; //èµ„æºè·¯å¾„ï¼ˆåªè¯»ç›®å½•ï¼‰
+        static private string m_resDataPath = ""; //æ•°æ®è·¯å¾„ï¼ˆå¯è¯»å¯å†™ç›®å½•ï¼‰
 
         [RuntimeInitializeOnLoadMethod]
         static private void Initialize()
         {
-            // ³õÊ¼»¯ÅäÖÃ
+            // åˆå§‹åŒ–é…ç½®
             settings = Resources.Load<GAssetSettings>(Constants.CONFIGURE_FILENAME);
             if (settings == null)
             {
-                Debug.LogError("¶ªÊ§ GAssets Settings ÅäÖÃÎÄ¼ş.");
+                Debug.LogError("ä¸¢å¤± GAssets Settings é…ç½®æ–‡ä»¶.");
                 return;
             }
 
-            // ÉèÖÃÏà¹ØÂ·¾¶
+            // è®¾ç½®ç›¸å…³è·¯å¾„
             m_resRootPath = Paths.StreamingPathAppend(settings.AssetRootPath);
             m_resDataPath = Paths.PersistentPathAppend(settings.AssetDataPath);
 
@@ -53,11 +53,11 @@ namespace cngraphi.gassets
 #endif
 
             if (!Directory.Exists(m_resDataPath))
-            {//ÏÂÔØÄ¿Â¼²»´æÔÚ£¬Ôòµİ¹é´´½¨
+            {//ä¸‹è½½ç›®å½•ä¸å­˜åœ¨ï¼Œåˆ™é€’å½’åˆ›å»º
                 IO.RecursionDirCreate(m_resDataPath);
             }
 
-            // ³õÊ¼»¯×ÊÔ´¹ÜÀíÆ÷¶ÔÏó
+            // åˆå§‹åŒ–èµ„æºç®¡ç†å™¨å¯¹è±¡
             GameObject obj = new GameObject("GAssetManager");
             Ins = obj.AddComponent<GAssetManager>();
             DontDestroyOnLoad(obj);
@@ -72,9 +72,9 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ³õÊ¼»¯ Mainfest ÅäÖÃ
+        /// åˆå§‹åŒ– Mainfest é…ç½®
         /// </summary>
-        /// <param name="callback">³õÊ¼»¯Íê±ÏµÄ»Øµ÷£¨ÔÚ±à¼­Ä£Ê½ÏÂ¿ÉÉèÖÃÎªnull£¬Ö»ÓĞÔÚ·¢²¼Ö®ºóĞèÒªÉèÖÃ»Øµ÷£©</param>
+        /// <param name="callback">åˆå§‹åŒ–å®Œæ¯•çš„å›è°ƒï¼ˆåœ¨ç¼–è¾‘æ¨¡å¼ä¸‹å¯è®¾ç½®ä¸ºnullï¼Œåªæœ‰åœ¨å‘å¸ƒä¹‹åéœ€è¦è®¾ç½®å›è°ƒï¼‰</param>
         public void LoadManifest(Action callback = null)
         {
 
@@ -82,41 +82,41 @@ namespace cngraphi.gassets
             ReadManifest();
             callback?.Invoke();
 #else
-            // ĞèÒª½«Ä¸°üµÄ manifest ÎÄ¼ş¿½±´µ½³Ö¾Ã»¯Ä¿Â¼ÄÚ
+            // éœ€è¦å°†æ¯åŒ…çš„ manifest æ–‡ä»¶æ‹·è´åˆ°æŒä¹…åŒ–ç›®å½•å†…
             string tarpath = Path.Combine(m_resDataPath, MANIFEST);
             if (File.Exists(tarpath))
-            {// ±¾µØ´æÔÚ£¬ÔòÖ±½Ó¶ÁÈ¡
+            {// æœ¬åœ°å­˜åœ¨ï¼Œåˆ™ç›´æ¥è¯»å–
                 ReadManifest();
                 callback?.Invoke();
             }
             else
-            {// ²»´æÔÚ£¬ËµÃ÷ÊÇµÚÒ»´ÎÔËĞĞ¡£ÏÈ½«Ä¬ÈÏµÄ manifest ÎÄ¼ş¿½±´µ½Êı¾İÄ¿Â¼£¬ÔÙ¶ÁÈ¡ĞÅÏ¢
-                Debug.Log("µÚÒ»´ÎÔËĞĞ£¬ÏÈ´Ó°üÌå½« Manifest ÎÄ¼ş¿½±´ÖÁÊı¾İÄ¿Â¼.");
+            {// ä¸å­˜åœ¨ï¼Œè¯´æ˜æ˜¯ç¬¬ä¸€æ¬¡è¿è¡Œã€‚å…ˆå°†é»˜è®¤çš„ manifest æ–‡ä»¶æ‹·è´åˆ°æ•°æ®ç›®å½•ï¼Œå†è¯»å–ä¿¡æ¯
+                Debug.Log("ç¬¬ä¸€æ¬¡è¿è¡Œï¼Œå…ˆä»åŒ…ä½“å°† Manifest æ–‡ä»¶æ‹·è´è‡³æ•°æ®ç›®å½•.");
                 CoroutineRunner.instance.StartCoroutine(CopyManifest(callback));
             }
 #endif
         }
         IEnumerator CopyManifest(Action callback)
-        {// ¿½±´ManifestÖ÷ÅäÖÃµ½Êı¾İÄ¿Â¼£¬²¢¼ÓÔØ½âÎöÅäÖÃ
+        {// æ‹·è´Manifestä¸»é…ç½®åˆ°æ•°æ®ç›®å½•ï¼Œå¹¶åŠ è½½è§£æé…ç½®
             UnityWebRequest req = UnityWebRequest.Get(Path.Combine(m_resRootPath, Constants.MANIFEST));
             yield return req.SendWebRequest();
             File.WriteAllBytes(Path.Combine(m_resDataPath, Constants.MANIFEST), Encoding.UTF8.GetBytes(req.downloadHandler.text));
             req.Dispose();
-            Debug.Log("GAssets Manifest ¿½±´Íê±Ï.");
+            Debug.Log("GAssets Manifest æ‹·è´å®Œæ¯•.");
             ReadManifest();
             callback?.Invoke();
         }
         private void ReadManifest()
         {
             if (!GAssetManifest.Load(GetResPath(Constants.MANIFEST)))
-                Debug.LogError("GAssets Manifest ¼ÓÔØ»ò½âÎöÊ§°Ü.");
+                Debug.LogError("GAssets Manifest åŠ è½½æˆ–è§£æå¤±è´¥.");
             else
-                Debug.Log("GAssets Mainfest ¼ÓÔØ²¢½âÎöÍê±Ï.");
+                Debug.Log("GAssets Mainfest åŠ è½½å¹¶è§£æå®Œæ¯•.");
         }
 
 
         /// <summary>
-        /// ÇåÀíÎ´Ê¹ÓÃ×ÊÔ´ [ÔËĞĞÊ±]
+        /// æ¸…ç†æœªä½¿ç”¨èµ„æº [è¿è¡Œæ—¶]
         /// </summary>
         /// <returns></returns>
         public AsyncOperation Clean()
@@ -126,13 +126,13 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// »ñÈ¡×ÊÔ´Â·¾¶
+        /// è·å–èµ„æºè·¯å¾„
         /// </summary>
-        /// <param name="res">×ÊÔ´Ãû³Æ</param>
-        /// <returns>Èô´æÔÚ×ÊÔ´£¬Ôò·µ»Ø×ÊÔ´µÄÂ·¾¶£»Èô²»´æÔÚ£¬Ôò·µ»Ø²ÎÊı</returns>
+        /// <param name="res">èµ„æºåç§°</param>
+        /// <returns>è‹¥å­˜åœ¨èµ„æºï¼Œåˆ™è¿”å›èµ„æºçš„è·¯å¾„ï¼›è‹¥ä¸å­˜åœ¨ï¼Œåˆ™è¿”å›å‚æ•°</returns>
         public string GetResPath(string res)
         {
-#if UNITY_EDITOR //Editor±à¼­Æ÷»·¾³ÄÚ
+#if UNITY_EDITOR //Editorç¼–è¾‘å™¨ç¯å¢ƒå†…
 
             string rsp = Path.Combine(m_resRootPath, res);
             rsp = Paths.Replace(rsp);
@@ -142,14 +142,14 @@ namespace cngraphi.gassets
             }
             return res;
 
-#else //·¢²¼ºó
+#else //å‘å¸ƒå
 
-            string p = Path.Combine(m_resDataPath, res); //Êı¾İÄ¿Â¼£¨Ò²¾ÍÊÇ¿É¶Á¿ÉĞ´Ä¿Â¼£©
+            string p = Path.Combine(m_resDataPath, res); //æ•°æ®ç›®å½•ï¼ˆä¹Ÿå°±æ˜¯å¯è¯»å¯å†™ç›®å½•ï¼‰
             p = Paths.Replace(p);
             if (File.Exists(p))
                 return p;
 
-            p = Path.Combine(m_resRootPath, res); //StreamingAssets»ò×Ó¼¯Ä¿Â¼£¨Ö»¿É¶Á£¬²»¿ÉĞ´¡¢ÎÄ¼şÁ÷Ò²²»ÔÊĞíÊ¹ÓÃµÄÄ¿Â¼£©
+            p = Path.Combine(m_resRootPath, res); //StreamingAssetsæˆ–å­é›†ç›®å½•ï¼ˆåªå¯è¯»ï¼Œä¸å¯å†™ã€æ–‡ä»¶æµä¹Ÿä¸å…è®¸ä½¿ç”¨çš„ç›®å½•ï¼‰
             p = Paths.Replace(p);
 
             if (GAssetManifest.ExistAB(res))
@@ -161,10 +161,10 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ÅĞ¶Ï²ÎÊı´ú±íµÄAssetBundleÎÄ¼şÊÇ·ñ´æÔÚÓÚ±¾µØ
+        /// åˆ¤æ–­å‚æ•°ä»£è¡¨çš„AssetBundleæ–‡ä»¶æ˜¯å¦å­˜åœ¨äºæœ¬åœ°
         /// </summary>
-        /// <param name="abname">AssetBundleÎÄ¼şÃû³Æ</param>
-        /// <returns>true£º´æÔÚ£»false£º²»´æÔÚ</returns>
+        /// <param name="abname">AssetBundleæ–‡ä»¶åç§°</param>
+        /// <returns>trueï¼šå­˜åœ¨ï¼›falseï¼šä¸å­˜åœ¨</returns>
         public bool ExistAssetBundleOnLocal(string abname)
         {
             if (string.IsNullOrEmpty(abname)) { return false; }
@@ -175,14 +175,14 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ·±Ã¦×´Ì¬
-        /// <para>true£º·±Ã¦£»false£ºÕı³£</para>
+        /// ç¹å¿™çŠ¶æ€
+        /// <para>trueï¼šç¹å¿™ï¼›falseï¼šæ­£å¸¸</para>
         /// </summary>
-        public bool Busy { get { return Time.realtimeSinceStartup - m_time >= 0.01f; /* 10ºÁÃëµÄÑÓ³Ù */ } }
+        public bool Busy { get { return Time.realtimeSinceStartup - m_time >= 0.01f; /* 10æ¯«ç§’çš„å»¶è¿Ÿ */ } }
 
 
 
-        #region MonoBehaviour ĞĞÎª
+        #region MonoBehaviour è¡Œä¸º
         private float m_time = 0;
         private void Start()
         {
@@ -203,35 +203,35 @@ namespace cngraphi.gassets
             GAsyncCom.ClearAll();
         }
         /// <summary>
-        /// SpriteAtlas Í¼¼¯ÑÓ³Ù°ó¶¨
+        /// SpriteAtlas å›¾é›†å»¶è¿Ÿç»‘å®š
         /// </summary>
-        /// <param name="tag">atlasÃû³Æ£¨²»´øÎÄ¼şºó×º£©</param>
-        /// <param name="action">½« atlas »Ø´«¸ø unity µÄÎ¯ÍĞ</param>
+        /// <param name="tag">atlasåç§°ï¼ˆä¸å¸¦æ–‡ä»¶åç¼€ï¼‰</param>
+        /// <param name="action">å°† atlas å›ä¼ ç»™ unity çš„å§”æ‰˜</param>
         void _SpriteAtlasRequestHandle(string tag, Action<SpriteAtlas> action)
         {
             /*
-                ½¨ÒéÔÚ¹¹½¨ AssetBundle °üÌåÊ±£¬½« SpriteAtlas Ã¿¸öÍ¼¼¯ÎÄ¼şµ¥¶À¹¹½¨ AssetBundle °ü£¬
-                ÕâÑùÔÚÑÓ³Ù°ó¶¨Ê±µÄ¼ÓÔØ´¦Àí£¨ÆôÓÃµÄÊÇÍ¬²½¼ÓÔØ·½Ê½£©ĞÔÄÜ»á¸ü¸ß¡£ÈôÍ¼¼¯ÓëÆäËû icon ¹¹½¨
-                µ½Ò»¸ö°üÌå£¬ÄÇÃ´ÔÚ¼ÓÔØÊ±»áÏûºÄ´óÁ¿µÄÊ±¼ä£¬²¢ÇÒ»áÔì³É²»Í¬Çé¿öµÄ¿¨¶Ù£¨ÒÀ¾İ°üÌå³ß´ç£©¡£
+                å»ºè®®åœ¨æ„å»º AssetBundle åŒ…ä½“æ—¶ï¼Œå°† SpriteAtlas æ¯ä¸ªå›¾é›†æ–‡ä»¶å•ç‹¬æ„å»º AssetBundle åŒ…ï¼Œ
+                è¿™æ ·åœ¨å»¶è¿Ÿç»‘å®šæ—¶çš„åŠ è½½å¤„ç†ï¼ˆå¯ç”¨çš„æ˜¯åŒæ­¥åŠ è½½æ–¹å¼ï¼‰æ€§èƒ½ä¼šæ›´é«˜ã€‚è‹¥å›¾é›†ä¸å…¶ä»– icon æ„å»º
+                åˆ°ä¸€ä¸ªåŒ…ä½“ï¼Œé‚£ä¹ˆåœ¨åŠ è½½æ—¶ä¼šæ¶ˆè€—å¤§é‡çš„æ—¶é—´ï¼Œå¹¶ä¸”ä¼šé€ æˆä¸åŒæƒ…å†µçš„å¡é¡¿ï¼ˆä¾æ®åŒ…ä½“å°ºå¯¸ï¼‰ã€‚
              */
 
             string atlasname = tag + ".spriteatlas";
             string abname = GAssetManifest.GetABNameByResName(atlasname);
             if (string.IsNullOrEmpty(abname))
             {
-                Debug.LogError($"spriteatlas ÑÓ³Ù°ó¶¨Òì³£. Í¼¼¯ÎÄ¼ş {atlasname} Î´ÕÒµ½¶ÔÓ¦µÄ AssetBundle ÎÄ¼ş.");
+                Debug.LogError($"spriteatlas å»¶è¿Ÿç»‘å®šå¼‚å¸¸. å›¾é›†æ–‡ä»¶ {atlasname} æœªæ‰¾åˆ°å¯¹åº”çš„ AssetBundle æ–‡ä»¶.");
                 return;
             }
             Str.Split(abname, ".", out List<string> lst);
 
-            AssetBundle ab = GLoader.FindABundleByName(lst[0]); // ÅĞ¶ÏÔËĞĞÊ±ÄÚ´æÖĞÊÇ·ñ´æÔÚ¶ÔÓ¦µÄ AssetBundle ÎÄ¼ş
+            AssetBundle ab = GLoader.FindABundleByName(lst[0]); // åˆ¤æ–­è¿è¡Œæ—¶å†…å­˜ä¸­æ˜¯å¦å­˜åœ¨å¯¹åº”çš„ AssetBundle æ–‡ä»¶
             if (ab == null)
-            { // ²»´æÔÚ£¬Ôò¼ÓÔØab²¢¼ÓÔØÍ¼¼¯
-              // ×¢Òâ£ºÕâÀïÆôÓÃ GAssetLoader ¼ÓÔØºó²¢Ã»ÓĞ½«¼ÓÔØÆ÷ÔÚÉÏ²ãÂß¼­½øĞĞ»º´æ¡£Èô²»ÔÙĞèÒª´Ë SpriteAtlas Ê±£¬Ö»Ğèµ÷ÓÃ GAssetLoader.DisposeLoader("Í¼¼¯Ãû³Æ") ¼´¿ÉÊÍ·Å¡£
+            { // ä¸å­˜åœ¨ï¼Œåˆ™åŠ è½½abå¹¶åŠ è½½å›¾é›†
+              // æ³¨æ„ï¼šè¿™é‡Œå¯ç”¨ GAssetLoader åŠ è½½åå¹¶æ²¡æœ‰å°†åŠ è½½å™¨åœ¨ä¸Šå±‚é€»è¾‘è¿›è¡Œç¼“å­˜ã€‚è‹¥ä¸å†éœ€è¦æ­¤ SpriteAtlas æ—¶ï¼Œåªéœ€è°ƒç”¨ GAssetLoader.DisposeLoader("å›¾é›†åç§°") å³å¯é‡Šæ”¾ã€‚
                 action.Invoke((SpriteAtlas)GAssetLoader.Load(atlasname, typeof(SpriteAtlas)).Asset);
             }
             else
-            { // ´æÔÚ£¬Ö±½Ó¼ÓÔØÍ¼¼¯×ÊÔ´
+            { // å­˜åœ¨ï¼Œç›´æ¥åŠ è½½å›¾é›†èµ„æº
                 action.Invoke(ab.LoadAsset<SpriteAtlas>(tag));
             }
         }

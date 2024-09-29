@@ -42,6 +42,29 @@
 >可对此配置进行自定义修改。若当前修改配置的同时，操作面板也处于打开状态，修改配置完毕后，建议点击 **“创建/获取配置”** 按钮对配置进行重载。
 
 ## Runtime 使用说明 ##
->1. 资源框架在运行时（Editor & Build）状态下，所有资源必须以 AssetBundle 形式加载，且必须生成 Manifest 清单文件。
->2. 资源框架启动及初始化直接调用如下脚本即可    
-> ***`GAssetManager.Ins.LoadManifest(() => { });`***
+资源框架在运行时（Editor & Build）状态下，所有资源必须以 AssetBundle 形式加载，且必须生成 Manifest 清单文件。  
+>
+> **资源管理器中的主要文件**  
+> *GAssetManager*   资源管理器。负责初始化、平台兼容等相关操作  
+> *GAssetManifest*  资源清单。负责管理资源及依赖项的映射  
+> *GAssetSettings*  资源配置。包含资源存储、打包等相关的设置  
+> 
+**资源框架启动及初始化直接调用如下脚本：**    
+> `GAssetManager.Ins.LoadManifest(() => { });`  
+> 
+**对于纯资源加载，调用以下脚本：**   
+> `GAssetLoader.LoadAsync`   // 异步加载资源  
+> `GAssetLoader.Load`        // 同步加载资源  
+> `GAssetLoader.LoadSubAssets`   // 同步加载复合资源  
+> `GAssetLoader.LoadSubAssetsAsync`  // 异步加载复合资源  
+>
+**对于异步创建对象及加载对应的资源，调用以下脚本：**  
+> `GInstanceOperate.Create` // 异步加载 Prefab 对象  
+> `GSceneOperate.Create("scene2")` // 异步加载 Scene 对象
+>
+**资源下载，调用以下脚本:**  
+> `GDownload.Excute("远程http/https地址", (pro, speed, size) => {})`  
+> 其中回调委托函数中的参数分别为：当前下载进度、当前下载速度、文件总尺寸
+>
+**如果想实现逻辑的异步操作，可使用资源框架下的自动分帧异步组件来实现。调用方式如下：**  
+> `GAsyncCom.Excute`

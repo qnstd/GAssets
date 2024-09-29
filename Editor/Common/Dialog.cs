@@ -5,15 +5,15 @@ using UnityEngine;
 namespace cngraphi.gassets.editor.common
 {
     /// <summary>
-    /// ¶Ô»°¿ò¹¤¾ß
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// å¯¹è¯æ¡†å·¥å…·
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class Dialog
     {
         /// <summary>
-        /// Ñ¡ÔñÄ¿Â¼¶Ô»°¿ò
+        /// é€‰æ‹©ç›®å½•å¯¹è¯æ¡†
         /// </summary>
-        /// <param name="title">±êÌâ</param>
+        /// <param name="title">æ ‡é¢˜</param>
         /// <returns></returns>
         static public string Directory(string title)
         {
@@ -25,9 +25,9 @@ namespace cngraphi.gassets.editor.common
 
 
         /// <summary>
-        /// Ñ¡ÔñÎÄ¼ş¶Ô»°¿ò
+        /// é€‰æ‹©æ–‡ä»¶å¯¹è¯æ¡†
         /// </summary>
-        /// <param name="title">±êÌâ</param>
+        /// <param name="title">æ ‡é¢˜</param>
         /// <returns></returns>
         static public string File(string title)
         {
@@ -40,10 +40,10 @@ namespace cngraphi.gassets.editor.common
 
 
         /// <summary>
-        /// ÏÔÊ¾ÌáÊ¾¿ò
+        /// æ˜¾ç¤ºæç¤ºæ¡†
         /// </summary>
-        /// <param name="msg">ÌáÊ¾ĞÅÏ¢</param>
-        static public void Tip(string msg, string title = "ÌáÊ¾", string btnname = "È·¶¨")
+        /// <param name="msg">æç¤ºä¿¡æ¯</param>
+        static public void Tip(string msg, string title = "æç¤º", string btnname = "ç¡®å®š")
         {
             if (string.IsNullOrEmpty(msg)) { return; }
             EditorUtility.DisplayDialog(title, msg, btnname);
@@ -51,14 +51,14 @@ namespace cngraphi.gassets.editor.common
 
 
         /// <summary>
-        /// ÏÔÊ¾È·ÈÏ¿ò
+        /// æ˜¾ç¤ºç¡®è®¤æ¡†
         /// </summary>
-        /// <param name="msg">ÌáÊ¾ĞÅÏ¢</param>
-        /// <param name="title">±êÌâ</param>
-        /// <param name="btnok">È·ÈÏ°´Å¥±êÇ©</param>
-        /// <param name="btncancel">È¡Ïû°´Å¥±êÇ©</param>
-        /// <returns>0£º´ú±íÈ·ÈÏ£»ÆäËûÖµ´ú±íÈ¡Ïû²Ù×÷</returns>
-        static public int Confirm(string msg, string title = "ÌáÊ¾", string btnok = "È·¶¨", string btncancel = "È¡Ïû")
+        /// <param name="msg">æç¤ºä¿¡æ¯</param>
+        /// <param name="title">æ ‡é¢˜</param>
+        /// <param name="btnok">ç¡®è®¤æŒ‰é’®æ ‡ç­¾</param>
+        /// <param name="btncancel">å–æ¶ˆæŒ‰é’®æ ‡ç­¾</param>
+        /// <returns>0ï¼šä»£è¡¨ç¡®è®¤ï¼›å…¶ä»–å€¼ä»£è¡¨å–æ¶ˆæ“ä½œ</returns>
+        static public int Confirm(string msg, string title = "æç¤º", string btnok = "ç¡®å®š", string btncancel = "å–æ¶ˆ")
         {
             return EditorUtility.DisplayDialogComplex(title, msg, btnok, btncancel, "");
         }

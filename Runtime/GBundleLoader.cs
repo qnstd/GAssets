@@ -6,18 +6,18 @@ using UnityEngine;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ¸ºÔğAssetBundleÎÄ¼ş¼ÓÔØµÄ¼ÓÔØÆ÷»ùÀà
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// è´Ÿè´£AssetBundleæ–‡ä»¶åŠ è½½çš„åŠ è½½å™¨åŸºç±»
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GBundleLoader : GLoader
     {
-        #region ¾²Ì¬
+        #region é™æ€
 
-        //»º´æbundle¼ÓÔØÆ÷
+        //ç¼“å­˜bundleåŠ è½½å™¨
         static public readonly Dictionary<string, GBundleLoader> m_cache = new Dictionary<string, GBundleLoader>();
 
         /// <summary>
-        /// ÄÚ²¿¼ÓÔØ
+        /// å†…éƒ¨åŠ è½½
         /// </summary>
         /// <param name="bundle"></param>
         /// <returns></returns>
@@ -31,7 +31,7 @@ namespace cngraphi.gassets
                 {
                     loa = new GBundleLoaderLocal
                     {
-                        Path = GAssetManager.Ins.GetResPath(bundle.m_name),//»ñÈ¡abÎÄ¼ş±¾µØÂ·¾¶
+                        Path = GAssetManager.Ins.GetResPath(bundle.m_name),//è·å–abæ–‡ä»¶æœ¬åœ°è·¯å¾„
                         m_info = bundle
                     };
                     m_cache.Add(bundle.m_name, loa);
@@ -49,33 +49,33 @@ namespace cngraphi.gassets
         protected ABInfo m_info;
 
         /// <summary>
-        /// µ±Ç°¼ÓÔØµÄAssetBundleÄÚ´æÓ³Éä¶ÔÏó
+        /// å½“å‰åŠ è½½çš„AssetBundleå†…å­˜æ˜ å°„å¯¹è±¡
         /// </summary>
         public AssetBundle AssetBundle { get; protected set; }
 
 
-        //Òì²½¼ÓÔØAssetBundle²Ù×÷
+        //å¼‚æ­¥åŠ è½½AssetBundleæ“ä½œ
         protected AssetBundleCreateRequest LoadAssetBundleAsync(string url)
         {
             return AssetBundle.LoadFromFileAsync(url);
         }
 
-        //Í¬²½¼ÓÔØAssetBundle²Ù×÷
+        //åŒæ­¥åŠ è½½AssetBundleæ“ä½œ
         protected AssetBundle LoadAssetBundle(string url)
         {
             return AssetBundle.LoadFromFile(url);
         }
 
-        //¼ÓÔØÍê±ÏµÄ´¦Àí
-        //×ÓÀàµ÷ÓÃ
+        //åŠ è½½å®Œæ¯•çš„å¤„ç†
+        //å­ç±»è°ƒç”¨
         protected void OnLoaded(AssetBundle bundle)
         {
             AssetBundle = bundle;
-            Finish(AssetBundle == null ? "¼ÓÔØAssetBundleÎª¿Õ£¨null£©" : null);
+            Finish(AssetBundle == null ? "åŠ è½½AssetBundleä¸ºç©ºï¼ˆnullï¼‰" : null);
         }
 
-        //Ğ¶ÔØ´¦Àí
-        //Ğ¶ÔØAssetBundleÄÚ´æÓ³ÉäÒÔ¼°ab°üÄÚ¹ØÁªµÄ×ÊÔ´
+        //å¸è½½å¤„ç†
+        //å¸è½½AssetBundleå†…å­˜æ˜ å°„ä»¥åŠabåŒ…å†…å…³è”çš„èµ„æº
         protected override void OnUnload()
         {
             m_cache.Remove(m_info.m_name);

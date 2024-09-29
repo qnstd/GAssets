@@ -4,19 +4,19 @@ using UnityEngine;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// Òì²½ÊµÀı»¯¶ÔÏó
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// å¼‚æ­¥å®ä¾‹åŒ–å¯¹è±¡
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GInstanceOperate : GOperate
     {
-        #region ¾²Ì¬
+        #region é™æ€
 
         static private readonly List<GInstanceOperate> m_objs = new List<GInstanceOperate>();
 
         /// <summary>
-        /// ´´½¨Ò»¸öÒì²½ÊµÀı»¯¶ÔÏó
+        /// åˆ›å»ºä¸€ä¸ªå¼‚æ­¥å®ä¾‹åŒ–å¯¹è±¡
         /// </summary>
-        /// <param name="resname">×ÊÔ´Ãû³Æ</param>
+        /// <param name="resname">èµ„æºåç§°</param>
         /// <returns></returns>
         static public GInstanceOperate Create(string resname)
         {
@@ -30,7 +30,7 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Ë¢ĞÂËùÓĞÒì²½ÊµÀı¶ÔÏóµÄ²Ù×÷
+        /// åˆ·æ–°æ‰€æœ‰å¼‚æ­¥å®ä¾‹å¯¹è±¡çš„æ“ä½œ
         /// </summary>
         static public void UpdateAllObjs()
         {
@@ -41,7 +41,7 @@ namespace cngraphi.gassets
 
                 if (!o.IsDone || o.Result != null) continue;
 
-                //Èç¹ûIsDone²Ù×÷Íê³É£¬²¢ÇÒResultÊı¾İÎª¿ÕµÄÇé¿öÏÂ£¬»á×Ô¶¯´Ó»º´æÖĞÒÆ³ı²¢½øĞĞÊÍ·Å²Ù×÷
+                //å¦‚æœIsDoneæ“ä½œå®Œæˆï¼Œå¹¶ä¸”Resultæ•°æ®ä¸ºç©ºçš„æƒ…å†µä¸‹ï¼Œä¼šè‡ªåŠ¨ä»ç¼“å­˜ä¸­ç§»é™¤å¹¶è¿›è¡Œé‡Šæ”¾æ“ä½œ
                 m_objs.RemoveAt(i);
                 i--;
                 o.Destory();
@@ -50,7 +50,7 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ÇåÀíËùÓĞÒì²½ÊµÀı¶ÔÏóµÄ²Ù×÷
+        /// æ¸…ç†æ‰€æœ‰å¼‚æ­¥å®ä¾‹å¯¹è±¡çš„æ“ä½œ
         /// </summary>
         static public void ClearAllObjs()
         {
@@ -62,17 +62,17 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ×ÊÔ´¼ÓÔØÆ÷
+        /// èµ„æºåŠ è½½å™¨
         /// </summary>
         private GAssetLoader m_assetloader;
 
         /// <summary>
-        /// ×ÊÔ´Ãû³Æ
+        /// èµ„æºåç§°
         /// </summary>
         private string Resname { get; set; }
 
         /// <summary>
-        /// ÊµÀı»¯¶ÔÏó
+        /// å®ä¾‹åŒ–å¯¹è±¡
         /// </summary>
         public GameObject Result { get; private set; }
 
@@ -91,7 +91,7 @@ namespace cngraphi.gassets
 
             if (m_assetloader == null)
             {
-                Finish("×ÊÔ´¼ÓÔØÆ÷Îª¿Õ£¨null£©. resname = " + Resname);
+                Finish("èµ„æºåŠ è½½å™¨ä¸ºç©ºï¼ˆnullï¼‰. resname = " + Resname);
                 return;
             }
 
@@ -106,7 +106,7 @@ namespace cngraphi.gassets
 
             if (m_assetloader.Asset == null)
             {
-                Finish("×ÊÔ´¼ÓÔØÊ§°Ü¡£resname = " + Resname);
+                Finish("èµ„æºåŠ è½½å¤±è´¥ã€‚resname = " + Resname);
                 return;
             }
 
@@ -116,14 +116,14 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Ğ¶ÔØ¡¢ÊÍ·Å
+        /// å¸è½½ã€é‡Šæ”¾
         /// </summary>
         public override void Destory()
         {
             Param = null;
             if (!IsDone)
             {
-                Finish("Ö÷¶¯È¡Ïû¸ÃÒì²½ÊµÀı²Ù×÷¡£");
+                Finish("ä¸»åŠ¨å–æ¶ˆè¯¥å¼‚æ­¥å®ä¾‹æ“ä½œã€‚");
                 return;
             }
 

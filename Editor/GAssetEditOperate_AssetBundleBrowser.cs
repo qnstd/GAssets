@@ -7,8 +7,8 @@ using UnityEngine.Profiling;
 namespace cngraphi.gassets.editor
 {
     /// <summary>
-    /// AB°üĞÅÏ¢
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// ABåŒ…ä¿¡æ¯
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class EditorABInformation
     {
@@ -20,8 +20,8 @@ namespace cngraphi.gassets.editor
 
 
     /// <summary>
-    /// AB°üĞÅÏ¢ÖĞ°üº¬×ÓÔªËØµÄĞÅÏ¢
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// ABåŒ…ä¿¡æ¯ä¸­åŒ…å«å­å…ƒç´ çš„ä¿¡æ¯
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class EditorABChildInformation
     {
@@ -31,8 +31,8 @@ namespace cngraphi.gassets.editor
 
 
     /// <summary>
-    /// AB°üĞÅÏ¢ä¯ÀÀ
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// ABåŒ…ä¿¡æ¯æµè§ˆ
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public partial class GAssetEditOperate : EditorWindow
     {
@@ -48,7 +48,7 @@ namespace cngraphi.gassets.editor
 
 
         /// <summary>
-        /// »ñÈ¡µ±Ç°¹¤³ÌÏÂËùÓĞµÄab°üĞÅÏ¢
+        /// è·å–å½“å‰å·¥ç¨‹ä¸‹æ‰€æœ‰çš„abåŒ…ä¿¡æ¯
         /// </summary>
         private void GetAllAbInformation()
         {
@@ -60,7 +60,7 @@ namespace cngraphi.gassets.editor
                 {
                     continue;
                 }
-                //abÖĞ°üº¬µÄ×ÓÔªËØĞÅÏ¢
+                //abä¸­åŒ…å«çš„å­å…ƒç´ ä¿¡æ¯
                 long allbytes = 0;
                 List<EditorABChildInformation> childLst = new List<EditorABChildInformation>();
                 string[] childs = AssetDatabase.GetAssetPathsFromAssetBundle(name);
@@ -76,7 +76,7 @@ namespace cngraphi.gassets.editor
                     allbytes += c.m_size;
                 }
 
-                //´´½¨abĞÅÏ¢²¢¼ÓÈëÁĞ±í
+                //åˆ›å»ºabä¿¡æ¯å¹¶åŠ å…¥åˆ—è¡¨
                 EditorABInformation ab = new EditorABInformation()
                 {
                     m_name = name,
@@ -101,11 +101,11 @@ namespace cngraphi.gassets.editor
         {
             EditorGUILayout.BeginHorizontal();
 
-            #region ÁĞ±í
+            #region åˆ—è¡¨
             EditorGUILayout.BeginVertical(GUILayout.Width(200));
             EditorGUILayout.BeginHorizontal();
             m_search = EditorGUILayout.TextField("", m_search, "SearchTextField");
-            if (GUILayout.Button("À­È¡", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+            if (GUILayout.Button("æ‹‰å–", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
             {
                 Refresh();
             }
@@ -132,11 +132,11 @@ namespace cngraphi.gassets.editor
             #endregion
 
 
-            #region ÏêÏ¸ĞÅÏ¢
+            #region è¯¦ç»†ä¿¡æ¯
             EditorGUILayout.BeginVertical();
             if (m_CurrentABInfo != null)
             {
-                EditorGUILayout.LabelField("ĞÅÏ¢" + "  <color=#b6ea94>" + EditorUtility.FormatBytes(m_CurrentABInfo.m_size) + "</color>" + "   <color=#666666>(ÒÔÏÂÏÔÊ¾µÄ³ß´çÎªÔËĞĞÊ±ÄÚ´æÕ¼ÓÃµÄ´óĞ¡)</color>", Gui.LabelStyle);
+                EditorGUILayout.LabelField("ä¿¡æ¯" + "  <color=#b6ea94>" + EditorUtility.FormatBytes(m_CurrentABInfo.m_size) + "</color>" + "   <color=#666666>(ä»¥ä¸‹æ˜¾ç¤ºçš„å°ºå¯¸ä¸ºè¿è¡Œæ—¶å†…å­˜å ç”¨çš„å¤§å°)</color>", Gui.LabelStyle);
                 m_scrollviewV2_C = EditorGUILayout.BeginScrollView(m_scrollviewV2_C, "box");
                 if (m_CurrentABInfo.m_childs != null && m_CurrentABInfo.m_childs.Count != 0)
                 {
@@ -145,7 +145,7 @@ namespace cngraphi.gassets.editor
                         EditorABChildInformation child = m_CurrentABInfo.m_childs[i];
                         GUILayout.BeginHorizontal("box");
                         EditorGUILayout.LabelField(child.m_path + "  <color=#ffcc00>(" + EditorUtility.FormatBytes(child.m_size) + ")</color>", Gui.LabelStyle);
-                        if (GUILayout.Button("¶¨Î»", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+                        if (GUILayout.Button("å®šä½", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
                         {
                             EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>(child.m_path));
                         }
@@ -156,13 +156,13 @@ namespace cngraphi.gassets.editor
 
 
                 EditorGUILayout.Space(2);
-                EditorGUILayout.LabelField("ÒÀÀµÏî", Gui.LabelStyle);
+                EditorGUILayout.LabelField("ä¾èµ–é¡¹", Gui.LabelStyle);
                 m_scrollviewV2_t = EditorGUILayout.BeginScrollView(m_scrollviewV2_t, "box");
                 foreach (string s in m_CurrentABInfo.m_depends)
                 {
                     GUILayout.BeginHorizontal("box");
                     EditorGUILayout.LabelField(s, Gui.LabelStyle);
-                    if (GUILayout.Button("¸´ÖÆ", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+                    if (GUILayout.Button("å¤åˆ¶", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
                     {
                         GUIUtility.systemCopyBuffer = s;
                     }
@@ -179,7 +179,7 @@ namespace cngraphi.gassets.editor
 
 
         /// <summary>
-        /// Ë¢ĞÂab°üĞÅÏ¢ÁĞ±í
+        /// åˆ·æ–°abåŒ…ä¿¡æ¯åˆ—è¡¨
         /// </summary>
         private void Refresh()
         {
@@ -191,15 +191,15 @@ namespace cngraphi.gassets.editor
 
             if (m_abLst == null || m_abLst.Count == 0)
             {
-                Dialog.Tip("Î´²éÑ¯µ½ AssetBundle Ïà¹ØĞÅÏ¢.");
+                Dialog.Tip("æœªæŸ¥è¯¢åˆ° AssetBundle ç›¸å…³ä¿¡æ¯.");
             }
         }
 
 
         /// <summary>
-        /// tabÑ¡Ôñ
+        /// tabé€‰æ‹©
         /// </summary>
-        /// <param name="i">Ñ¡ÔñË÷Òı</param>
+        /// <param name="i">é€‰æ‹©ç´¢å¼•</param>
         private void TabSelect(int i)
         {
             if (m_tabCurSelect == i) { return; }
@@ -210,19 +210,19 @@ namespace cngraphi.gassets.editor
 
 
         /// <summary>
-        /// »ñÈ¡×ÊÔ´ÄÚ´æ
+        /// è·å–èµ„æºå†…å­˜
         /// </summary>
-        /// <param name="p">×ÊÔ´Â·¾¶</param>
+        /// <param name="p">èµ„æºè·¯å¾„</param>
         /// <returns></returns>
         private long CalculateMemory(string p)
         {
-            // ÎïÀíÄÚ´æ
+            // ç‰©ç†å†…å­˜
             //return new FileInfo(p).Length;
 
-            // µ±Ç°Ê¹ÓÃ±¾»úµÄÔËĞĞÊ±ÄÚ´æ
+            // å½“å‰ä½¿ç”¨æœ¬æœºçš„è¿è¡Œæ—¶å†…å­˜
             return Profiler.GetRuntimeMemorySizeLong(AssetDatabase.LoadAssetAtPath<Object>(p));
 
-            // ×ÊÔ´µÄ±¾»ú´æ´¢ÄÚ´æ£¨Ä¿Ç°unity dllÖ»Ìá¹©ÁËÎÆÀí×ÊÔ´µÄ»ñÈ¡£¬ÆäËû×ÊÔ´ÔİÊ±Ã»ÓĞÕÒµ½¿É·´ÉäµÄº¯Êı£©
+            // èµ„æºçš„æœ¬æœºå­˜å‚¨å†…å­˜ï¼ˆç›®å‰unity dllåªæä¾›äº†çº¹ç†èµ„æºçš„è·å–ï¼Œå…¶ä»–èµ„æºæš‚æ—¶æ²¡æœ‰æ‰¾åˆ°å¯åå°„çš„å‡½æ•°ï¼‰
             //System.Type t = Assembly.Load("UnityEditor.dll").GetType("UnityEditor.TextureUtil");
             //MethodInfo method = t.GetMethod("GetStorageMemorySizeLong", BindingFlags.Static | BindingFlags.Public | BindingFlags.Instance);
             //return (long)method.Invoke(null, new object[] { AssetDatabase.LoadAssetAtPath<Texture>(p) });

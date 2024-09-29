@@ -6,25 +6,25 @@ using UnityEngine.SceneManagement;
 namespace cngraphi.gassets
 {
     /// <summary>
-    /// ³¡¾°¼ÓÔØÆ÷
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// åœºæ™¯åŠ è½½å™¨
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class GSceneOperate : GOperate
     {
-        #region ¾²Ì¬
+        #region é™æ€
         static private readonly List<GSceneOperate> m_objs = new List<GSceneOperate>();
 
         /// <summary>
-        /// ´´½¨³¡¾°¼ÓÔØÆ÷
+        /// åˆ›å»ºåœºæ™¯åŠ è½½å™¨
         /// </summary>
-        /// <param name="scenename">³¡¾°Ãû³Æ£¨²»´øÎÄ¼şÃûºó×º£©</param>
-        /// <param name="mode">³¡¾°¼ÓÔØÄ£Ê½</param>
+        /// <param name="scenename">åœºæ™¯åç§°ï¼ˆä¸å¸¦æ–‡ä»¶ååç¼€ï¼‰</param>
+        /// <param name="mode">åœºæ™¯åŠ è½½æ¨¡å¼</param>
         /// <returns></returns>
         static public GSceneOperate Create(string scenename, LoadSceneMode mode = LoadSceneMode.Additive)
         {
             if (Get(scenename) != null)
             {
-                Debug.LogWarning($"ÕıÔÚ¼ÓÔØ»òÒÑ´æÔÚ³¡¾°. {scenename}");
+                Debug.LogWarning($"æ­£åœ¨åŠ è½½æˆ–å·²å­˜åœ¨åœºæ™¯. {scenename}");
                 return null;
             }
 
@@ -32,16 +32,16 @@ namespace cngraphi.gassets
             string abname = GAssetManifest.GetABNameByResName(rname);
             if (abname == null)
             {
-                Debug.LogError($"Òª¼ÓÔØ×ÊÔ´ËùÔÚµÄAssetBundleÎÄ¼ş£¬ÔÚµ±Ç°°æ±¾ManifestÖĞ²»´æÔÚ. resname = {rname}");
+                Debug.LogError($"è¦åŠ è½½èµ„æºæ‰€åœ¨çš„AssetBundleæ–‡ä»¶ï¼Œåœ¨å½“å‰ç‰ˆæœ¬Manifestä¸­ä¸å­˜åœ¨. resname = {rname}");
                 return null;
             }
             if (!GAssetManager.Ins.ExistAssetBundleOnLocal(abname))
             {
-                Debug.LogError($"Òª¼ÓÔØ×ÊÔ´ËùÔÚµÄAssetBundleÎÄ¼ş£¬ÔÚ±¾µØ×ÊÔ´»º´æÄ¿Â¼ÖĞÎ´ÕÒµ½. resname = {rname} / abname = {abname}");
+                Debug.LogError($"è¦åŠ è½½èµ„æºæ‰€åœ¨çš„AssetBundleæ–‡ä»¶ï¼Œåœ¨æœ¬åœ°èµ„æºç¼“å­˜ç›®å½•ä¸­æœªæ‰¾åˆ°. resname = {rname} / abname = {abname}");
                 return null;
             }
 
-            string path = GAssetManifest.GetResPathInAB(rname); //×ÊÔ´Â·¾¶£¬ÒÔAssets¿ªÍ·µÄÏà¶ÔÂ·¾¶
+            string path = GAssetManifest.GetResPathInAB(rname); //èµ„æºè·¯å¾„ï¼Œä»¥Assetså¼€å¤´çš„ç›¸å¯¹è·¯å¾„
             GSceneOperate obj = new GSceneOperate()
             {
                 SceneName = scenename,
@@ -55,9 +55,9 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// »ñÈ¡µ±Ç°»º´æµÄ³¡¾°¼ÓÔØÆ÷
+        /// è·å–å½“å‰ç¼“å­˜çš„åœºæ™¯åŠ è½½å™¨
         /// </summary>
-        /// <param name="scenename">³¡¾°Ãû³Æ</param>
+        /// <param name="scenename">åœºæ™¯åç§°</param>
         /// <returns></returns>
         static public GSceneOperate Get(string scenename)
         {
@@ -75,7 +75,7 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// ÄÚ²¿¹ÜÀíÆ÷µ÷ÓÃ
+        /// å†…éƒ¨ç®¡ç†å™¨è°ƒç”¨
         /// </summary>
         static public void ClearAllObjs()
         {
@@ -88,30 +88,30 @@ namespace cngraphi.gassets
 
 
 
-        #region ÊôĞÔ
+        #region å±æ€§
         /// <summary>
-        /// ³¡¾°Ãû³Æ
+        /// åœºæ™¯åç§°
         /// </summary>
         public string SceneName { get; private set; } = null;
         /// <summary>
-        /// ³¡¾°×ÊÔ´Â·¾¶£¨ÒÔAssetsÎª¿ªÍ·£©
+        /// åœºæ™¯èµ„æºè·¯å¾„ï¼ˆä»¥Assetsä¸ºå¼€å¤´ï¼‰
         /// </summary>
         public string Path { get; private set; } = null;
         /// <summary>
-        /// ³¡¾°¼ÓÔØµÄÄ£Ê½
+        /// åœºæ™¯åŠ è½½çš„æ¨¡å¼
         /// </summary>
         public LoadSceneMode Mode { get; private set; } = LoadSceneMode.Additive;
         /// <summary>
-        /// ³¡¾°×ÊÔ´¡¢ÒÀÀµµÄ¼ÓÔØ×´Ì¬
+        /// åœºæ™¯èµ„æºã€ä¾èµ–çš„åŠ è½½çŠ¶æ€
         /// </summary>
         public GLoaderStatus LoadStatus { get; private set; } = GLoaderStatus.Wait;
         /// <summary>
-        /// ÊÇ·ñÊÇ×Ó³¡¾°
+        /// æ˜¯å¦æ˜¯å­åœºæ™¯
         /// </summary>
         public bool SubScene { get; private set; } = false;
         /// <summary>
-        /// Ğ¶ÔØ³¡¾°Íê±ÏÊ±µÄ»Øµ÷
-        /// <para>Èô¼ÓÔØ³¡¾°Ê±£¬²¢Ã»ÓĞÍêÈ«¼ÓÔØ»ò´¦ÓÚ²»¿ÉÓÃÎŞĞ§×´Ì¬£¬Ôò²»»á´¥·¢´Ë»Øµ÷£¬¶øÊÇ´¥·¢ Completed »Øµ÷</para>
+        /// å¸è½½åœºæ™¯å®Œæ¯•æ—¶çš„å›è°ƒ
+        /// <para>è‹¥åŠ è½½åœºæ™¯æ—¶ï¼Œå¹¶æ²¡æœ‰å®Œå…¨åŠ è½½æˆ–å¤„äºä¸å¯ç”¨æ— æ•ˆçŠ¶æ€ï¼Œåˆ™ä¸ä¼šè§¦å‘æ­¤å›è°ƒï¼Œè€Œæ˜¯è§¦å‘ Completed å›è°ƒ</para>
         /// </summary>
         public Action<GSceneOperate> DestoryCompleted;
         #endregion
@@ -151,7 +151,7 @@ namespace cngraphi.gassets
         {
             if (m_dependLoader == null)
             {
-                Finish($"µ±Ç°³¡¾°µÄÒÀÀµ¼ÓÔØÆ÷Îª¿Õ. SceneName = {SceneName}");
+                Finish($"å½“å‰åœºæ™¯çš„ä¾èµ–åŠ è½½å™¨ä¸ºç©º. SceneName = {SceneName}");
                 return;
             }
 
@@ -160,18 +160,18 @@ namespace cngraphi.gassets
 
             if (m_dependLoader.Status == GLoaderStatus.Fail)
             {
-                Finish($"µ±Ç°³¡¾°µÄÒÀÀµ¼ÓÔØÊ§°Ü. Reason = {m_dependLoader.Error} / SceneName = {SceneName}");
+                Finish($"å½“å‰åœºæ™¯çš„ä¾èµ–åŠ è½½å¤±è´¥. Reason = {m_dependLoader.Error} / SceneName = {SceneName}");
                 return;
             }
 
             var ab = m_dependLoader.AssetBundle;
             if (ab == null)
             {
-                Finish($"µ±Ç°¼ÓÔØµÄ³¡¾°ËùÔÚµÄ AssetBundle Îª¿Õ. SceneName = {SceneName}");
+                Finish($"å½“å‰åŠ è½½çš„åœºæ™¯æ‰€åœ¨çš„ AssetBundle ä¸ºç©º. SceneName = {SceneName}");
                 return;
             }
 
-            // ³¡¾°ab¼°abÒÀÀµ¼ÓÔØÍê±Ï£¬½øĞĞ³¡¾°¼ÓÔØ
+            // åœºæ™¯abåŠabä¾èµ–åŠ è½½å®Œæ¯•ï¼Œè¿›è¡Œåœºæ™¯åŠ è½½
             m_scene = SceneManager.LoadSceneAsync(SceneName, Mode);
             m_scene.allowSceneActivation = false;
             LoadStatus = GLoaderStatus.Loading;
@@ -182,18 +182,18 @@ namespace cngraphi.gassets
         {
             if (m_scene == null)
             {
-                Finish($"¸ºÔğ¼ÓÔØ³¡¾°µÄ¼ÓÔØÆ÷Îª¿Õ. SceneName = {SceneName}");
+                Finish($"è´Ÿè´£åŠ è½½åœºæ™¯çš„åŠ è½½å™¨ä¸ºç©º. SceneName = {SceneName}");
                 return;
             }
 
-            // ÕâÀï½ø¶ÈÀÛ¼ÓÊÇÒòÎª¼ÓÔØ³¡¾°Ç°ĞèÒª¼ÓÔØËùÓĞµÄÒÀÀµab£¬¼ÓÔØabÕ¼×Ü½ø¶ÈµÄ50%£¬¶ø¼ÓÔØ³¡¾°Õ¼Ê£ÓàµÄ50%¡£
+            // è¿™é‡Œè¿›åº¦ç´¯åŠ æ˜¯å› ä¸ºåŠ è½½åœºæ™¯å‰éœ€è¦åŠ è½½æ‰€æœ‰çš„ä¾èµ–abï¼ŒåŠ è½½abå æ€»è¿›åº¦çš„50%ï¼Œè€ŒåŠ è½½åœºæ™¯å å‰©ä½™çš„50%ã€‚
             Progress += m_scene.progress * 0.5f;
             if (Progress >= 0.95f)
             {
-                // ³¡¾°¼ÓÔØÍê±Ï
+                // åœºæ™¯åŠ è½½å®Œæ¯•
                 Finish();
 
-                // ÇĞ»»²¢Æô¶¯³¡¾°
+                // åˆ‡æ¢å¹¶å¯åŠ¨åœºæ™¯
                 m_scene.allowSceneActivation = true;
             }
         }
@@ -211,17 +211,17 @@ namespace cngraphi.gassets
 
 
         /// <summary>
-        /// Ğ¶ÔØ²¢ÊÍ·Å³¡¾°¼°Ïà¹ØµÄÒÀÀµ×ÊÔ´
+        /// å¸è½½å¹¶é‡Šæ”¾åœºæ™¯åŠç›¸å…³çš„ä¾èµ–èµ„æº
         /// </summary>
         public override void Destory()
         {
             if (!IsDone)
             {
-                Finish($"Ö÷¶¯È¡Ïû³¡¾° {SceneName} µÄ¼ÓÔØ.");
+                Finish($"ä¸»åŠ¨å–æ¶ˆåœºæ™¯ {SceneName} çš„åŠ è½½.");
             }
 
 
-            // Ğ¶ÔØÒÀÀµ
+            // å¸è½½ä¾èµ–
             if (m_dependLoader != null)
             {
                 m_dependLoader.Dispose();
@@ -230,14 +230,14 @@ namespace cngraphi.gassets
             Param = null;
             m_scene = null;
 
-            // Ğ¶ÔØÒıÓÃ
+            // å¸è½½å¼•ç”¨
             int index = m_objs.IndexOf(this);
             if (index != -1)
             {
                 m_objs.RemoveAt(index);
             }
 
-            // Ğ¶ÔØ³¡¾°
+            // å¸è½½åœºæ™¯
             Scene scn = SceneManager.GetSceneByName(SceneName);
             if (scn != null && scn.isLoaded && scn.IsValid())
             {

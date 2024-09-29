@@ -9,8 +9,8 @@ using UnityEngine;
 namespace cngraphi.gassets.editor
 {
     /// <summary>
-    /// ×ÊÔ´±ê¼Ç
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// èµ„æºæ ‡è®°
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public partial class GAssetEditOperate : EditorWindow
     {
@@ -45,19 +45,19 @@ namespace cngraphi.gassets.editor
         private void OnGUI_MarkAndUnmark()
         {
             //mark
-            m_MarkFoldout = EditorGUILayout.Foldout(m_MarkFoldout, new GUIContent("×ÊÔ´±ê¼Ç"), true);
+            m_MarkFoldout = EditorGUILayout.Foldout(m_MarkFoldout, new GUIContent("èµ„æºæ ‡è®°"), true);
             if (m_MarkFoldout)
             {
                 EditorGUI.indentLevel += 2;
                 EditorGUILayout.BeginVertical("box");
                 EditorGUILayout.Space(5);
-                EditorGUILayout.LabelField("×ÊÔ´Ä¿Â¼", Gui.LabelStyle, GUILayout.Width(95));
+                EditorGUILayout.LabelField("èµ„æºç›®å½•", Gui.LabelStyle, GUILayout.Width(95));
                 Gui.DragTextArea(this, 100, ref m_markpath, ref m_markpathAry);
                 EditorGUILayout.BeginHorizontal();
                 m_singleMark = EditorGUILayout.Toggle("", m_singleMark, GUILayout.Width(20));
-                EditorGUILayout.LabelField("<color=#999999>* µ¥ÎÄ¼şĞÎÊ½ (Ñ¡ÔñµÄÄ¿Â¼ÄÚËùÓĞÎÄ¼şÒÔ¸÷×ÔÎÄ¼şÃûÀ´½øĞĞ±ê¼Ç£¬·ñÔòÒÔÑ¡ÔñµÄÄ¿Â¼Ãû³Æ±ê¼Ç)</color>", Gui.LabelStyle);
+                EditorGUILayout.LabelField("<color=#999999>* å•æ–‡ä»¶å½¢å¼ (é€‰æ‹©çš„ç›®å½•å†…æ‰€æœ‰æ–‡ä»¶ä»¥å„è‡ªæ–‡ä»¶åæ¥è¿›è¡Œæ ‡è®°ï¼Œå¦åˆ™ä»¥é€‰æ‹©çš„ç›®å½•åç§°æ ‡è®°)</color>", Gui.LabelStyle);
                 EditorGUILayout.Space(1);
-                if (GUILayout.Button("±ê¼Ç", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(18)))
+                if (GUILayout.Button("æ ‡è®°", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(18)))
                 {
                     RunFolderMark();
                 }
@@ -67,30 +67,30 @@ namespace cngraphi.gassets.editor
 
                 EditorGUILayout.BeginVertical("box");
                 EditorGUILayout.Space(10);
-                EditorGUILayout.LabelField("×Ô¶¨Òå×ÊÔ´±ê¼Ç", Gui.LabelStyle);
+                EditorGUILayout.LabelField("è‡ªå®šä¹‰èµ„æºæ ‡è®°", Gui.LabelStyle);
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("±ê¼ÇÃû³Æ£º", Gui.LabelStyle, GUILayout.Width(80));
+                EditorGUILayout.LabelField("æ ‡è®°åç§°ï¼š", Gui.LabelStyle, GUILayout.Width(80));
                 m_markCustomname = EditorGUILayout.TextField("", m_markCustomname, GUILayout.Width(200));
                 EditorGUILayout.EndHorizontal();
 
                 Gui.DragTextArea(this, 100, ref m_markCustomStr, ref m_markCustom);
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("<color=#999999>* Ö§³ÖÄ¿Â¼¼°ÎÄ¼şÍÏÈë£¬Ä¿Â¼ÒÔµİ¹é·½Ê½ËÑË÷ËùÓĞ×Ó×ÊÔ´</color>", Gui.LabelStyle);
-                if (GUILayout.Button("±ê¼Ç", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(18)))
+                EditorGUILayout.LabelField("<color=#999999>* æ”¯æŒç›®å½•åŠæ–‡ä»¶æ‹–å…¥ï¼Œç›®å½•ä»¥é€’å½’æ–¹å¼æœç´¢æ‰€æœ‰å­èµ„æº</color>", Gui.LabelStyle);
+                if (GUILayout.Button("æ ‡è®°", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(18)))
                 {
-                    if (Dialog.Confirm("È·ÈÏ¿ªÊ¼×ÊÔ´±ê¼Ç£¿") != 0) { return; }
+                    if (Dialog.Confirm("ç¡®è®¤å¼€å§‹èµ„æºæ ‡è®°ï¼Ÿ") != 0) { return; }
                     if (string.IsNullOrEmpty(m_markCustomname))
                     {
-                        Dialog.Tip("ÉĞÎ´ÊäÈë×Ô¶¨Òå×ÊÔ´±ê¼ÇÃû³Æ", "´íÎó");
+                        Dialog.Tip("å°šæœªè¾“å…¥è‡ªå®šä¹‰èµ„æºæ ‡è®°åç§°", "é”™è¯¯");
                         return;
                     }
                     if (m_markCustom == null || m_markCustom.Length == 0)
                     {
-                        Dialog.Tip("ÉĞÎ´Ñ¡Ôñ×Ô¶¨ÒåµÄ×ÊÔ´»ò×ÊÔ´Ä¿Â¼.", "´íÎó");
+                        Dialog.Tip("å°šæœªé€‰æ‹©è‡ªå®šä¹‰çš„èµ„æºæˆ–èµ„æºç›®å½•.", "é”™è¯¯");
                         return;
                     }
                     CustomAssetBundleNameOperate(m_markCustom, true);
-                    Dialog.Tip("×ÊÔ´±ê¼ÇÍê±Ï£¡");
+                    Dialog.Tip("èµ„æºæ ‡è®°å®Œæ¯•ï¼");
                 }
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.Space(10);
@@ -102,39 +102,39 @@ namespace cngraphi.gassets.editor
 
             //Unmark
             EditorGUILayout.Space(10);
-            m_UnmarkFoldout = EditorGUILayout.Foldout(m_UnmarkFoldout, new GUIContent("È¡Ïû±ê¼Ç"), true);
+            m_UnmarkFoldout = EditorGUILayout.Foldout(m_UnmarkFoldout, new GUIContent("å–æ¶ˆæ ‡è®°"), true);
             if (m_UnmarkFoldout)
             {
                 EditorGUI.indentLevel += 2;
                 EditorGUILayout.BeginVertical("box");
                 EditorGUILayout.Space(5);
-                EditorGUILayout.LabelField("×Ô¶¨Òå×ÊÔ´È¡Ïû±ê¼Ç", Gui.LabelStyle);
+                EditorGUILayout.LabelField("è‡ªå®šä¹‰èµ„æºå–æ¶ˆæ ‡è®°", Gui.LabelStyle);
                 Gui.DragTextArea(this, 100, ref m_clearCustomStr, ref m_clearCustom);
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("<color=#999999>* Ö§³ÖÄ¿Â¼¼°ÎÄ¼şÍÏÈë£¬Ä¿Â¼ÒÔµİ¹é·½Ê½ËÑË÷ËùÓĞ×Ó×ÊÔ´</color>", Gui.LabelStyle);
+                EditorGUILayout.LabelField("<color=#999999>* æ”¯æŒç›®å½•åŠæ–‡ä»¶æ‹–å…¥ï¼Œç›®å½•ä»¥é€’å½’æ–¹å¼æœç´¢æ‰€æœ‰å­èµ„æº</color>", Gui.LabelStyle);
                 EditorGUILayout.Space(1);
-                if (GUILayout.Button("È¡Ïû±ê¼Ç", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(18)))
+                if (GUILayout.Button("å–æ¶ˆæ ‡è®°", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(18)))
                 {
-                    if (Dialog.Confirm("È·ÈÏ¿ªÊ¼È¡Ïû×ÊÔ´±ê¼Ç£¿") != 0) { return; }
+                    if (Dialog.Confirm("ç¡®è®¤å¼€å§‹å–æ¶ˆèµ„æºæ ‡è®°ï¼Ÿ") != 0) { return; }
                     if (m_clearCustom == null || m_clearCustom.Length == 0)
                     {
-                        Dialog.Tip("ÉĞÎ´Ñ¡Ôñ×Ô¶¨ÒåµÄ×ÊÔ´»ò×ÊÔ´Ä¿Â¼.", "´íÎó");
+                        Dialog.Tip("å°šæœªé€‰æ‹©è‡ªå®šä¹‰çš„èµ„æºæˆ–èµ„æºç›®å½•.", "é”™è¯¯");
                         return;
                     }
                     CustomAssetBundleNameOperate(m_clearCustom, false);
-                    Dialog.Tip("×ÊÔ´±ê¼ÇÈ¡ÏûÍê±Ï£¡");
+                    Dialog.Tip("èµ„æºæ ‡è®°å–æ¶ˆå®Œæ¯•ï¼");
                 }
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.Space(15);
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("* É¾³ı¹¤³ÌÖĞÎ´Ê¹ÓÃµÄ×ÊÔ´±ê¼ÇÃû³Æ£º", Gui.LabelStyle, GUILayout.Width(200));
+                EditorGUILayout.LabelField("* åˆ é™¤å·¥ç¨‹ä¸­æœªä½¿ç”¨çš„èµ„æºæ ‡è®°åç§°ï¼š", Gui.LabelStyle, GUILayout.Width(200));
                 Color c = GUI.backgroundColor;
                 GUI.backgroundColor = Color.yellow;
-                if (GUILayout.Button("É¾³ı", Gui.BtnStyle, GUILayout.Height(18), GUILayout.Width(50)))
+                if (GUILayout.Button("åˆ é™¤", Gui.BtnStyle, GUILayout.Height(18), GUILayout.Width(50)))
                 {
-                    if (Dialog.Confirm("È·¶¨É¾³ı¹¤³ÌÖĞÎ´Ê¹ÓÃµÄ×ÊÔ´±ê¼ÇÃû³ÆÂğ£¿") != 0) { return; }
+                    if (Dialog.Confirm("ç¡®å®šåˆ é™¤å·¥ç¨‹ä¸­æœªä½¿ç”¨çš„èµ„æºæ ‡è®°åç§°å—ï¼Ÿ") != 0) { return; }
                     RemoveUnusedABNames();
-                    Dialog.Tip("ÒÑÍê³ÉÉ¾³ı.");
+                    Dialog.Tip("å·²å®Œæˆåˆ é™¤.");
                 }
                 GUI.backgroundColor = c;
                 EditorGUILayout.EndHorizontal();
@@ -146,20 +146,20 @@ namespace cngraphi.gassets.editor
 
 
         /// <summary>
-        /// Ä¿Â¼±ê¼Ç²Ù×÷
+        /// ç›®å½•æ ‡è®°æ“ä½œ
         /// </summary>
         private void RunFolderMark()
         {
-            if (Dialog.Confirm("È·ÈÏ¿ªÊ¼×ÊÔ´±ê¼Ç£¿") != 0) { return; }
+            if (Dialog.Confirm("ç¡®è®¤å¼€å§‹èµ„æºæ ‡è®°ï¼Ÿ") != 0) { return; }
             if (m_markpathAry == null || m_markpathAry.Length == 0) { return; }
             foreach (string s in m_markpathAry)
             {
-                //Ö»ÓĞÄ¿Â¼²ÅÖ´ĞĞÒÔÏÂ²Ù×÷
+                //åªæœ‰ç›®å½•æ‰æ‰§è¡Œä»¥ä¸‹æ“ä½œ
                 if (!IO.IsDir(s)) { continue; }
 
                 string foldername = "";
                 if (!m_singleMark)
-                {//ÒÔÄ¿Â¼Ãû³Æ½øĞĞ±ê¼Ç
+                {//ä»¥ç›®å½•åç§°è¿›è¡Œæ ‡è®°
                     string _p = s.Substring(s.IndexOf("Assets"));
                     _p = cngraphi.gassets.common.Paths.Replace(_p);
                     Str.Split(_p, "/", out List<string> lst);
@@ -168,11 +168,11 @@ namespace cngraphi.gassets.editor
                 }
                 AssetBundleNameOperate(s, foldername);
             }
-            Dialog.Tip("×ÊÔ´±ê¼ÇÍê±Ï£¡");
+            Dialog.Tip("èµ„æºæ ‡è®°å®Œæ¯•ï¼");
         }
         private void AssetBundleNameOperate(string path, string foldername)
         {
-            if (!IO.IsDir(path)) { return; } //·ÇÄ¿Â¼
+            if (!IO.IsDir(path)) { return; } //éç›®å½•
             DirectoryInfo dir = new DirectoryInfo(path);
             FileSystemInfo[] fsi = dir.GetFileSystemInfos();
             foreach (FileSystemInfo f in fsi)
@@ -180,7 +180,7 @@ namespace cngraphi.gassets.editor
                 if (f is DirectoryInfo) { AssetBundleNameOperate(f.FullName, foldername); }
                 else
                 {
-                    //metaÎÄ¼şºöÂÔ
+                    //metaæ–‡ä»¶å¿½ç•¥
                     string p = f.FullName;
                     if (Path.GetExtension(p) == ".meta") { continue; }
 
@@ -201,23 +201,23 @@ namespace cngraphi.gassets.editor
 
 
         /// <summary>
-        /// ×Ô¶¨Òå×ÊÔ´£¨±ê¼Ç¡¢È¡Ïû±ê¼Ç£©
+        /// è‡ªå®šä¹‰èµ„æºï¼ˆæ ‡è®°ã€å–æ¶ˆæ ‡è®°ï¼‰
         /// </summary>
-        /// <param name="paths">×ÊÔ´Â·¾¶</param>
-        /// <param name="b">true£º±ê¼Ç£»false£ºÈ¡Ïû±ê¼Ç</param>
+        /// <param name="paths">èµ„æºè·¯å¾„</param>
+        /// <param name="b">trueï¼šæ ‡è®°ï¼›falseï¼šå–æ¶ˆæ ‡è®°</param>
         private void CustomAssetBundleNameOperate(string[] paths, bool b)
         {
-            SortedSet<string> reslist = new SortedSet<string>(); // ´´½¨Ò»¸ö²»ÔÊĞíÔªËØÖØ¸´ÇÒ²»ÔÊĞí¶ÔÏÖÓĞÏî¸ü¸ÄÅÅĞòµÄÁĞ±í
+            SortedSet<string> reslist = new SortedSet<string>(); // åˆ›å»ºä¸€ä¸ªä¸å…è®¸å…ƒç´ é‡å¤ä¸”ä¸å…è®¸å¯¹ç°æœ‰é¡¹æ›´æ”¹æ’åºçš„åˆ—è¡¨
             for (int i = 0; i < paths.Length; i++)
             {
                 if (IO.IsDir(paths[i]))
-                {//ÊÇÄ¿Â¼
+                {//æ˜¯ç›®å½•
                     List<string> rs = new List<string>();
                     IO.GetFiles(paths[i], rs);
                     reslist.AddRange(rs);
                 }
                 else
-                {//×ÊÔ´
+                {//èµ„æº
                     reslist.Add(paths[i]);
                 }
             }
@@ -244,7 +244,7 @@ namespace cngraphi.gassets.editor
 
 
         /// <summary>
-        /// É¾³ıÎ´Ê¹ÓÃµÄ×ÊÔ´±ê¼ÇÃû
+        /// åˆ é™¤æœªä½¿ç”¨çš„èµ„æºæ ‡è®°å
         /// </summary>
         private void RemoveUnusedABNames()
         {

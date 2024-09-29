@@ -6,17 +6,17 @@ using System.Text;
 namespace cngraphi.gassets.common
 {
     /// <summary>
-    /// ×Ö·û´®¹¤¾ß
-    /// <para>×÷Õß£ºÇ¿³½</para>
+    /// å­—ç¬¦ä¸²å·¥å…·
+    /// <para>ä½œè€…ï¼šå¼ºè¾°</para>
     /// </summary>
     public class Str
     {
         /// <summary>
-        /// ×Ö·û´®²ğ·Ö
+        /// å­—ç¬¦ä¸²æ‹†åˆ†
         /// </summary>
-        /// <param name="ssrc">Ô´×Ö·û´®</param>
-        /// <param name="ssplit">²ğ·Ö·û</param>
-        /// <param name="list">Ô´×Ö·û´®²ğ·ÖºóµÄ×Ö·ûÊı×é</param>
+        /// <param name="ssrc">æºå­—ç¬¦ä¸²</param>
+        /// <param name="ssplit">æ‹†åˆ†ç¬¦</param>
+        /// <param name="list">æºå­—ç¬¦ä¸²æ‹†åˆ†åçš„å­—ç¬¦æ•°ç»„</param>
         static public void Split(string ssrc, string ssplit, out List<string> list)
         {
             list = new List<string>();
@@ -50,9 +50,9 @@ namespace cngraphi.gassets.common
 
 
         /// <summary>
-        /// ¶ÔÎÄ¼şÉú³Émd5Öµ
+        /// å¯¹æ–‡ä»¶ç”Ÿæˆmd5å€¼
         /// </summary>
-        /// <param name="path">ÎÄ¼şÂ·¾¶</param>
+        /// <param name="path">æ–‡ä»¶è·¯å¾„</param>
         static public string MD5_File(string path)
         {
             if (string.IsNullOrEmpty(path)) { return ""; }
@@ -67,22 +67,22 @@ namespace cngraphi.gassets.common
 
 
         /// <summary>
-        /// ¶Ô×Ö·û´®½øĞĞ¼ÓÃÜ
-        /// <para>Éú³É32Î»Ğ¡Ğ´×Ö·û´®</para>
-        /// <para>ÒÔUTF8½øĞĞ±àÂë</para>
+        /// å¯¹å­—ç¬¦ä¸²è¿›è¡ŒåŠ å¯†
+        /// <para>ç”Ÿæˆ32ä½å°å†™å­—ç¬¦ä¸²</para>
+        /// <para>ä»¥UTF8è¿›è¡Œç¼–ç </para>
         /// </summary>
-        /// <param name="str">Ô´×Ö·û´®</param>
+        /// <param name="str">æºå­—ç¬¦ä¸²</param>
         /// <returns></returns>
         static public string MD5_Str(string str) { return MD5_Str(str, Encoding.UTF8); }
 
 
 
         /// <summary>
-        /// ¶Ô×Ö·û´®½øĞĞ¼ÓÃÜ
-        /// <para>Éú³É32Î»Ğ¡Ğ´×Ö·û´®</para>
+        /// å¯¹å­—ç¬¦ä¸²è¿›è¡ŒåŠ å¯†
+        /// <para>ç”Ÿæˆ32ä½å°å†™å­—ç¬¦ä¸²</para>
         /// </summary>
-        /// <param name="str">Ô´×Ö·û´®</param>
-        /// <param name="ecode">×Ö·û±àÂë</param>
+        /// <param name="str">æºå­—ç¬¦ä¸²</param>
+        /// <param name="ecode">å­—ç¬¦ç¼–ç </param>
         /// <returns></returns>
         static public string MD5_Str(string str, Encoding ecode)
         {
@@ -104,10 +104,10 @@ namespace cngraphi.gassets.common
 
 
         /// <summary>
-        /// ×Ö½Ú×ªB¡¢KB¡¢MB¡¢GBµÈ
+        /// å­—èŠ‚è½¬Bã€KBã€MBã€GBç­‰
         /// </summary>
-        /// <param name="size">×Ö½Ú³¤¶È</param>
-        /// <param name="format">×Ö·û¸ñÊ½</param>
+        /// <param name="size">å­—èŠ‚é•¿åº¦</param>
+        /// <param name="format">å­—ç¬¦æ ¼å¼</param>
         /// <returns></returns>
         static public string FromBytes(double size, string format = "f1")
         {
