@@ -83,7 +83,7 @@ namespace cngraphi.gassets
             callback?.Invoke();
 #else
             // 需要将母包的 manifest 文件拷贝到持久化目录内
-            string tarpath = Path.Combine(m_resDataPath, MANIFEST);
+            string tarpath = Path.Combine(m_resDataPath, Constants.MANIFEST);
             if (File.Exists(tarpath))
             {// 本地存在，则直接读取
                 ReadManifest();
