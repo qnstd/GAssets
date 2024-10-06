@@ -44,7 +44,7 @@ namespace cngraphi.gassets
 
 
         [InfoPropAttri("SpriteAtlas 图集输出目录", DomainType.Editor)]
-        public string AtlasOutputPath = "Assets/Res/Atlas";
+        public string AtlasOutputPath = "Assets/Artwork/Atlas";
 
 
         [InfoPropAttri

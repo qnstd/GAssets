@@ -36,8 +36,8 @@ namespace cngraphi.gassets.editor
         {
             { "Atlas", "SrpiteAtlas 图集" },
             { "MarkAndUnmark", "资源标记" },
-            { "BuildAndManifest", "资源、Manifest构建" },
             { "AssetBundleBrowser", "AssetBundle 浏览" },
+            { "BuildAndManifest", "资源、Manifest构建" },
             { "VerCompare", "版本差异化" },
             { "BeDependent", "资源被依赖查询" },
             { "UnuseClear", "未使用资源清理" },
