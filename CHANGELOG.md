@@ -1,5 +1,8 @@
 # GAssets 日志
 
+### [2.0.6] - [2024-10-15]
+>1. 优化 GInstanceOperate 异步实例对象，增加 Displayname 属性。
+
 ### [2.0.5] - [2024-10-06]
 >1. 优化 GAssetSettings 配置项，调整图集默认的生成目录
 >2. 优化资源管理器编辑器工具界面，将 AssetBundle浏览页签与资源打包页签位置互换
