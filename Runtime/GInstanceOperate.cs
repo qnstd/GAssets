@@ -118,7 +118,10 @@ namespace cngraphi.gassets
             }
 
             Result = GameObject.Instantiate(m_assetloader.Asset as GameObject);
-            Result.name = Displayname;
+            if (!string.IsNullOrEmpty(Displayname))
+            {
+                Result.name = Displayname;
+            }
 
             Finish();
         }
