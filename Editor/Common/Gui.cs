@@ -86,8 +86,6 @@ namespace cngraphi.gassets.editor.common
                 return m_LabelHeadLeft;
             }
         }
-
-
         #endregion
 
 

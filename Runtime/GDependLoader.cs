@@ -48,6 +48,12 @@ namespace cngraphi.gassets
         public AssetBundle AssetBundle => m_mainbundle?.AssetBundle;
 
 
+        /// <summary>
+        /// 资源依赖的所有 AssetBundle 文件加载器
+        /// </summary>
+        public List<GBundleLoader> Bundles => m_bundles;
+
+
         protected override void OnLoad()
         {
             //查找资源所在的ab文件信息及其依赖ab文件信息

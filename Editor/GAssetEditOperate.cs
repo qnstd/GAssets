@@ -41,6 +41,7 @@ namespace cngraphi.gassets.editor
             { "VerCompare", "版本差异化" },
             { "BeDependent", "资源被依赖查询" },
             { "UnuseClear", "未使用资源清理" },
+            { "RuntimeAnalyze", "资源内存分析" },
         };
 
 
@@ -132,6 +133,7 @@ namespace cngraphi.gassets.editor
         private void InvokeMethod(string methodname, string methodIndex)
         {
             MethodInfo method = GetType().GetDeclaredMethod(methodname + "_" + methodIndex);
+            if (method == null) { return; }
             method.Invoke(this, null);
         }
 
@@ -147,6 +149,14 @@ namespace cngraphi.gassets.editor
             OnEnable_Default();
         }
 
+
+        private void Update()
+        {
+            if (!string.IsNullOrEmpty(tabIndex))
+            {
+                InvokeMethod("OnUpdate", tabIndex);
+            }
+        }
 
 
         #region 菜单项

@@ -24,11 +24,11 @@ namespace cngraphi.gassets.editor
             EditorGUILayout.LabelField(Constants.LIBRARY_DISPLAYNAME, Gui.LabelHeadLeft);
             EditorGUILayout.Space(1);
             EditorGUILayout.LabelField("<color=#999999>轻量级 Unity3D 资源管理器</color>", Gui.LabelStyle);
-            EditorGUILayout.Space(10);
+            EditorGUILayout.Space(5);
             EditorGUILayout.BeginHorizontal();
             foreach (string k in Constants.MDS.Keys)
             {
-                if (GUILayout.Button($"<color=#cccccc>{k}</color>", Gui.BtnStyle, GUILayout.Width(90)))
+                if (GUILayout.Button($"<color=#cccccc>{k}</color>", Gui.BtnStyle, GUILayout.Width(55), GUILayout.Height(16)))
                 {
                     string p = Path.GetFullPath($"Packages/{Constants.PACKAGES_NAME}");
                     p = p.Replace("\\", "/");

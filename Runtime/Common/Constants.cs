@@ -33,10 +33,10 @@ namespace cngraphi.gassets.common
         /// </summary>
         static public Dictionary<string, string> MDS = new Dictionary<string, string>()
         {
-            {"Documentation","Documentation/gassets.md" },
-            {"Changelog", "CHANGELOG.md" },
-            {"License","LICENSE.md" },
-            {"Readme","README.md" }
+            {"文档","Documentation/gassets.md" },
+            {"日志", "CHANGELOG.md" },
+            {"许可","LICENSE.md" },
+            {"自述","README.md" }
         };
     }
 
