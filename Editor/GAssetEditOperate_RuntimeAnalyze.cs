@@ -3,6 +3,7 @@ using System.IO;
 using cngraphi.gassets.editor.common;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace cngraphi.gassets.editor
 {
@@ -90,8 +91,8 @@ namespace cngraphi.gassets.editor
                         EditorGUILayout.LabelField(m, Gui.LabelStyle, layoutw);
                         EditorGUILayout.LabelField(assetData[k][m].Ref.ToString(), Gui.LabelStyle, layoutw);
                         EditorGUILayout.BeginVertical(layoutw);
-                        if (GUILayout.Button("查看", Gui.BtnStyle, GUILayout.Width(45), GUILayout.Height(15)))
-                        {
+                        if (GUILayout.Button("", "ToolbarSearchTextField", GUILayout.Width(17), GUILayout.Height(15)))
+                        {// 显示资源所依赖的ab包
                             currentDetail = assetData[k][m];
                         }
                         EditorGUILayout.EndVertical();
@@ -123,10 +124,27 @@ namespace cngraphi.gassets.editor
                 foreach(var k in GBundleLoader.m_cache.Keys)
                 {
                     EditorGUILayout.BeginVertical("box");
-                    EditorGUILayout.LabelField(k, Gui.LabelStyle);
+                    EditorGUILayout.LabelField($"{k} / <color=#ffcc00>({ EditorUtility.FormatBytes(GetABRuntimeSize(k)) })</color>", Gui.LabelStyle);
                     EditorGUILayout.EndVertical();
                 }
             }
+        }
+
+
+        /// <summary>
+        /// 得到 AB包 在当前平台下运行时的内存占用大小
+        /// </summary>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        private long GetABRuntimeSize(string k)
+        {
+            string[] childs = AssetDatabase.GetAssetPathsFromAssetBundle(k);
+            long allbytes = 0;
+            for (int i = 0; i < childs.Length; i++)
+            {
+                allbytes += Profiler.GetRuntimeMemorySizeLong(AssetDatabase.LoadAssetAtPath<Object>(childs[i]));
+            }
+            return allbytes;
         }
 
 
