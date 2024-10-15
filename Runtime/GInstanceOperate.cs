@@ -17,12 +17,14 @@ namespace cngraphi.gassets
         /// 创建一个异步实例化对象
         /// </summary>
         /// <param name="resname">资源名称</param>
+        /// <param name="displayname">显示名称</param>
         /// <returns></returns>
-        static public GInstanceOperate Create(string resname)
+        static public GInstanceOperate Create(string resname, string displayname = "")
         {
             GInstanceOperate obj = new GInstanceOperate()
             {
-                Resname = resname
+                Resname = resname,
+                Displayname = displayname
             };
             obj.Start();
             return obj;
@@ -72,6 +74,11 @@ namespace cngraphi.gassets
         private string Resname { get; set; }
 
         /// <summary>
+        /// 显示名称
+        /// </summary>
+        private string Displayname { get; set; }
+
+        /// <summary>
         /// 实例化对象
         /// </summary>
         public GameObject Result { get; private set; }
@@ -111,6 +118,8 @@ namespace cngraphi.gassets
             }
 
             Result = GameObject.Instantiate(m_assetloader.Asset as GameObject);
+            Result.name = Displayname;
+
             Finish();
         }
 
