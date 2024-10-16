@@ -61,7 +61,7 @@ namespace cngraphi.gassets.editor
 
         private void OnGUI_RuntimeAnalyze()
         {
-            EditorGUILayout.LabelField("<color=#ffcc00>* 以下数据均在运行时内存中进行获取</color>", Gui.LabelStyle);
+            EditorGUILayout.LabelField("<color=#ffffff>* 以下数据均在运行时内存中进行获取</color>", Gui.LabelStyle);
 
             float w = EditorGUIUtility.currentViewWidth;
             float perw = w / 3.0f - 71;
@@ -110,7 +110,7 @@ namespace cngraphi.gassets.editor
 
             #region 每个页签的GUI刷新
             if (tabType == TabType.Asset)
-            {// 当页签为 Asset 时
+            {
                 EditorGUILayout.BeginHorizontal("box");
                 GUILayout.FlexibleSpace();
                 EditorGUILayout.LabelField("类型: ", Gui.LabelStyle, GUILayout.Width(30));
@@ -179,7 +179,7 @@ namespace cngraphi.gassets.editor
                 EditorGUILayout.EndScrollView();
             }
             else if (tabType == TabType.Bundle)
-            {// 当页签为 AB包 时
+            {
                 EditorGUILayout.BeginHorizontal("box");
                 EditorGUILayout.LabelField($"总占用: <color=#ff6b8e>{EditorUtility.FormatBytes(allsize)}</color>", Gui.LabelStyle);
                 GUILayout.FlexibleSpace();
@@ -194,7 +194,7 @@ namespace cngraphi.gassets.editor
                     if (k.Contains(abSearch))
                     {
                         EditorGUILayout.BeginHorizontal("helpbox");
-                        EditorGUILayout.LabelField($"{k} <color=#ffcc00>({EditorUtility.FormatBytes(size)})</color>", Gui.LabelStyle);
+                        EditorGUILayout.LabelField($"{k} <color=#ffffff><b>({EditorUtility.FormatBytes(size)})</b></color>", Gui.LabelStyle);
                         if (GUILayout.Button("", "ToolbarSearchTextField", GUILayout.Width(17), GUILayout.Height(15)))
                         {// 显示ab包内包含的资源信息
                             currentABDetail = GAssetManifest.GetABInfo(k);
@@ -220,7 +220,7 @@ namespace cngraphi.gassets.editor
                                 foreach (var content in currentABDetail.m_depends)
                                 {
                                     EditorGUILayout.BeginHorizontal("box");
-                                    EditorGUILayout.LabelField($"{content} <color=#ffcc00>({EditorUtility.FormatBytes(Profilers.GetABRuntimeSize(content))})</color>", Gui.LabelStyle);
+                                    EditorGUILayout.LabelField($"{content} <color=#ffffff>({EditorUtility.FormatBytes(Profilers.GetABRuntimeSize(content))})</color>", Gui.LabelStyle);
                                     if (GUILayout.Button("复制", Gui.BtnStyle, GUILayout.Width(40), GUILayout.Height(18)))
                                     {
                                         GUIUtility.systemCopyBuffer = content;
@@ -232,6 +232,10 @@ namespace cngraphi.gassets.editor
                         }
                     }
                 }
+            }
+            else
+            {
+
             }
             #endregion
         }
