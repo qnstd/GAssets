@@ -38,6 +38,7 @@ namespace cngraphi.gassets.editor
         Dictionary<string, Dictionary<string, AssetDetail>> assetData = new Dictionary<string, Dictionary<string, AssetDetail>>(); // 存储所有动态创建的资源对象信息组
         float refreshInterval = 1; // 数据刷新间隔，单位：秒
         float currentInterval = 0; // 当前记录的时间
+        long allsize = 0; // 内存总占用
         #endregion
 
 
@@ -55,6 +56,7 @@ namespace cngraphi.gassets.editor
             abSearch = "";
             restypSearch = "";
             resSearch = "";
+            allsize = 0;
         }
 
         private void OnGUI_RuntimeAnalyze()
@@ -79,7 +81,7 @@ namespace cngraphi.gassets.editor
             EditorGUILayout.BeginHorizontal("helpbox");
             Color cc = GUI.backgroundColor;
             if (tabType == TabType.Asset)
-                GUI.backgroundColor = Color.green;
+                GUI.backgroundColor = Color.cyan;
             if (GUILayout.Button("资源", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
             {
                 tabType = TabType.Asset;
@@ -87,7 +89,7 @@ namespace cngraphi.gassets.editor
             GUI.backgroundColor = cc;
             cc = GUI.backgroundColor;
             if (tabType == TabType.Bundle)
-                GUI.backgroundColor = Color.green;
+                GUI.backgroundColor = Color.cyan;
             if (GUILayout.Button("AB包", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
             {
                 tabType = TabType.Bundle;
@@ -109,18 +111,18 @@ namespace cngraphi.gassets.editor
             #region 每个页签的GUI刷新
             if (tabType == TabType.Asset)
             {// 当页签为 Asset 时
-                EditorGUILayout.BeginHorizontal("helpbox");
-                EditorGUILayout.LabelField("资源", Gui.LabelStyle, layoutw);
-                EditorGUILayout.LabelField("内存引用计数", Gui.LabelStyle, layoutw);
-                EditorGUILayout.LabelField("依赖（AssetBundle）", Gui.LabelStyle, layoutw);
-                EditorGUILayout.EndHorizontal();
-
                 EditorGUILayout.BeginHorizontal("box");
                 GUILayout.FlexibleSpace();
                 EditorGUILayout.LabelField("类型: ", Gui.LabelStyle, GUILayout.Width(30));
                 restypSearch = EditorGUILayout.TextField("", restypSearch, "ToolbarSearchTextField", GUILayout.Width(80));
                 EditorGUILayout.LabelField("资源: ", Gui.LabelStyle, GUILayout.Width(30));
                 resSearch = EditorGUILayout.TextField("", resSearch, "ToolbarSearchTextField", GUILayout.Width(120));
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal("helpbox");
+                EditorGUILayout.LabelField("资源", Gui.LabelStyle, layoutw);
+                EditorGUILayout.LabelField("内存引用计数", Gui.LabelStyle, layoutw);
+                EditorGUILayout.LabelField("操作 (定位、AB信息)", Gui.LabelStyle, layoutw);
                 EditorGUILayout.EndHorizontal();
 
                 // 资源内存信息
@@ -138,10 +140,16 @@ namespace cngraphi.gassets.editor
                                 EditorGUILayout.LabelField(m, Gui.LabelStyle, layoutw);
                                 EditorGUILayout.LabelField(assetData[k][m].Ref.ToString(), Gui.LabelStyle, layoutw);
                                 EditorGUILayout.BeginVertical(layoutw);
+                                EditorGUILayout.BeginHorizontal();
+                                if (GUILayout.Button("", "ToolbarSearchTextFieldPopup", GUILayout.Width(17), GUILayout.Height(15)))
+                                {// 在Project面板中定位资源
+                                    EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>(m));
+                                }
                                 if (GUILayout.Button("", "ToolbarSearchTextField", GUILayout.Width(17), GUILayout.Height(15)))
                                 {// 显示资源所依赖的ab包
                                     currentDetail = assetData[k][m];
                                 }
+                                EditorGUILayout.EndHorizontal();
                                 EditorGUILayout.EndVertical();
                                 EditorGUILayout.EndHorizontal();
                                 if (currentDetail != null && m == currentDetail.Key && currentDetail.Depends != null)
@@ -173,15 +181,20 @@ namespace cngraphi.gassets.editor
             else if (tabType == TabType.Bundle)
             {// 当页签为 AB包 时
                 EditorGUILayout.BeginHorizontal("box");
+                EditorGUILayout.LabelField($"总占用: <color=#ff6b8e>{EditorUtility.FormatBytes(allsize)}</color>", Gui.LabelStyle);
                 GUILayout.FlexibleSpace();
                 abSearch = EditorGUILayout.TextField("", abSearch, "ToolbarSearchTextField", GUILayout.Width(200));
                 EditorGUILayout.EndHorizontal();
+
+                allsize = 0;
                 foreach (var k in GBundleLoader.m_cache.Keys)
                 {
+                    long size = Profilers.GetABRuntimeSize(k);
+                    allsize += size;
                     if (k.Contains(abSearch))
                     {
                         EditorGUILayout.BeginHorizontal("helpbox");
-                        EditorGUILayout.LabelField($"{k} <color=#ffcc00>({EditorUtility.FormatBytes(Profilers.GetABRuntimeSize(k))})</color>", Gui.LabelStyle);
+                        EditorGUILayout.LabelField($"{k} <color=#ffcc00>({EditorUtility.FormatBytes(size)})</color>", Gui.LabelStyle);
                         if (GUILayout.Button("", "ToolbarSearchTextField", GUILayout.Width(17), GUILayout.Height(15)))
                         {// 显示ab包内包含的资源信息
                             currentABDetail = GAssetManifest.GetABInfo(k);
@@ -193,18 +206,26 @@ namespace cngraphi.gassets.editor
                             EditorGUILayout.LabelField($"<color=#bdf6ff># 子元素</color>", Gui.LabelStyle);
                             foreach (var content in currentABDetail.m_contains)
                             {
-                                EditorGUILayout.BeginVertical("box");
+                                EditorGUILayout.BeginHorizontal("box");
                                 EditorGUILayout.LabelField($"{content} <color=#ffaa00>({EditorUtility.FormatBytes(Profilers.GetResRuntimeSize(content))})</color>", Gui.LabelStyle);
-                                EditorGUILayout.EndVertical();
+                                if (GUILayout.Button("定位", Gui.BtnStyle, GUILayout.Width(40), GUILayout.Height(18)))
+                                {
+                                    EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath<Object>(content));
+                                }
+                                EditorGUILayout.EndHorizontal();
                             }
                             if (currentABDetail.m_depends != null)
                             {
                                 EditorGUILayout.LabelField($"<color=#bdf6ff># 依赖包</color>", Gui.LabelStyle);
                                 foreach (var content in currentABDetail.m_depends)
                                 {
-                                    EditorGUILayout.BeginVertical("box");
+                                    EditorGUILayout.BeginHorizontal("box");
                                     EditorGUILayout.LabelField($"{content} <color=#ffcc00>({EditorUtility.FormatBytes(Profilers.GetABRuntimeSize(content))})</color>", Gui.LabelStyle);
-                                    EditorGUILayout.EndVertical();
+                                    if (GUILayout.Button("复制", Gui.BtnStyle, GUILayout.Width(40), GUILayout.Height(18)))
+                                    {
+                                        GUIUtility.systemCopyBuffer = content;
+                                    }
+                                    EditorGUILayout.EndHorizontal();
                                 }
                             }
                             EditorGUI.indentLevel--;
