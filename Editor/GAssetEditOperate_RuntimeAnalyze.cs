@@ -303,18 +303,18 @@ namespace cngraphi.gassets.editor
                 assetData.Clear();
 
                 // 获取数据
+                Dictionary<string, AssetDetail> dic;
                 foreach (var k in GAssetLoader.m_cache.Keys)
-                {
-                    Dictionary<string, AssetDetail> dic = GetGroupByType(k);
+                {// 资源对象
+                    dic = GetGroupByType(k);
                     dic.Add(k, CreateAssetAnalyzeObject(k, GAssetLoader.m_cache[k].Ref));
                 }
-                foreach (var k in GDependLoader.m_cache.Keys)
-                {// 循环检测 GDependLoader 是因为场景加载直接使用的是此加载器
-                    Dictionary<string, AssetDetail> dic = GetGroupByType(k);
-                    if (!dic.TryGetValue(k, out _))
-                    {
-                        dic.Add(k, CreateAssetAnalyzeObject(k, GDependLoader.m_cache[k].Ref));
-                    }
+                string k_;
+                foreach (var scn in GSceneOperate.Data)
+                {// 场景对象
+                    k_ = scn.Path;
+                    dic = GetGroupByType(k_);
+                    dic.Add(k_, CreateAssetAnalyzeObject(k_, GDependLoader.m_cache[k_].Ref));
                 }
 
                 // 重绘GUI

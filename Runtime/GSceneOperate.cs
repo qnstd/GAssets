@@ -75,6 +75,12 @@ namespace cngraphi.gassets
 
 
         /// <summary>
+        /// 获取所有场景
+        /// </summary>
+        static public List<GSceneOperate> Data { get { return m_objs; } }
+
+
+        /// <summary>
         /// 内部管理器调用
         /// </summary>
         static public void ClearAllObjs()
