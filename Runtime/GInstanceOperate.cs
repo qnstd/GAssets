@@ -18,13 +18,15 @@ namespace cngraphi.gassets
         /// </summary>
         /// <param name="resname">资源名称</param>
         /// <param name="displayname">显示名称</param>
+        /// <param name="p">父级对象</param>
         /// <returns></returns>
-        static public GInstanceOperate Create(string resname, string displayname = "")
+        static public GInstanceOperate Create(string resname, string displayname = "", Transform p = null)
         {
             GInstanceOperate obj = new GInstanceOperate()
             {
                 Resname = resname,
-                Displayname = displayname
+                Displayname = displayname,
+                Parent = p
             };
             obj.Start();
             return obj;
@@ -79,6 +81,11 @@ namespace cngraphi.gassets
         private string Displayname { get; set; }
 
         /// <summary>
+        /// 父级对象
+        /// </summary>
+        private Transform Parent { get; set; }
+
+        /// <summary>
         /// 实例化对象
         /// </summary>
         public GameObject Result { get; private set; }
@@ -117,7 +124,7 @@ namespace cngraphi.gassets
                 return;
             }
 
-            Result = GameObject.Instantiate(m_assetloader.Asset as GameObject);
+            Result = GameObject.Instantiate(m_assetloader.Asset as GameObject, Parent);
             if (!string.IsNullOrEmpty(Displayname))
             {
                 Result.name = Displayname;
