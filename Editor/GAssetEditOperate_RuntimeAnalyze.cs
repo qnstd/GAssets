@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.IO;
+using cngraphi.gassets.common;
 using cngraphi.gassets.editor.common;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Profiling;
 
 namespace cngraphi.gassets.editor
 {
@@ -13,14 +13,30 @@ namespace cngraphi.gassets.editor
     /// </summary>
     public partial class GAssetEditOperate : EditorWindow
     {
+        #region 数据结构及变量
+        // Tab页类型
         enum TabType
         {
             Asset,
             Bundle
         }
+        // 资源对象详细信息结构体
+        class AssetDetail
+        {
+            public string Key;
+            public int Ref;
+            public List<GBundleLoader> Depends;
+        }
+
         Vector2 scrollV22 = Vector2.zero;
-        AssetDetail currentDetail = null; // 当前选择查看的资源详细信息对象
         TabType tabType = TabType.Asset;
+        AssetDetail currentDetail = null; // 当前选择查看的资源详细信息对象
+        ABInfo currentABDetail = null; // 当前选择查看的AB包包含的资源信息
+        Dictionary<string, Dictionary<string, AssetDetail>> assetData = new Dictionary<string, Dictionary<string, AssetDetail>>(); // 存储所有动态创建的资源对象信息组
+        float refreshInterval = 1; // 数据刷新间隔，单位：秒
+        float currentInterval = 0; // 当前记录的时间
+        #endregion
+
 
 
         private void OnEnable_RuntimeAnalyze() { }
@@ -29,8 +45,10 @@ namespace cngraphi.gassets.editor
         {
             assetData.Clear();
             currentDetail = null;
+            currentABDetail = null;
             scrollV22 = Vector2.zero;
             tabType = TabType.Asset;
+            currentInterval = 0;
         }
 
         private void OnGUI_RuntimeAnalyze()
@@ -41,13 +59,22 @@ namespace cngraphi.gassets.editor
             float perw = w / 3.0f - 71;
             GUILayoutOption layoutw = GUILayout.Width(perw);
 
-            // Tab
+            #region 全局设置
+            EditorGUILayout.Space(5);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("数据刷新间隔: ", Gui.LabelStyle, GUILayout.Width(80));
+            refreshInterval = EditorGUILayout.FloatField(refreshInterval, GUILayout.Width(50));
+            EditorGUILayout.LabelField("s", Gui.LabelStyle, GUILayout.Width(20));
+            EditorGUILayout.EndHorizontal();
+            #endregion
+
+            #region Tab页签
             EditorGUILayout.Space(5);
             EditorGUILayout.BeginHorizontal("helpbox");
             Color cc = GUI.backgroundColor;
             if (tabType == TabType.Asset)
                 GUI.backgroundColor = Color.green;
-            if(GUILayout.Button("资源", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+            if (GUILayout.Button("资源", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
             {
                 tabType = TabType.Asset;
             }
@@ -63,17 +90,18 @@ namespace cngraphi.gassets.editor
             GUILayout.FlexibleSpace();
             if (GUILayout.Button("清理数据", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(18)))
             {
-                if (!EditorApplication.isPlaying) 
+                if (!EditorApplication.isPlaying)
                 {
                     OnDisable_RuntimeAnalyze();
                 }
                 else { Debug.LogWarning("运行时无法进行数据清理操作."); }
-                
+
             }
             EditorGUILayout.EndHorizontal();
+            #endregion
 
-
-            if(tabType == TabType.Asset)
+            #region 每个页签的GUI刷新
+            if (tabType == TabType.Asset)
             {// 当页签为 Asset 时
                 EditorGUILayout.BeginHorizontal("helpbox");
                 EditorGUILayout.LabelField("资源", Gui.LabelStyle, layoutw);
@@ -87,7 +115,7 @@ namespace cngraphi.gassets.editor
                     EditorGUILayout.LabelField($"<color=#bdf6ff># {k}</color>", Gui.LabelStyle);
                     foreach (var m in assetData[k].Keys)
                     {
-                        EditorGUILayout.BeginHorizontal("box");
+                        EditorGUILayout.BeginHorizontal("helpbox");
                         EditorGUILayout.LabelField(m, Gui.LabelStyle, layoutw);
                         EditorGUILayout.LabelField(assetData[k][m].Ref.ToString(), Gui.LabelStyle, layoutw);
                         EditorGUILayout.BeginVertical(layoutw);
@@ -104,12 +132,9 @@ namespace cngraphi.gassets.editor
                             {
                                 if (bundle != null && bundle.AssetBundle != null)
                                 {
-                                    Color c = GUI.backgroundColor;
-                                    GUI.backgroundColor = Color.yellow;
                                     EditorGUILayout.BeginVertical("box");
                                     EditorGUILayout.LabelField(bundle.AssetBundle.name, Gui.LabelStyle);
                                     EditorGUILayout.EndVertical();
-                                    GUI.backgroundColor = c;
                                 }
                             }
                             EditorGUI.indentLevel--;
@@ -119,48 +144,47 @@ namespace cngraphi.gassets.editor
                 EditorGUILayout.Space(2);
                 EditorGUILayout.EndScrollView();
             }
-            else if(tabType == TabType.Bundle)
+            else if (tabType == TabType.Bundle)
             {// 当页签为 AB包 时
-                foreach(var k in GBundleLoader.m_cache.Keys)
+                foreach (var k in GBundleLoader.m_cache.Keys)
                 {
-                    EditorGUILayout.BeginVertical("box");
-                    EditorGUILayout.LabelField($"{k} / <color=#ffcc00>({ EditorUtility.FormatBytes(GetABRuntimeSize(k)) })</color>", Gui.LabelStyle);
+                    EditorGUILayout.BeginHorizontal("helpbox");
+                    EditorGUILayout.LabelField($"{k} <color=#ffcc00>({EditorUtility.FormatBytes(Profilers.GetABRuntimeSize(k))})</color>", Gui.LabelStyle);
+                    if (GUILayout.Button("", "ToolbarSearchTextField", GUILayout.Width(17), GUILayout.Height(15)))
+                    {// 显示ab包内包含的资源信息
+                        currentABDetail = GAssetManifest.GetABInfo(k);
+                    }
                     EditorGUILayout.EndVertical();
+                    if (currentABDetail != null && k == currentABDetail.m_name)
+                    {
+                        EditorGUI.indentLevel++;
+                        EditorGUILayout.LabelField($"<color=#bdf6ff># Child Elements</color>", Gui.LabelStyle);
+                        foreach (var content in currentABDetail.m_contains)
+                        {
+                            EditorGUILayout.BeginVertical("box");
+                            EditorGUILayout.LabelField($"{content} <color=#ffaa00>({EditorUtility.FormatBytes(Profilers.GetResRuntimeSize(content))})</color>", Gui.LabelStyle);
+                            EditorGUILayout.EndVertical();
+                        }
+                        if (currentABDetail.m_depends != null)
+                        {
+                            EditorGUILayout.LabelField($"<color=#bdf6ff># Depend AB</color>", Gui.LabelStyle);
+                            foreach (var content in currentABDetail.m_depends)
+                            {
+                                EditorGUILayout.BeginVertical("box");
+                                EditorGUILayout.LabelField($"{content} <color=#ffcc00>({EditorUtility.FormatBytes(Profilers.GetABRuntimeSize(content))})</color>", Gui.LabelStyle);
+                                EditorGUILayout.EndVertical();
+                            }
+                        }
+                        EditorGUI.indentLevel--;
+                    }
                 }
             }
-        }
-
-
-        /// <summary>
-        /// 得到 AB包 在当前平台下运行时的内存占用大小
-        /// </summary>
-        /// <param name="k"></param>
-        /// <returns></returns>
-        private long GetABRuntimeSize(string k)
-        {
-            string[] childs = AssetDatabase.GetAssetPathsFromAssetBundle(k);
-            long allbytes = 0;
-            for (int i = 0; i < childs.Length; i++)
-            {
-                allbytes += Profiler.GetRuntimeMemorySizeLong(AssetDatabase.LoadAssetAtPath<Object>(childs[i]));
-            }
-            return allbytes;
+            #endregion
         }
 
 
 
         #region 获取数据
-        // 资源对象详细信息结构体
-        class AssetDetail
-        {
-            public string Key;
-            public int Ref;
-            public List<GBundleLoader> Depends;
-        }
-        // 存储所有动态创建的资源对象信息组
-        Dictionary<string, Dictionary<string, AssetDetail>> assetData = new Dictionary<string, Dictionary<string, AssetDetail>>();
-
-
         /// <summary>
         /// 通过资源文件类型获取对应的管理组
         /// </summary>
@@ -204,27 +228,42 @@ namespace cngraphi.gassets.editor
         /// </summary>
         private void OnUpdate_RuntimeAnalyze()
         {
-            if (!EditorApplication.isPlaying) { return; }
-
-            // 清理
-            assetData.Clear();
-
-            // 获取数据
-            foreach (var k in GAssetLoader.m_cache.Keys)
+            if (!EditorApplication.isPlaying)
             {
-                Dictionary<string, AssetDetail> dic = GetGroupByType(k);
-                dic.Add(k, CreateAssetAnalyzeObject(k, GAssetLoader.m_cache[k].Ref));
+                currentInterval = 0;
+                return;
             }
-            foreach (var k in GDependLoader.m_cache.Keys)
+            else
             {
-                Dictionary<string, AssetDetail> dic = GetGroupByType(k);
-                if (!dic.TryGetValue(k, out _))
+                if (currentInterval == 0) { currentInterval = Time.deltaTime; }
+            }
+
+            currentInterval += Time.deltaTime;
+            if (currentInterval >= refreshInterval)
+            {
+                currentInterval = 0;
+
+                // 清理
+                assetData.Clear();
+
+                // 获取数据
+                foreach (var k in GAssetLoader.m_cache.Keys)
                 {
-                    dic.Add(k, CreateAssetAnalyzeObject(k, GDependLoader.m_cache[k].Ref));
+                    Dictionary<string, AssetDetail> dic = GetGroupByType(k);
+                    dic.Add(k, CreateAssetAnalyzeObject(k, GAssetLoader.m_cache[k].Ref));
                 }
-            }
+                foreach (var k in GDependLoader.m_cache.Keys)
+                {
+                    Dictionary<string, AssetDetail> dic = GetGroupByType(k);
+                    if (!dic.TryGetValue(k, out _))
+                    {
+                        dic.Add(k, CreateAssetAnalyzeObject(k, GDependLoader.m_cache[k].Ref));
+                    }
+                }
 
-            //Repaint();
+                // 重绘GUI
+                Repaint();
+            }
         }
         #endregion
     }

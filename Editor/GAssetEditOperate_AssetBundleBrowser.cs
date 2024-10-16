@@ -69,7 +69,7 @@ namespace cngraphi.gassets.editor
                     string p = childs[i];
                     EditorABChildInformation c = new EditorABChildInformation()
                     {
-                        m_size = CalculateMemory(p),
+                        m_size = Profilers.GetResRuntimeSize(p),
                         m_path = p
                     };
                     childLst.Add(c);
@@ -161,7 +161,7 @@ namespace cngraphi.gassets.editor
                 foreach (string s in m_CurrentABInfo.m_depends)
                 {
                     GUILayout.BeginHorizontal("box");
-                    EditorGUILayout.LabelField(s, Gui.LabelStyle);
+                    EditorGUILayout.LabelField($"{s} / <color=#b6ea94>({EditorUtility.FormatBytes(Profilers.GetABRuntimeSize(s))})</color>", Gui.LabelStyle);
                     if (GUILayout.Button("复制", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
                     {
                         GUIUtility.systemCopyBuffer = s;
@@ -205,27 +205,6 @@ namespace cngraphi.gassets.editor
             if (m_tabCurSelect == i) { return; }
             m_tabCurSelect = i;
             m_CurrentABInfo = m_abLst[m_tabCurSelect];
-        }
-
-
-
-        /// <summary>
-        /// 获取资源内存
-        /// </summary>
-        /// <param name="p">资源路径</param>
-        /// <returns></returns>
-        private long CalculateMemory(string p)
-        {
-            // 物理内存
-            //return new FileInfo(p).Length;
-
-            // 当前使用本机的运行时内存
-            return Profiler.GetRuntimeMemorySizeLong(AssetDatabase.LoadAssetAtPath<Object>(p));
-
-            // 资源的本机存储内存（目前unity dll只提供了纹理资源的获取，其他资源暂时没有找到可反射的函数）
-            //System.Type t = Assembly.Load("UnityEditor.dll").GetType("UnityEditor.TextureUtil");
-            //MethodInfo method = t.GetMethod("GetStorageMemorySizeLong", BindingFlags.Static | BindingFlags.Public | BindingFlags.Instance);
-            //return (long)method.Invoke(null, new object[] { AssetDatabase.LoadAssetAtPath<Texture>(p) });
         }
 
     }
