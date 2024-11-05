@@ -1,8 +1,3 @@
-![](images/label.png)
-
-轻量级 Unity3D 资源管理器。
-
-
 ## 目录结构 ##
 > Documentation 文档目录
 
