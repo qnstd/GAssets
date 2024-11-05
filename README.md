@@ -1,4 +1,4 @@
-![](images/label.png)
+![](Documentation/images/label.png)
  
 轻量级 Unity3D 资源管理器。
 
