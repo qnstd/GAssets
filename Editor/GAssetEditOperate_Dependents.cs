@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using cngraphi.gassets.common;
 using cngraphi.gassets.editor.common;
 using UnityEditor;
 using UnityEngine;
@@ -46,7 +47,6 @@ namespace cngraphi.gassets.editor
         static private List<string> m_nohave = new List<string>();
         Vector2 m_v2;
         Vector2 m_v22;
-        int m_indx = 0;
         List<string> m_lst;
         bool isBackup = false;
         #endregion
@@ -119,26 +119,31 @@ namespace cngraphi.gassets.editor
             );
             //未被依赖
             EditorGUILayout.Space(5);
-            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.BeginHorizontal("box");
             EditorGUILayout.LabelField("<color=#fd7878ff>未被其他资产依赖的文件</color>", Gui.LabelStyle);
             GUILayout.FlexibleSpace();
             Color cc = GUI.backgroundColor;
-            GUI.backgroundColor = Color.red;
-            if (GUILayout.Button("一键删除", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(18))) { DeleteAllUnused(); }
+            GUI.backgroundColor = Color.yellow;
+            if (GUILayout.Button("一键忽略", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(16))) { IngoresAll(); }
             GUI.backgroundColor = cc;
+            cc = GUI.backgroundColor;
+            GUI.backgroundColor = Color.red;
+            if (GUILayout.Button("一键删除", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(16))) { DeleteAllUnused(); }
+            GUI.backgroundColor = cc;
+            isBackup = EditorGUILayout.Toggle("", isBackup, GUILayout.Width(20));
+            EditorGUILayout.LabelField("删除备份", Gui.LabelStyle, GUILayout.Width(24));
             EditorGUILayout.EndHorizontal();
             m_v2 = EditorGUILayout.BeginScrollView(m_v2, "box");
-            m_indx = 0;
             foreach (string s in m_nohave)
             {
-                m_indx++;
                 GUILayout.BeginHorizontal("box", GUILayout.Height(14));
-                EditorGUILayout.LabelField($"{m_indx}. {s}", Gui.LabelStyle);
-                if (GUILayout.Button("定位", Gui.BtnStyle, GUILayout.Width(45), GUILayout.Height(18))) { GPS(s); }
-                if (GUILayout.Button("拷贝名称", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(18))) { CopyToClipboard(s); }
+                EditorGUILayout.LabelField($"{s}", Gui.LabelStyle);
+                if (GUILayout.Button("定位", Gui.BtnStyle, GUILayout.Width(45), GUILayout.Height(16))) { GPS(s); }
+                if (GUILayout.Button("拷贝名称", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(16))) { CopyToClipboard(s); }
                 Color c = GUI.backgroundColor;
-                GUI.backgroundColor = Color.yellow;
-                if (GUILayout.Button("删除", Gui.BtnStyle, GUILayout.Width(45), GUILayout.Height(18))) { DeleteUnused(s); }
+                GUI.backgroundColor = new Color(153 / 255.0f, 192 / 255.0f, 221 / 255.0f);
+                if (GUILayout.Button("忽略", Gui.BtnStyle, GUILayout.Width(45), GUILayout.Height(16))) { Ingores(s); }
+                if (GUILayout.Button("删除", Gui.BtnStyle, GUILayout.Width(45), GUILayout.Height(16))) { DeleteUnused(s); }
                 GUI.backgroundColor = c;
                 GUILayout.EndHorizontal();
             }
@@ -146,14 +151,14 @@ namespace cngraphi.gassets.editor
 
             //被依赖
             EditorGUILayout.Space(20);
+            EditorGUILayout.BeginHorizontal("box");
             EditorGUILayout.LabelField("被其他资产依赖的文件", Gui.LabelStyle);
+            EditorGUILayout.EndHorizontal();
             m_v22 = EditorGUILayout.BeginScrollView(m_v22, "box");
-            m_indx = 0;
             foreach (string s in m_have.Keys)
             {
-                m_indx++;
                 GUILayout.BeginHorizontal("box", GUILayout.Height(25));
-                EditorGUILayout.LabelField($"<color=#fbf78dff>{m_indx}. {s}</color>", Gui.LabelStyle, GUILayout.Height(35));
+                EditorGUILayout.LabelField($"<color=#fbf78dff>{s}</color>", Gui.LabelStyle, GUILayout.Height(35));
                 GUILayout.EndHorizontal();
                 m_have.TryGetValue(s, out m_lst);
                 foreach (string f in m_lst)
@@ -223,30 +228,59 @@ namespace cngraphi.gassets.editor
 
 
 
+
         private void DeleteAllUnused()
         {
             if (m_nohave == null || m_nohave.Count == 0) { return; }
-            int rs = Dialog.Confirm("确定执行删除？\n\n提示：虽然资源相互之间没有被依赖，但可能存在文本文件中引用当前资源的名称或者路径。请时刻注意！");
+            int rs = Dialog.Confirm("确定执行删除？\n\n提示：虽然资源相互之间没有被依赖，但可能存在文本文件中引用当前资源的名称或者路径。请时刻注意！\n");
             if (rs == 0)
             {
                 for (int i = 0; i < m_nohave.Count; i++)
                 {
-                    AssetDatabase.DeleteAsset(m_nohave[i]);
+                    string origin = m_nohave[i];
+                    Backup(origin);
+                    AssetDatabase.DeleteAsset(origin);  // 删除
                 }
-                AssetDatabase.Refresh();
                 m_nohave.Clear();
+                AssetDatabase.Refresh();
             }
         }
         private void DeleteUnused(string f)
         {
-            int rs = Dialog.Confirm("确定执行删除？\n\n提示：虽然资源相互之间没有被依赖，但可能存在文本文件中引用当前资源的名称或者路径。请时刻注意！");
+            int rs = Dialog.Confirm("确定执行删除？\n\n提示：虽然资源相互之间没有被依赖，但可能存在文本文件中引用当前资源的名称或者路径。请时刻注意！\n");
             if (rs == 0)
             {
-                //Debug.Log(f);
+                Backup(f);
                 m_nohave.Remove(f);
                 AssetDatabase.DeleteAsset(f);
                 AssetDatabase.Refresh();
                 GUIUtility.ExitGUI();
+            }
+        }
+        private void IngoresAll()
+        {
+            int rs = Dialog.Confirm("确定执行忽略？\n\n提示：\n1.虽然资源相互之间没有被依赖，但可能存在文本文件中引用当前资源的名称或者路径。请时刻注意！\n2.若确定文本文件中没有间接引用，点击一键忽略后可从清除列表，但工程内仍存在这些资产。 \n");
+            if (rs == 0)
+            {
+                m_nohave.Clear();
+            }
+        }
+        private void Ingores(string f)
+        {
+            int rs = Dialog.Confirm("确定执行忽略？\n\n提示：\n1.虽然资源相互之间没有被依赖，但可能存在文本文件中引用当前资源的名称或者路径。请时刻注意！\n2.若确定文本文件中没有间接引用，点击忽略后可从列表中移除，但工程内仍存在此资产。 \n");
+            if (rs == 0)
+            {
+                m_nohave.Remove(f);
+                GUIUtility.ExitGUI();
+            }
+        }
+        private void Backup(string origin)
+        {
+            if (isBackup)
+            {
+                string file = Path.Combine(settings.CleanBackupPath, origin);
+                IO.RecursionDirCreate(Path.GetDirectoryName(file));
+                IO.CopyFile(origin, file);  // 拷贝
             }
         }
         private void CopyToClipboard(string s)

@@ -85,7 +85,6 @@ namespace cngraphi.gassets.common
                                 ? PersistentPath
                                 : Path.Combine(PersistentPath, p);
             return Replace(newpath);
-
         }
 
     }
