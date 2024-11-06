@@ -49,31 +49,11 @@ namespace cngraphi.gassets
 
         [InfoPropAttri
         (
-            "清理未使用资源的备份目录",
+            "未使用资源的备份目录",
             DomainType.Editor,
             "* 建议将备份目录放置在 Assets 之外. 若在 Assets 之内会进行资源编译，从而影响处理速度."
         )]
-        public string CleanBackupPath = Paths.Replace(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "BackupUnused")); // Assets/BackupUnused
-
-
-        [InfoPropAttri
-        (
-            "清理未使用资源时的忽略项",
-            DomainType.Editor,
-            "* 默认忽略 .unity 文件类型"
-        )]
-        public string CleanIgnore = "prefab,spriteatlas,shader,shadergraph,shadersubgraph,hlsl,compute,cs,txt,json,xml";
-
-
-        [InfoPropAttri
-        (
-            "清理未使用资源时的文件扩展",
-            DomainType.Editor,
-            "* 当资源以资源名在脚本、配置等文本文件中被引用时，是无法通过常规依赖关系进行引用检索的。因此，扩展编辑框内可输入需要进行对资源引用检索的文本文件类型。\n" +
-            "* 若文本文件中检索到某一资源名，但检索位置处于注释状态，则依然判定存在引用关系。",
-            26
-        )]
-        public string CleanFileExtension = "cs,txt,json,xml";
+        public string CleanBackupPath = Paths.Replace(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "BackupUnused"));
 #endif
     }
 

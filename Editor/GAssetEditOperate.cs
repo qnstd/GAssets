@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -23,6 +24,15 @@ namespace cngraphi.gassets.editor
             win.Show();
         }
 
+        static public void ShowJump(string jumpIndex, Action<GAssetEditOperate> action = null)
+        {
+            GAssetEditOperate win = GetWindow<GAssetEditOperate>();
+            win.titleContent = new GUIContent("GAssets");
+            win.tabIndex = jumpIndex;
+            action?.Invoke(win);
+            win.Show();
+        }
+
 
         const string C_LineSeq = "\n";
         Vector2 tabV2 = Vector2.zero;
@@ -39,8 +49,7 @@ namespace cngraphi.gassets.editor
             { "AssetBundleBrowser", "AssetBundle 浏览" },
             { "BuildAndManifest", "资源、Manifest构建" },
             { "VerCompare", "版本差异化" },
-            { "BeDependent", "资源被依赖查询" },
-            { "UnuseClear", "未使用资源清理" },
+            { "Dependents", "资源依赖关系" },
             { "RuntimeAnalyze", "资源内存分析" },
         };
 
