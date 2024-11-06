@@ -174,16 +174,27 @@ namespace cngraphi.gassets.editor
         }
         private void Draw_DependGUI()
         {
+            EditorGUILayout.HelpBox
+               (
+                    "1. 不支持间接脚本的引用获取，只支持直接引用获取。间接引用指的是单个脚本内使用using或其他方式引入的脚本；\n" +
+                    "2. 不支持多文件同时搜索检测；\n" +
+                    "3. 操作方式：在 Project 资源面板中选择要检测的文件，然后鼠标右键选择【Depend Search】菜单项即可；",
+                   MessageType.None
+               );
+
             if (res.Count == 0) { return; }
 
             EditorGUILayout.Space(5);
             EditorGUILayout.BeginHorizontal("box");
             EditorGUILayout.LabelField($"<color=#ffcc00>文件数: {res.Count}</color>", Gui.LabelStyle);
             GUILayout.FlexibleSpace();
-            if (GUILayout.Button("导出", Gui.BtnStyle, GUILayout.Width(70), GUILayout.Height(18)))
+            Color c = GUI.backgroundColor;
+            GUI.backgroundColor = Color.yellow;
+            if (GUILayout.Button("导出", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
             {
                 ExportPkg();
             }
+            GUI.backgroundColor = c;
             EditorGUILayout.EndHorizontal();
 
             v2 = EditorGUILayout.BeginScrollView(v2, "box");
@@ -209,7 +220,7 @@ namespace cngraphi.gassets.editor
                 // elements
                 EditorGUILayout.BeginHorizontal("box");
                 EditorGUILayout.LabelField($"{s}", Gui.LabelStyle);
-                if (GUILayout.Button("定位", Gui.BtnStyle, GUILayout.Width(50), GUILayout.Height(18)))
+                if (GUILayout.Button("定位", Gui.BtnStyle, GUILayout.Width(40), GUILayout.Height(18)))
                 {
                     GPS(s);
                 }
@@ -222,7 +233,7 @@ namespace cngraphi.gassets.editor
         {
             Color c = GUI.backgroundColor;
             GUI.backgroundColor = Color.cyan;
-            EditorGUILayout.LabelField($"<color=#ffffff>{typ}</color>", Gui.LabelStyle);
+            EditorGUILayout.LabelField($"<color=#95c8db>{typ}</color>", Gui.LabelStyle);
             GUI.backgroundColor = c;
         }
 
