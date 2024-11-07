@@ -475,12 +475,15 @@ namespace cngraphi.gassets.editor
                                 .Select(p => { p = "Assets" + Paths.Replace(p)[Application.dataPath.Length..]; return p; });
             res.AddRange(codefiles);
 
-            // 获取 Plugins 下的所有文件
+            // 获取 Plugins 下的所有文件并去重
             string pluginsFolder = Paths.Replace(Path.Combine(Application.dataPath, "Plugins"));
-            var pluginsFiles = Directory.GetFiles(pluginsFolder, "*", SearchOption.AllDirectories)
-                                .Where(p => !p.EndsWith(".meta"))
-                                .Select(p => { p = "Assets" + Paths.Replace(p)[Application.dataPath.Length..]; return p; });
-            res.AddRange(pluginsFiles);
+            if (Directory.Exists(pluginsFolder))
+            {
+                var pluginsFiles = Directory.GetFiles(pluginsFolder, "*", SearchOption.AllDirectories)
+                                .Select(p => { p = "Assets" + Paths.Replace(p)[Application.dataPath.Length..]; return p; })
+                                .Where(p => !p.EndsWith(".meta") && res.IndexOf(p) == -1);
+                res.AddRange(pluginsFiles);
+            }
 
             // 资源依赖
             string pathName = AssetDatabase.GUIDToAssetPath(guids[0]);
