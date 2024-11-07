@@ -163,7 +163,6 @@ namespace cngraphi.gassets.common
         /// </summary>
         /// <param name="source">要被移动的文件</param>
         /// <param name="tar">文件移动目录位置（这里的位置不是目录，而是移动后的文件）</param>
-
         static public void MoveFile(string source, string tar)
         {
             if (File.Exists(tar))

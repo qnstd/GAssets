@@ -208,8 +208,8 @@ namespace cngraphi.gassets.editor
         {
             EditorGUILayout.HelpBox
                (
-                    "1. 不支持间接脚本的依赖引用获取，只支持直接引用获取。间接引用指的是单个脚本内使用using或其他方式引入的脚本；\n" +
-                    "2. 不支持多文件同时搜索检测；\n" +
+                    "1. 不支持多文件同时搜索检测；\n" +
+                    "2. 不支持 UPM 包或 Assets 目录之外的脚本依赖获取，同时这些脚本也不支持导出操作；\n" +
                     "3. 操作方式：在 Project 资源面板中选择要检测的文件，然后鼠标右键选择【Depend Search】菜单项即可；",
                    MessageType.None
                );
@@ -461,22 +461,40 @@ namespace cngraphi.gassets.editor
                 return;
             }
 
+            // 清理上一次的数据
             res.Clear();
+
+            // 获取所有代码类型文件（cs、shader等）
+            var codefiles = Directory
+                                .GetFiles(Application.dataPath, "*", SearchOption.AllDirectories)
+                                .Where
+                                    (
+                                        p => p.EndsWith(".cs") ||
+                                        p.EndsWith(".shader") || p.EndsWith(".shadergraph") || p.EndsWith(".hlsl") || p.EndsWith(".compute") || p.EndsWith(".raytrace")
+                                    )
+                                .Select(p => { p = "Assets" + Paths.Replace(p)[Application.dataPath.Length..]; return p; });
+            res.AddRange(codefiles);
+
+            // 获取 Plugins 下的所有文件
+            string pluginsFolder = Paths.Replace(Path.Combine(Application.dataPath, "Plugins"));
+            var pluginsFiles = Directory.GetFiles(pluginsFolder, "*", SearchOption.AllDirectories)
+                                .Where(p => !p.EndsWith(".meta"))
+                                .Select(p => { p = "Assets" + Paths.Replace(p)[Application.dataPath.Length..]; return p; });
+            res.AddRange(pluginsFiles);
+
+            // 资源依赖
             string pathName = AssetDatabase.GUIDToAssetPath(guids[0]);
             filename = Path.GetFileNameWithoutExtension(pathName);
-            string[] strs = AssetDatabase.GetDependencies(pathName, true);
-
+            string[] strs = AssetDatabase.GetDependencies(pathName, true); // 递归获取所有依赖项
             foreach (string s in strs)
             {
                 if (s.IndexOf("com.unity") != -1) { continue; } // 取消 com.unity 依赖项
-                if (res.IndexOf(s) != -1) { continue; }
+                if (res.IndexOf(s) != -1) { continue; } // 已存在
                 res.Add(s);
-                //Debug.Log(s);
             }
-            //Debug.Log(res.Count);
             if (res.Count == 0) { return; }
 
-            // 排序
+            // 按照文件类型排序
             res = res.ToArray().OrderBy(f => Path.GetExtension(f)).ToList<string>();
 
             //显示查询结果
