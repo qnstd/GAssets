@@ -333,13 +333,17 @@ namespace cngraphi.gassets.editor
 
 
 
-        private void Backup(string origin)
+        private void Backup(string p)
         {
             if (isBackup)
             {
-                string file = Path.Combine(settings.CleanBackupPath, origin);
-                IO.RecursionDirCreate(Path.GetDirectoryName(file));
-                IO.CopyFile(origin, file);  // 拷贝
+                string rootpath = Application.dataPath[..Application.dataPath.LastIndexOf("Assets")];
+                string file = Path.Combine(rootpath, settings.CleanBackupPath, p);
+                file = Paths.Replace(file);
+                //Debug.Log(file);
+
+                IO.RecursionDirCreate(Path.GetDirectoryName(file)); // 递归创建目录
+                IO.CopyFile(p, file);  // 拷贝
             }
         }
         private void CopyToClipboard(string s)

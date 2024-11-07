@@ -47,13 +47,8 @@ namespace cngraphi.gassets
         public string AtlasOutputPath = "Assets/Artwork/UI/Atlas";
 
 
-        [InfoPropAttri
-        (
-            "未使用资源的备份目录",
-            DomainType.Editor,
-            "* 建议将备份目录放置在 Assets 之外. 若在 Assets 之内会进行资源编译，从而影响处理速度."
-        )]
-        public string CleanBackupPath = Paths.Replace(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "BackupUnused"));
+        [InfoPropAttri("未使用资源的备份目录", DomainType.Editor, "* 若未设置，备份目录则为工程的根目录. 否则为工程根目录 + 设置的目录.", 26)]
+        public string CleanBackupPath = "BackupUnused";
 #endif
     }
 
@@ -149,13 +144,17 @@ namespace cngraphi.gassets
                         string str = attri.Help;
                         if (k == "AssetRootPath")
                         {
-                            str += "\n<color=#88b075>" + Paths.StreamingPathAppend(prop.stringValue) + "</color>";
+                            str += $"\n<color=#88b075>{Paths.StreamingPathAppend(prop.stringValue)}</color>";
                         }
                         else if (k == "AssetDataPath" || k == "AssetDownloadPath")
                         {
-                            str += "\n<color=#88b075>" + Paths.PersistentPathAppend(prop.stringValue) + "</color>";
+                            str += $"\n<color=#88b075>{Paths.PersistentPathAppend(prop.stringValue)}</color>";
                         }
-                        EditorGUILayout.LabelField("<color=#777777>" + str + "</color>", labelStyle, GUILayout.Height(attri.HelpHeight));
+                        else if (k == "CleanBackupPath")
+                        {
+                            str += $"\n<color=#88b075>{Path.Combine(Application.dataPath[..Application.dataPath.LastIndexOf("Assets")], prop.stringValue)}</color>";
+                        }
+                        EditorGUILayout.LabelField($"<color=#777777>{str}</color>", labelStyle, GUILayout.Height(attri.HelpHeight));
                     }
                     EditorGUILayout.Space(15);
                 }
