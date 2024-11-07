@@ -41,14 +41,20 @@ namespace cngraphi.gassets.editor
         /// 根据用户要查询的资产，获取其被依赖信息（ Key：资产文件；value：资产文件被其他资产依赖得文件列表 ）
         /// </summary>
         static private Dictionary<string, List<string>> m_have = new Dictionary<string, List<string>>();
+        class NohaveData
+        {
+            public string path;
+            public bool select;
+        }
         /// <summary>
         /// 资产没有被任何其他资产所依赖
         /// </summary>
-        static private List<string> m_nohave = new List<string>();
+        static private List<NohaveData> m_nohave = new List<NohaveData>();
         Vector2 m_v2;
         Vector2 m_v22;
         List<string> m_lst;
         bool isBackup = false;
+        bool isAllSelect = false;
         #endregion
 
 
@@ -70,6 +76,8 @@ namespace cngraphi.gassets.editor
             m_nohave.Clear();
             m_lst?.Clear();
             m_lst = null;
+            isBackup = false;
+            isAllSelect = false;
 
             res.Clear();
             filename = string.Empty;
@@ -117,29 +125,49 @@ namespace cngraphi.gassets.editor
                 "3. 操作方式：在 Project 资源面板中选择要检测的文件，然后鼠标右键选择【BeDepend Search】菜单项即可；",
                 MessageType.None
             );
-            //未被依赖
+
+            #region 未被依赖
             EditorGUILayout.Space(5);
             EditorGUILayout.BeginHorizontal("box");
             EditorGUILayout.LabelField("<color=#fd7878ff>未被其他资产依赖的文件</color>", Gui.LabelStyle);
-            GUILayout.FlexibleSpace();
-            Color cc = GUI.backgroundColor;
-            GUI.backgroundColor = Color.yellow;
-            if (GUILayout.Button("一键忽略", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(16))) { IngoresAll(); }
-            GUI.backgroundColor = cc;
-            cc = GUI.backgroundColor;
-            GUI.backgroundColor = Color.red;
-            if (GUILayout.Button("一键删除", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(16))) { DeleteAllUnused(); }
-            GUI.backgroundColor = cc;
-            isBackup = EditorGUILayout.Toggle("", isBackup, GUILayout.Width(20));
-            EditorGUILayout.LabelField("删除备份", Gui.LabelStyle, GUILayout.Width(24));
             EditorGUILayout.EndHorizontal();
+            if (m_nohave != null && m_nohave.Count != 0)
+            {
+                EditorGUILayout.BeginHorizontal("box");
+                EditorGUI.BeginChangeCheck();
+                isAllSelect = EditorGUILayout.Toggle(isAllSelect, GUILayout.Width(20));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    //Debug.Log("all select status change");
+                    AllSelStatus(isAllSelect);
+                }
+                EditorGUILayout.LabelField("全选", Gui.LabelStyle, GUILayout.Width(30));
+                isBackup = EditorGUILayout.Toggle("", isBackup, GUILayout.Width(20));
+                EditorGUILayout.LabelField("备份删除文件", Gui.LabelStyle, GUILayout.Width(70));
+                Color cc = GUI.backgroundColor;
+                GUI.backgroundColor = Color.yellow;
+                if (GUILayout.Button("忽略选中", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(16))) { IngoresSelect(); }
+                GUI.backgroundColor = cc;
+                cc = GUI.backgroundColor;
+                GUI.backgroundColor = Color.red;
+                if (GUILayout.Button("删除选中", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(16))) { DeleteSelect(); }
+                GUI.backgroundColor = cc;
+                EditorGUILayout.EndHorizontal();
+            }
             m_v2 = EditorGUILayout.BeginScrollView(m_v2, "box");
-            foreach (string s in m_nohave)
+            foreach (NohaveData s in m_nohave)
             {
                 GUILayout.BeginHorizontal("box", GUILayout.Height(14));
-                EditorGUILayout.LabelField($"{s}", Gui.LabelStyle);
-                if (GUILayout.Button("定位", Gui.BtnStyle, GUILayout.Width(45), GUILayout.Height(16))) { GPS(s); }
-                if (GUILayout.Button("拷贝名称", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(16))) { CopyToClipboard(s); }
+                EditorGUI.BeginChangeCheck();
+                s.select = EditorGUILayout.Toggle(s.select, GUILayout.Width(20));
+                if (EditorGUI.EndChangeCheck())
+                {
+                    //Debug.Log("select status change");
+                    SelStatus();
+                }
+                EditorGUILayout.LabelField($"{s.path}", Gui.LabelStyle);
+                if (GUILayout.Button("定位", Gui.BtnStyle, GUILayout.Width(45), GUILayout.Height(16))) { GPS(s.path); }
+                if (GUILayout.Button("拷贝名称", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(16))) { CopyToClipboard(s.path); }
                 Color c = GUI.backgroundColor;
                 GUI.backgroundColor = new Color(153 / 255.0f, 192 / 255.0f, 221 / 255.0f);
                 if (GUILayout.Button("忽略", Gui.BtnStyle, GUILayout.Width(45), GUILayout.Height(16))) { Ingores(s); }
@@ -148,8 +176,9 @@ namespace cngraphi.gassets.editor
                 GUILayout.EndHorizontal();
             }
             EditorGUILayout.EndScrollView();
+            #endregion
 
-            //被依赖
+            #region 被依赖
             EditorGUILayout.Space(20);
             EditorGUILayout.BeginHorizontal("box");
             EditorGUILayout.LabelField("被其他资产依赖的文件", Gui.LabelStyle);
@@ -158,25 +187,28 @@ namespace cngraphi.gassets.editor
             foreach (string s in m_have.Keys)
             {
                 GUILayout.BeginHorizontal("box", GUILayout.Height(25));
-                EditorGUILayout.LabelField($"<color=#fbf78dff>{s}</color>", Gui.LabelStyle, GUILayout.Height(35));
+                EditorGUILayout.LabelField($"<color=#fbf78dff>{s}</color>", Gui.LabelStyle, GUILayout.Height(25));
                 GUILayout.EndHorizontal();
                 m_have.TryGetValue(s, out m_lst);
+                EditorGUI.indentLevel++;
                 foreach (string f in m_lst)
                 {//当前资产被依赖的资产展示
                     GUILayout.BeginHorizontal("box", GUILayout.Height(20));
                     EditorGUILayout.LabelField(f, Gui.LabelStyle);
-                    if (GUILayout.Button("定位", Gui.BtnStyle, GUILayout.Width(45), GUILayout.Height(18))) { GPS(f); }
-                    if (GUILayout.Button("拷贝名称", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(18))) { CopyToClipboard(f); }
+                    if (GUILayout.Button("定位", Gui.BtnStyle, GUILayout.Width(45), GUILayout.Height(16))) { GPS(f); }
+                    if (GUILayout.Button("拷贝名称", Gui.BtnStyle, GUILayout.Width(60), GUILayout.Height(16))) { CopyToClipboard(f); }
                     GUILayout.EndHorizontal();
                 }
+                EditorGUI.indentLevel--;
             }
             EditorGUILayout.EndScrollView();
+            #endregion
         }
         private void Draw_DependGUI()
         {
             EditorGUILayout.HelpBox
                (
-                    "1. 不支持间接脚本的引用获取，只支持直接引用获取。间接引用指的是单个脚本内使用using或其他方式引入的脚本；\n" +
+                    "1. 不支持间接脚本的依赖引用获取，只支持直接引用获取。间接引用指的是单个脚本内使用using或其他方式引入的脚本；\n" +
                     "2. 不支持多文件同时搜索检测；\n" +
                     "3. 操作方式：在 Project 资源面板中选择要检测的文件，然后鼠标右键选择【Depend Search】菜单项即可；",
                    MessageType.None
@@ -240,51 +272,67 @@ namespace cngraphi.gassets.editor
 
 
 
-        private void DeleteAllUnused()
+        private void SelStatus()
+        {
+            isAllSelect = m_nohave.Find((data) => { return !data.select; }) == null;
+        }
+        private void AllSelStatus(bool b)
         {
             if (m_nohave == null || m_nohave.Count == 0) { return; }
-            int rs = Dialog.Confirm("确定执行删除？\n\n提示：虽然资源相互之间没有被依赖，但可能存在文本文件中引用当前资源的名称或者路径。请时刻注意！\n");
-            if (rs == 0)
+            foreach (NohaveData data in m_nohave)
             {
-                for (int i = 0; i < m_nohave.Count; i++)
-                {
-                    string origin = m_nohave[i];
-                    Backup(origin);
-                    AssetDatabase.DeleteAsset(origin);  // 删除
-                }
-                m_nohave.Clear();
-                AssetDatabase.Refresh();
+                data.select = b;
             }
         }
-        private void DeleteUnused(string f)
-        {
-            int rs = Dialog.Confirm("确定执行删除？\n\n提示：虽然资源相互之间没有被依赖，但可能存在文本文件中引用当前资源的名称或者路径。请时刻注意！\n");
-            if (rs == 0)
-            {
-                Backup(f);
-                m_nohave.Remove(f);
-                AssetDatabase.DeleteAsset(f);
-                AssetDatabase.Refresh();
-                GUIUtility.ExitGUI();
-            }
-        }
-        private void IngoresAll()
-        {
-            int rs = Dialog.Confirm("确定执行忽略？\n\n提示：\n1.虽然资源相互之间没有被依赖，但可能存在文本文件中引用当前资源的名称或者路径。请时刻注意！\n2.若确定文本文件中没有间接引用，点击一键忽略后可从清除列表，但工程内仍存在这些资产。 \n");
-            if (rs == 0)
-            {
-                m_nohave.Clear();
-            }
-        }
-        private void Ingores(string f)
+        private void Ingores(NohaveData data)
         {
             int rs = Dialog.Confirm("确定执行忽略？\n\n提示：\n1.虽然资源相互之间没有被依赖，但可能存在文本文件中引用当前资源的名称或者路径。请时刻注意！\n2.若确定文本文件中没有间接引用，点击忽略后可从列表中移除，但工程内仍存在此资产。 \n");
             if (rs == 0)
             {
-                m_nohave.Remove(f);
+                m_nohave.Remove(data);
                 GUIUtility.ExitGUI();
             }
         }
+        private void DeleteUnused(NohaveData data)
+        {
+            int rs = Dialog.Confirm("确定执行删除？\n\n提示：虽然资源相互之间没有被依赖，但可能存在文本文件中引用当前资源的名称或者路径。请时刻注意！\n");
+            if (rs == 0)
+            {
+                Backup(data.path);
+                m_nohave.Remove(data);
+                AssetDatabase.DeleteAsset(data.path);
+                AssetDatabase.Refresh();
+                GUIUtility.ExitGUI();
+            }
+        }
+        private void IngoresSelect()
+        {
+            if (m_nohave == null || m_nohave.Count == 0) { return; }
+            int rs = Dialog.Confirm("确定执行忽略？\n\n提示：\n1.虽然资源相互之间没有被依赖，但可能存在文本文件中引用当前资源的名称或者路径。请时刻注意！\n2.若确定文本文件中没有间接引用，点击一键忽略后可从清除列表，但工程内仍存在这些资产。 \n");
+            if (rs != 0) { return; }
+            m_nohave.RemoveAll((data) => { return data.select; });
+        }
+        private void DeleteSelect()
+        {
+            if (m_nohave == null || m_nohave.Count == 0) { return; }
+            int rs = Dialog.Confirm("确定执行删除？\n\n提示：虽然资源相互之间没有被依赖，但可能存在文本文件中引用当前资源的名称或者路径。请时刻注意！\n");
+            if (rs != 0) { return; }
+
+            for (int i = 0; i < m_nohave.Count; i++)
+            {
+                NohaveData origin = m_nohave[i];
+                if (!origin.select) { continue; }
+
+                Backup(origin.path); // 备份
+                AssetDatabase.DeleteAsset(origin.path);  // 删除
+            }
+            m_nohave.RemoveAll((data) => { return data.select; });
+            AssetDatabase.Refresh();
+        }
+
+
+
+
         private void Backup(string origin)
         {
             if (isBackup)
@@ -353,14 +401,14 @@ namespace cngraphi.gassets.editor
                 string asset = AssetDatabase.GUIDToAssetPath(guid);
                 if (!m_cache.TryGetValue(asset, out beDependent))
                 {//资源未被任何其他资源依赖
-                    m_nohave.Add(asset);
+                    m_nohave.Add(new NohaveData() { path = asset, select = false });
                     continue;
                 }
                 m_have.Add(asset, beDependent);
             }
 
             //显示查询结果
-            ShowJump("Dependents", (win) => { win.curDependRelationTabType = DependRelationTabType.BeDepend; });
+            ShowJump("Dependents", (win) => { win.curDependRelationTabType = DependRelationTabType.BeDepend; win.isAllSelect = false; });
         }
         static private bool FindDependOnReverse()
         {
