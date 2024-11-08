@@ -160,9 +160,7 @@ namespace cngraphi.gassets.editor
                 string foldername = "";
                 if (!m_singleMark)
                 {//以目录名称进行标记
-                    string _p = s.Substring(s.IndexOf("Assets"));
-                    _p = cngraphi.gassets.common.Paths.Replace(_p);
-                    Str.Split(_p, "/", out List<string> lst);
+                    Str.Split(Paths.GetPathStartWithAssets(s), "/", out List<string> lst);
                     string[] dirnames = lst.ToArray();
                     foldername = dirnames[dirnames.Length - 1];
                 }
@@ -184,7 +182,7 @@ namespace cngraphi.gassets.editor
                     string p = f.FullName;
                     if (Path.GetExtension(p) == ".meta") { continue; }
 
-                    AssetImporter ai = AssetImporter.GetAtPath(p.Substring(p.IndexOf("Assets")));
+                    AssetImporter ai = AssetImporter.GetAtPath(Paths.GetPathStartWithAssets(p));
                     string assetbundleName;
                     if (m_singleMark)
                         assetbundleName = Path.GetFileNameWithoutExtension(p);
@@ -223,7 +221,7 @@ namespace cngraphi.gassets.editor
             }
             foreach (string p in reslist)
             {
-                AssetImporter ai = AssetImporter.GetAtPath(p.Substring(p.IndexOf("Assets")));
+                AssetImporter ai = AssetImporter.GetAtPath(Paths.GetPathStartWithAssets(p));
                 if (b)
                 {
                     ai.assetBundleName = m_markCustomname;

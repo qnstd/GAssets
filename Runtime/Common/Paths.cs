@@ -87,5 +87,24 @@ namespace cngraphi.gassets.common
             return Replace(newpath);
         }
 
+
+
+        /// <summary>
+        /// 将 unity 工程内的资源或目录的路径转为以 ‘Assets’ 为开头的路径
+        /// </summary>
+        /// <param name="p">路径（例如：F:/CustomProject/Assets/custom.png）</param>
+        /// <returns>以 ‘Assets’ 为开头的路径</returns>
+        static public string GetPathStartWithAssets(string p)
+        {
+            if (string.IsNullOrEmpty(p)) { return p; }
+            if (p.StartsWith("Assets")) { return p; } // 若已经是以 Assets 为开头的路径则直接返回，不做任何处理
+
+            string newp = $"Assets{p[Application.dataPath.Length..]}";
+            newp = Replace(newp);
+            //Debug.Log(newp);
+
+            return newp;
+        }
+
     }
 }
